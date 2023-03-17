@@ -46,7 +46,9 @@ const useCourses = () => {
                 timeout: 10000,
             });
 
-            if (response.status === 200) {
+            console.log(response.data)
+
+            if (response.status === 201) {
                 setLoading(false);
                 return response.data;
             } else {

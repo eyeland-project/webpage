@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'https://epics-si-api.onrender.com/api/teachers',
+    apiUrl: 'https://eyeland-api-production.up.railway.app/api/teachers',
 }
