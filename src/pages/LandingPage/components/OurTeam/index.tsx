@@ -19,10 +19,30 @@ function OurTeam() {
                         link: "https://scholar.google.com/citations?user=Dse7Za4AAAAJ&hl=es",
                     },
                     {
-                        name: "PhD. Heidy Robles",
-                        img: "https://media.licdn.com/dms/image/D4E03AQGFTuTJEvKcog/profile-displayphoto-shrink_100_100/0/1674572891630?e=1682553600&v=beta&t=yARSPOMHfydrilACP0TQS7sJM4eWzN3SG7K-EEvCMwc",
-                        link: "https://www.linkedin.com/in/heydy-selene-robles-noriega-58b73236/?locale=en_US",
+                        name: "Ph. D. Heidy Robles",
+                        img: "https://www.uninorte.edu.co/documents/13629531/13702112/Heidy+Robles+-+Profesor+-+Lenguas+Extranjeras.png/73c25a38-17de-64cd-a02a-b457a1a87a32?t=1653334063089&download=true",
+                        link: "https://www.uninorte.edu.co/web/instituto-de-idiomas/nuestros-docentes",
                     },
+                    {
+                        name: "Mtr. Elkin Villanueva",
+                        img: "https://www.uninorte.edu.co/documents/13629531/13702112/Elkin+Villanueva+-+Profesor+-+Lenguas+Extranjeras.png/a5e76f5c-1351-cbc7-4962-63e23db877fd?t=1653330992006&download=true",
+                        link: "https://www.uninorte.edu.co/web/instituto-de-idiomas/nuestros-docentes",
+                    },
+                    {
+                        name: "MA. Martha Delgado",
+                        img: "https://www.uninorte.edu.co/documents/13629531/13702112/Martha+Delgado+-+Profesor+-+Lenguas+Extranjeras.png/dfec13f6-f30b-ea26-861f-19e0eaa1f677?t=1653332035694&download=true",
+                        link: "https://www.uninorte.edu.co/web/instituto-de-idiomas/nuestros-docentes"
+                    },
+                    {
+                        name: "Mtr. Conor Keogh",
+                        img: "https://www.uninorte.edu.co/documents/13629531/13702112/Conor+Keogh+-+Profesor+-+Lenguas+Extranjeras.png/f2fec2c3-f855-5f07-570f-102943a0d855?t=1653335811397&download=true",
+                        link: "https://www.uninorte.edu.co/web/instituto-de-idiomas/nuestros-docentes"
+                    },
+                    {
+                        name: "Dra. Adriana Maria Perez De Ramirez",
+                        img: "https://www.uninorte.edu.co/documents/13629531/13702112/Adriana+Perez+-+Profesor+-+Espa%C3%B1ol.png/06fb46ad-010a-7cee-8b9e-dd327052df51?t=1653399348964&download=true",
+                        link: "https://www.uninorte.edu.co/web/instituto-de-idiomas/nuestros-docentes"
+                    }
                 ]}
             />
             <Section
