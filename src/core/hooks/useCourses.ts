@@ -85,7 +85,7 @@ const useCourses = () => {
     const endSession = useCallback(async (courseId: number) => {
         setLoading(true);
         try {
-            const response = await axios.post(`${environment.apiUrl}/courses/${courseId}/session/end`, {}, {
+            const response = await axios.put(`${environment.apiUrl}/courses/${courseId}/session/end`, {}, {
                 headers: {
                     Authorization: `Bearer ${authStorage.getAccessToken()}`,
                 },
