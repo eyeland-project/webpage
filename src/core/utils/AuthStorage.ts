@@ -5,7 +5,7 @@ class AuthStorage {
 		this.namespace = namespace;
 	}
 
-	getAccessToken() {
+	getAccessToken(): string | null {
 		const accessToken = localStorage.getItem(
 			`${this.namespace}:accessToken`
 		);
