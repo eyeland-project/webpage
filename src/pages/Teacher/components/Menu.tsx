@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import { ReactNode } from 'react';
 
-import { Color } from '@enums/Styles.enum';
+import { Colors } from '@enums/Styles.enum';
 import { Link } from 'react-router-dom';
 import useAuthStorage from '@hooks/useAuthStorage';
 import SubMenu from './SubMenu';
+import SubMenuCourses from './SubMenuCourses';
+import { Sections } from '@enums/Teacher';
 
 function Menu({
 	isSubmenuCollapsed,
@@ -20,9 +22,9 @@ function Menu({
 
 	const onSelectSection = (sectionName: string) => {
 		setSelectedKey(sectionName);
-		if (sectionName !== 'home' && isSubmenuCollapsed) {
+		if (sectionName !== Sections.HOME && isSubmenuCollapsed) {
 			setSubmenuCollapsed(false);
-		} else if (sectionName === 'home' && !isSubmenuCollapsed) {
+		} else if (sectionName === Sections.HOME && !isSubmenuCollapsed) {
 			setSubmenuCollapsed(true);
 		}
 	};
@@ -36,8 +38,9 @@ function Menu({
 			<div
 				className="h-full flex flex-col justify-between items-center py-3 relative z-10"
 				style={{
-					backgroundColor: Color.GREEN_PRIMARY,
-					width: '5rem'
+					backgroundColor: Colors.GREEN_PRIMARY,
+					width: '4rem',
+					boxShadow: '4px 0 4px rgba(0, 0, 0, 0.25)'
 				}}
 			>
 				<div className="flex flex-col justify-between items-center gap-8">
@@ -52,16 +55,16 @@ function Menu({
 						></img>
 					</Link>
 					<div className="flex flex-col gap-4">
-						{sectionItems.map(({ src, alt, name }, i) => (
+						{Object.keys(sections).map((sectionName) => (
 							<Link
-								to={`/teacher/${name}`}
-								key={i}
-								onClick={() => onSelectSection(name)}
+								to={`/teacher/${sectionName}`}
+								key={sectionName}
+								onClick={() => onSelectSection(sectionName)}
 							>
 								<SectionItem
-									isSelected={name === selectedKey}
-									src={src}
-									alt={alt}
+									isSelected={sectionName === selectedKey}
+									src={sections[sectionName].src}
+									alt={sections[sectionName].alt}
 								></SectionItem>
 							</Link>
 						))}
@@ -69,7 +72,7 @@ function Menu({
 				</div>
 				<Link to="/login" onClick={onClickLogout}>
 					<MenuItem
-						backgroundColor={Color.RED_PRIMARY}
+						backgroundColor={Colors.RED_PRIMARY}
 						src="src/assets/icons/Logout.svg"
 						alt="Logout"
 					></MenuItem>
@@ -78,10 +81,13 @@ function Menu({
 			<div
 				className="h-full transition-all duration-300"
 				style={{
-					marginLeft: isSubmenuCollapsed ? '-15rem' : 0
+					marginLeft: isSubmenuCollapsed ? '-15rem' : 0,
+					boxShadow: isSubmenuCollapsed
+						? 'none'
+						: '4px 0 4px rgba(0, 0, 0, 0.25)'
 				}}
 			>
-				<SubMenu></SubMenu>
+				<SubMenu>{sections[selectedKey].submenu}</SubMenu>
 			</div>
 		</div>
 	);
@@ -101,13 +107,13 @@ function SectionItem({
 			{isSelected && (
 				<span
 					className="h-12 bg-white rounded-r-lg absolute left-0"
-					style={{ width: 6 }}
+					style={{ width: 4 }}
 				></span>
 			)}
 			<MenuItem
 				src={src}
 				alt={alt}
-				backgroundColor={Color.GREEN_SECONDARY}
+				backgroundColor={Colors.GREEN_SECONDARY}
 			></MenuItem>
 		</>
 	);
@@ -139,21 +145,24 @@ function MenuItem({
 	);
 }
 
-const sectionItems: {
-	name: string;
-	src: string;
-	alt: string;
-}[] = [
-	{
-		name: 'home',
+const sections: {
+	[x: string]: SectionItemData;
+} = {
+	[Sections.HOME]: {
 		src: 'src/assets/icons/Home.svg',
 		alt: 'Home'
 	},
-	{
-		name: 'courses',
+	[Sections.COURSES]: {
 		src: 'src/assets/icons/Whiteboard.svg',
-		alt: 'Courses'
+		alt: 'Courses',
+		submenu: <SubMenuCourses />
 	}
-];
+};
+
+interface SectionItemData {
+	src: string;
+	alt: string;
+	submenu?: ReactNode;
+}
 
 export default Menu;
