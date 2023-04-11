@@ -24,24 +24,27 @@ function Teacher() {
 	}
 
 	const { pathname } = useLocation();
+	const selectedKey = getMenuSelectedKeyFromPath(pathname);
 
-	const [isMenuCollapsed, setMenuCollapsed] = useState(true);
-	const [menuSelectedKey, setMenuSelectedKey] = useState(
-		getMenuSelectedKeyFromPath(pathname)
+	const [menuSelectedKey, setMenuSelectedKey] = useState(selectedKey);
+	const [isSubmenuCollapsed, setSubmenuCollapsed] = useState(
+		selectedKey === 'home' ? true : false
 	);
 
 	return (
 		<div className="flex h-screen">
-			<div className="h-full fixed w-20">
+			<div className="h-full fixed">
 				<Menu
+					isSubmenuCollapsed={isSubmenuCollapsed}
+					setSubmenuCollapsed={setSubmenuCollapsed}
 					selectedKey={menuSelectedKey}
 					setSelectedKey={setMenuSelectedKey}
 				></Menu>
 			</div>
 			<div
-				className="h-full grow"
+				className="h-full grow transition-all duration-300"
 				style={{
-					marginLeft: isMenuCollapsed ? '5rem' : '15rem'
+					marginLeft: isSubmenuCollapsed ? '5rem' : '20rem'
 				}}
 			>
 				<Routes>

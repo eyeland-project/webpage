@@ -36,7 +36,7 @@ function Courses() {
 
 	return (
 		<div className="h-screen flex flex-col">
-			<div className="bg-gray-100 p-4 border-b border-gray-200">
+			{/* <div className="bg-gray-100 p-4 border-b border-gray-200">
 				<Link
 					className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
 					onClick={() => {
@@ -46,7 +46,7 @@ function Courses() {
 				>
 					Cerrar sesión
 				</Link>
-			</div>
+			</div> */}
 			{!data || loading ? (
 				<div className="text-center mt-4 text-xl">Loading...</div>
 			) : (

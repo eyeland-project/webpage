@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Color } from '@enums/Styles.enum';
 import { Link } from 'react-router-dom';
 import useAuthStorage from '@hooks/useAuthStorage';
+import SubMenu from './SubMenu';
 
 function Menu({
+	isSubmenuCollapsed,
+	setSubmenuCollapsed,
 	selectedKey,
 	setSelectedKey
 }: {
+	isSubmenuCollapsed: boolean;
+	setSubmenuCollapsed: Function;
 	selectedKey: string;
 	setSelectedKey: Function;
 }) {
@@ -15,6 +20,11 @@ function Menu({
 
 	const onSelectSection = (sectionName: string) => {
 		setSelectedKey(sectionName);
+		if (sectionName !== 'home' && isSubmenuCollapsed) {
+			setSubmenuCollapsed(false);
+		} else if (sectionName === 'home' && !isSubmenuCollapsed) {
+			setSubmenuCollapsed(true);
+		}
 	};
 
 	const onClickLogout = () => {
@@ -22,46 +32,57 @@ function Menu({
 	};
 
 	return (
-		<div
-			className="h-full flex flex-col justify-between items-center py-3 relative"
-			style={{
-				backgroundColor: Color.GREEN_PRIMARY
-			}}
-		>
-			<div className="flex flex-col justify-between items-center gap-8">
-				<Link to=".">
-					<img
-						src="src/assets/icons/Logo.svg"
-						alt="Logo"
-						className="w-9 h-9"
-						style={{
-							filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35))'
-						}}
-					></img>
-				</Link>
-				<div className="flex flex-col gap-4">
-					{sectionItems.map(({ src, alt, name }, i) => (
-						<Link
-							to={`/teacher/${name}`}
-							key={i}
-							onClick={() => onSelectSection(name)}
-						>
-							<SectionItem
-								isSelected={name === selectedKey}
-								src={src}
-								alt={alt}
-							></SectionItem>
-						</Link>
-					))}
+		<div className="h-full flex">
+			<div
+				className="h-full flex flex-col justify-between items-center py-3 relative z-10"
+				style={{
+					backgroundColor: Color.GREEN_PRIMARY,
+					width: '5rem'
+				}}
+			>
+				<div className="flex flex-col justify-between items-center gap-8">
+					<Link to=".">
+						<img
+							src="src/assets/icons/Logo.svg"
+							alt="Logo"
+							className="w-9 h-9"
+							style={{
+								filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35))'
+							}}
+						></img>
+					</Link>
+					<div className="flex flex-col gap-4">
+						{sectionItems.map(({ src, alt, name }, i) => (
+							<Link
+								to={`/teacher/${name}`}
+								key={i}
+								onClick={() => onSelectSection(name)}
+							>
+								<SectionItem
+									isSelected={name === selectedKey}
+									src={src}
+									alt={alt}
+								></SectionItem>
+							</Link>
+						))}
+					</div>
 				</div>
+				<Link to="/login" onClick={onClickLogout}>
+					<MenuItem
+						backgroundColor={Color.RED_PRIMARY}
+						src="src/assets/icons/Logout.svg"
+						alt="Logout"
+					></MenuItem>
+				</Link>
 			</div>
-			<Link to="/login" onClick={onClickLogout}>
-				<MenuItem
-					backgroundColor={Color.RED_PRIMARY}
-					src="src/assets/icons/Logout.svg"
-					alt="Logout"
-				></MenuItem>
-			</Link>
+			<div
+				className="h-full transition-all duration-300"
+				style={{
+					marginLeft: isSubmenuCollapsed ? '-15rem' : 0
+				}}
+			>
+				<SubMenu></SubMenu>
+			</div>
 		</div>
 	);
 }
