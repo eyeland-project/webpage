@@ -87,7 +87,7 @@ function Menu({
 						: '4px 0 4px rgba(0, 0, 0, 0.25)'
 				}}
 			>
-				<SubMenu>{sections[selectedKey].submenu}</SubMenu>
+				<SubMenu>{sections[selectedKey]?.SubMenuElement}</SubMenu>
 			</div>
 		</div>
 	);
@@ -155,14 +155,14 @@ const sections: {
 	[Sections.COURSES]: {
 		src: 'src/assets/icons/Whiteboard.svg',
 		alt: 'Courses',
-		submenu: <SubMenuCourses />
+		SubMenuElement: <SubMenuCourses />
 	}
 };
 
 interface SectionItemData {
 	src: string;
 	alt: string;
-	submenu?: ReactNode;
+	SubMenuElement?: ReactNode;
 }
 
 export default Menu;
