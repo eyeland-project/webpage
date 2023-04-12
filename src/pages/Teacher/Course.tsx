@@ -65,7 +65,7 @@ function Course() {
 	}, [isSessionCreated]);
 
 	return (
-		<div className="px-8 pt-7 h-full relative">
+		<div className="px-8 pt-4 h-full relative">
 			{idSelectedCourse !== null ? (
 				course ? (
 					<>
@@ -121,11 +121,9 @@ function Course() {
 								</div>
 							</div>
 							{teamsMock && (
-								<div className="grid grid-cols-3 gap-x-6 gap-y-8 pr-32">
+								<div className="grid grid-cols-3 gap-x-6 gap-y-8 pr-32 pb-6 mt-8">
 									{teamsMock.map((team, i) => (
-										<div key={i}>
-											<TeamCard team={team} />
-										</div>
+										<TeamCard key={i} team={team} />
 									))}
 								</div>
 							)}
@@ -227,7 +225,7 @@ function Course() {
 function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 	return (
 		<div
-			className="shadow-md rounded-lg p-4"
+			className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out"
 			style={{
 				backgroundColor: Colors.WHITISH
 			}}
