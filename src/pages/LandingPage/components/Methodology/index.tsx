@@ -76,8 +76,8 @@ function Methodology() {
 			</Description>
 
 			<div className="w-full md:flex md:w-screen md:max-w-[1366px] md:justify-start">
-				<div className="relative mt-10 flex flex-col items-end gap-10 md:-left-28 md:mt-52 md:h-[600px] md:w-[600px] md:flex-row md:items-center md:justify-center md:gap-0 md:rounded-full md:bg-primary">
-					<div className="absolute -left-[1650px] -top-[700px] -z-10 h-[2000px] w-[2000px] rounded-full  bg-terciary md:-left-[1600px]" />
+				<div className="relative mt-10 flex flex-col items-end gap-10 md:-left-28 md:mt-52 md:h-[600px] md:w-[600px] md:flex-row md:items-center md:justify-center md:gap-0 md:rounded-full md:bg-greenPrimary">
+					<div className="absolute -left-[1650px] -top-[700px] -z-10 h-[2000px] w-[2000px] rounded-full  bg-greenTertiary md:-left-[1600px]" />
 					<div className="absolute -left-[1600px] -top-[650px] -z-10 h-[1900px] w-[1900px] rounded-full bg-white md:-left-[1550px]" />
 
 					<h1 className="hidden md:block md:text-8xl md:font-bold md:text-white">

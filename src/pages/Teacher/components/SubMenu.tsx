@@ -1,11 +1,8 @@
-import { Colors } from '@enums/Styles.enum';
-
 function SubMenu({ children }: { children?: React.ReactNode }) {
 	return (
 		<div
-			className="h-full"
+			className="h-full bg-greenPrimary"
 			style={{
-				backgroundColor: Colors.GREEN_SECONDARY,
 				width: '14rem'
 			}}
 		>

@@ -1,6 +1,5 @@
 import { ReactNode } from 'react';
 
-import { Colors } from '@enums/Styles.enum';
 import { Link } from 'react-router-dom';
 import useAuthStorage from '@hooks/useAuthStorage';
 import SubMenu from './SubMenu';
@@ -39,9 +38,8 @@ function Menu({
 	return (
 		<div className="h-full flex">
 			<div
-				className="h-full flex flex-col justify-between items-center py-3 relative z-10"
+				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-greenTertiary"
 				style={{
-					backgroundColor: Colors.GREEN_PRIMARY,
 					width: '4rem',
 					boxShadow: '4px 0 4px rgba(0, 0, 0, 0.25)'
 				}}
@@ -75,7 +73,7 @@ function Menu({
 				</div>
 				<Link to="/login" onClick={onClickLogout}>
 					<MenuItem
-						backgroundColor={Colors.RED_PRIMARY}
+						bgColor="redPrimary"
 						src="src/assets/icons/Logout.svg"
 						alt="Logout"
 					></MenuItem>
@@ -113,11 +111,7 @@ function SectionItem({
 					style={{ width: 4 }}
 				></span>
 			)}
-			<MenuItem
-				src={src}
-				alt={alt}
-				backgroundColor={Colors.GREEN_SECONDARY}
-			></MenuItem>
+			<MenuItem src={src} alt={alt} bgColor="greenPrimary"></MenuItem>
 		</>
 	);
 }
@@ -125,17 +119,16 @@ function SectionItem({
 function MenuItem({
 	src,
 	alt,
-	backgroundColor
+	bgColor
 }: {
 	src: string;
 	alt: string;
-	backgroundColor: string;
+	bgColor: string;
 }) {
 	return (
 		<div
-			className="rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300"
+			className={`rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300 bg-${bgColor}`}
 			style={{
-				backgroundColor,
 				boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)'
 			}}
 		>

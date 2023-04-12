@@ -1,5 +1,3 @@
-import { Colors } from '@enums/Styles.enum';
-
 function ButtonPrimary({
 	text,
 	color,
@@ -15,9 +13,10 @@ function ButtonPrimary({
 }) {
 	return (
 		<div
-			className="cursor-pointer rounded-lg font-semibold"
+			className={`cursor-pointer rounded-lg font-semibold ${
+				bgColor ? `bg-${bgColor}` : 'bg-greenPrimary'
+			}`}
 			style={{
-				backgroundColor: bgColor || Colors.GREEN_SECONDARY,
 				color: color || 'white',
 				padding:
 					size === 'small'

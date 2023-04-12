@@ -19,7 +19,7 @@ function NavBar({ showTeacherButton = true }) {
 			{showTeacherButton && (
 				<div className="absolute right-0">
 					<Link
-						className="flex items-center justify-center rounded-lg bg-primary px-2 py-2 text-base font-bold text-white shadow-lg hover:opacity-80 active:opacity-70 md:px-5 md:py-3"
+						className="flex items-center justify-center rounded-lg bg-greenPrimary px-2 py-2 text-base font-bold text-white shadow-lg hover:opacity-80 active:opacity-70 md:px-5 md:py-3"
 						to={'/login'}
 					>
 						<img src="Login.svg" alt="" className="md:hidden" />

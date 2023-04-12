@@ -1,7 +1,6 @@
 import useCourses from '@hooks/useCourses';
 import { useEffect, useState } from 'react';
 import useTeacherContext from '@hooks/useTeacherContext';
-import { Colors } from '@enums/Styles.enum';
 import ButtonPrimary from '@components/ButtonPrimary';
 import useTeams from '@hooks/useTeams';
 import useTeamsMock from '@mocks/hooks/useTeams.mock';
@@ -74,21 +73,21 @@ function Course() {
 								<ButtonPrimary
 									text="Activar"
 									onClick={handleCreateSession}
-									bgColor={Colors.GREEN_PRIMARY}
+									bgColor="greenTertiary"
 									size="large"
 								/>
 							) : !isSessionStarted ? (
 								<ButtonPrimary
 									text="¡Empezar!"
 									// onClick={startSession}
-									bgColor={Colors.GREEN_SECONDARY}
+									bgColor="greenPrimary"
 									size="large"
 								/>
 							) : (
 								<ButtonPrimary
 									text="Terminar"
 									// onClick={endSession}
-									bgColor={Colors.RED_PRIMARY}
+									bgColor="redPrimary"
 									size="large"
 								/>
 							)}
@@ -97,12 +96,11 @@ function Course() {
 							<div>
 								<div className="font-semibold text-3xl flex items-center gap-4">
 									<div
-										className="rounded-full w-5 h-5"
-										style={{
-											backgroundColor: !isSessionCreated
-												? Colors.ORANGE_PRIMARY
-												: Colors.GREEN_SECONDARY
-										}}
+										className={`rounded-full w-5 h-5 bg-${
+											!isSessionCreated
+												? 'orangePrimary'
+												: 'greenPrimary'
+										}`}
 									></div>
 									{course.name}
 								</div>
@@ -230,23 +228,13 @@ function Course() {
 
 function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 	return (
-		<div
-			className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out"
-			style={{
-				backgroundColor: Colors.WHITISH
-			}}
-		>
+		<div className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-whitish">
 			<div className="font-bold text-xl">{name}</div>
 			<hr className="border-t-black" />
 			<div className="flex flex-col gap-2 mt-4">
 				{students.map(({ firstName, lastName, power, id }) => (
 					<div key={id} className="flex gap-4 items-center">
-						<span
-							className="rounded-md shadow-sm p-1 w-10 h-10"
-							style={{
-								backgroundColor: Colors.YELLOW_PRIMARY
-							}}
-						>
+						<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellowPrimary">
 							{power && (
 								<img
 									className="w-full h-full"
