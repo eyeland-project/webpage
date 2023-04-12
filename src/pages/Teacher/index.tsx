@@ -7,7 +7,7 @@ import Home from './components/Home';
 import Course from './Course';
 import NotFound from './NotFound';
 import useAuthStorage from '@hooks/useAuthStorage';
-import { Sections } from '@enums/Teacher';
+import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
 
 function Teacher() {
@@ -21,7 +21,7 @@ function Teacher() {
 
 	const [menuSelectedKey, setMenuSelectedKey] = useState(selectedKey);
 	const [isSubmenuCollapsed, setSubmenuCollapsed] = useState(
-		selectedKey === Sections.HOME ? true : false
+		selectedKey === TeacherSections.HOME ? true : false
 	);
 
 	return (

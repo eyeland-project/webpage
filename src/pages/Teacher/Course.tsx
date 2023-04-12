@@ -3,6 +3,11 @@ import { useEffect, useState } from 'react';
 import useTeacherContext from '@hooks/useTeacherContext';
 import { Colors } from '@enums/Styles.enum';
 import ButtonPrimary from '@components/ButtonPrimary';
+import useTeams from '@hooks/useTeams';
+import useTeamsMock from '@mocks/hooks/useTeams.mock';
+import { TeamDetail } from '@interfaces/Team.interface';
+import { Power } from '@enums/Team.enum';
+import { parseStudentName } from '@utils/studentUtils';
 
 function Course() {
 	const {
@@ -12,25 +17,52 @@ function Course() {
 	const {
 		course,
 		getCourse,
-		loading,
+		loading: loadingCourses,
 		createSession,
 		startSession,
 		endSession
 	} = useCourses();
-	const [sessionCreated, setSessionCreated] = useState(false);
-	const [sessionStarted, setSessionStarted] = useState(false);
+
+	const { teams, getTeams, initTeams, loading: loadingTeams } = useTeams();
+	const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
+
+	const [isSessionCreated, setSessionCreated] = useState(false);
+	const [isSessionStarted, setSessionStarted] = useState(false);
 
 	useEffect(() => {
 		if (idSelectedCourse === null) return;
-		getCourse(idSelectedCourse);
+		getCourse(idSelectedCourse).catch(() => {});
 	}, [idSelectedCourse]);
 
 	const handleCreateSession = async () => {
 		if (idSelectedCourse) {
-			await createSession(idSelectedCourse);
-			setSessionCreated(true); // Set sessionCreated state to true after creating session
+			createSession(idSelectedCourse)
+				.then(() => {
+					setSessionCreated(true); // Set sessionCreated state to true after creating session
+				})
+				.catch(() => {});
 		}
 	};
+
+	useEffect(() => {
+		if (!course) {
+			if (isSessionCreated) setSessionCreated(false);
+			if (isSessionStarted) setSessionStarted(false);
+		} else {
+			const { session } = course;
+			if (session && !isSessionCreated) {
+				setSessionCreated(true);
+			} else if (!session) {
+				if (isSessionCreated) setSessionCreated(false);
+				if (isSessionStarted) setSessionStarted(false);
+			}
+		}
+	}, [course]);
+
+	useEffect(() => {
+		if (!idSelectedCourse) return;
+		getTeamsMock(idSelectedCourse).catch(() => {});
+	}, [isSessionCreated]);
 
 	return (
 		<div className="px-8 pt-7 h-full relative">
@@ -38,14 +70,14 @@ function Course() {
 				course ? (
 					<>
 						<div className="absolute top-4 right-8">
-							{!sessionCreated ? (
+							{!isSessionCreated ? (
 								<ButtonPrimary
 									text="Activar"
-									// onClick={handleCreateSession}
+									onClick={handleCreateSession}
 									bgColor={Colors.GREEN_PRIMARY}
 									size="large"
 								/>
-							) : !sessionStarted ? (
+							) : !isSessionStarted ? (
 								<ButtonPrimary
 									text="¡Empezar!"
 									// onClick={startSession}
@@ -61,13 +93,13 @@ function Course() {
 								/>
 							)}
 						</div>
-						<div className="flex-col h-full">
+						<div className="flex flex-col h-full">
 							<div>
 								<div className="font-semibold text-3xl flex items-center gap-4">
 									<div
 										className="rounded-full w-5 h-5"
 										style={{
-											backgroundColor: !sessionCreated
+											backgroundColor: !isSessionCreated
 												? Colors.ORANGE_PRIMARY
 												: Colors.GREEN_SECONDARY
 										}}
@@ -75,7 +107,7 @@ function Course() {
 									{course.name}
 								</div>
 								<div className="text-xl">
-									{!sessionCreated ? (
+									{!isSessionCreated ? (
 										<span>
 											El curso actualmente se encuentra{' '}
 											<b>Inactivo</b>
@@ -88,6 +120,15 @@ function Course() {
 									)}
 								</div>
 							</div>
+							{teamsMock && (
+								<div className="grid grid-cols-3 gap-x-6 gap-y-8 pr-32">
+									{teamsMock.map((team, i) => (
+										<div key={i}>
+											<TeamCard team={team} />
+										</div>
+									))}
+								</div>
+							)}
 						</div>
 					</>
 				) : (
@@ -181,6 +222,47 @@ function Course() {
 	// 		)}
 	// 	</div>
 	// );
+}
+
+function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
+	return (
+		<div
+			className="shadow-md rounded-lg p-4"
+			style={{
+				backgroundColor: Colors.WHITISH
+			}}
+		>
+			<div className="font-bold text-xl">{name}</div>
+			<hr className="border-t-black" />
+			<div className="flex flex-col gap-2 mt-4">
+				{students.map(({ firstName, lastName, power, id }) => (
+					<div key={id} className="flex gap-4 items-center">
+						<span
+							className="rounded-md shadow-sm p-1 w-10 h-10"
+							style={{
+								backgroundColor: Colors.YELLOW_PRIMARY
+							}}
+						>
+							{power && (
+								<img
+									className="w-full h-full"
+									src={`src/assets/icons/${
+										power === Power.MEMORY_PRO
+											? 'MemoryPro'
+											: power === Power.SUPER_RADAR
+											? 'SuperRadar'
+											: 'SuperHearing'
+									}.svg`}
+									alt={power}
+								/>
+							)}
+						</span>
+						<span>{parseStudentName(firstName, lastName)}</span>
+					</div>
+				))}
+			</div>
+		</div>
+	);
 }
 
 export default Course;

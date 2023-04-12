@@ -4,12 +4,14 @@ function ButtonPrimary({
 	text,
 	color,
 	bgColor,
-	size
+	size,
+	onClick
 }: {
 	text: string;
 	color?: string;
 	bgColor?: string;
 	size?: 'small' | 'medium' | 'large';
+	onClick?: Function;
 }) {
 	return (
 		<div
@@ -30,6 +32,7 @@ function ButtonPrimary({
 						? '1.25rem'
 						: '1rem'
 			}}
+			onClick={(e) => onClick && onClick(e)}
 		>
 			{text}
 		</div>

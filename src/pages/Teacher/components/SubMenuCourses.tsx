@@ -14,7 +14,8 @@ function SubMenuCourses() {
 	};
 
 	useEffect(() => {
-		getCourses();
+		setIdSelectedCourse(null);
+		getCourses().catch(() => {});
 	}, []);
 
 	return (

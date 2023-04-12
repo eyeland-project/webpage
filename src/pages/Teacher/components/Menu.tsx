@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import useAuthStorage from '@hooks/useAuthStorage';
 import SubMenu from './SubMenu';
 import SubMenuCourses from './SubMenuCourses';
-import { Sections } from '@enums/Teacher';
+import { TeacherSections } from '@enums/Pages.enum';
 
 function Menu({
 	isSubmenuCollapsed,
@@ -22,9 +22,12 @@ function Menu({
 
 	const onSelectSection = (sectionName: string) => {
 		setSelectedKey(sectionName);
-		if (sectionName !== Sections.HOME && isSubmenuCollapsed) {
+		if (sectionName !== TeacherSections.HOME && isSubmenuCollapsed) {
 			setSubmenuCollapsed(false);
-		} else if (sectionName === Sections.HOME && !isSubmenuCollapsed) {
+		} else if (
+			sectionName === TeacherSections.HOME &&
+			!isSubmenuCollapsed
+		) {
 			setSubmenuCollapsed(true);
 		}
 	};
@@ -148,11 +151,11 @@ function MenuItem({
 const sections: {
 	[x: string]: SectionItemData;
 } = {
-	[Sections.HOME]: {
+	[TeacherSections.HOME]: {
 		src: 'src/assets/icons/Home.svg',
 		alt: 'Home'
 	},
-	[Sections.COURSES]: {
+	[TeacherSections.COURSES]: {
 		src: 'src/assets/icons/Whiteboard.svg',
 		alt: 'Courses',
 		SubMenuElement: <SubMenuCourses />
