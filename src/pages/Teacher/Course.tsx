@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 function Course() {
 	const {
 		getCourses,
-		data,
+		courses,
 		loading,
 		error,
 		createSession,
@@ -49,7 +49,7 @@ function Course() {
 	// 				Cerrar sesión
 	// 			</Link>
 	// 		</div> */}
-	// 		{!data || loading ? (
+	// 		{!courses || loading ? (
 	// 			<div className="text-center mt-4 text-xl">Loading...</div>
 	// 		) : (
 	// 			<div className="flex-grow flex justify-center items-center">
@@ -69,7 +69,7 @@ function Course() {
 	// 								onChange={handleCourseSelection}
 	// 							>
 	// 								<option value="">Select a course</option>
-	// 								{data.map((course, index) => (
+	// 								{courses.map((course, index) => (
 	// 									<option value={course.id} key={index}>
 	// 										{course.name}
 	// 									</option>

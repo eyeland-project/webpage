@@ -4,16 +4,17 @@ import axios from 'axios';
 
 import { environment } from '@environments/environment';
 
-import { Course } from '@interfaces/Course.interface';
+import { CourseDetail, CourseSummary } from '@interfaces/Course.interface';
 
 const useCourses = () => {
 	const authStorage = useAuthStorage();
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
-	const [data, setData] = useState<Course[] | null>(null);
+	const [courses, setCourses] = useState<CourseSummary[] | null>(null);
+	const [course, setCourse] = useState<CourseDetail | null>(null);
 
-	const getCourses = useCallback(async () => {
+	const getCourses: () => Promise<CourseSummary[]> = useCallback(async () => {
 		setLoading(true);
 		try {
 			const response = await axios.get(`${environment.apiUrl}/courses`, {
@@ -25,7 +26,7 @@ const useCourses = () => {
 
 			if (response.status === 200) {
 				setLoading(false);
-				setData(response.data);
+				setCourses(response.data);
 				return response.data;
 			} else {
 				throw new Error(response.data);
@@ -35,6 +36,35 @@ const useCourses = () => {
 			console.log(err);
 		}
 	}, []);
+
+	const getCourse: (id: number) => Promise<CourseDetail> = useCallback(
+		async (id: number) => {
+			setLoading(true);
+			try {
+				const response = await axios.get(
+					`${environment.apiUrl}/courses/${id}`,
+					{
+						headers: {
+							Authorization: `Bearer ${authStorage.getAccessToken()}`
+						},
+						timeout: 10000
+					}
+				);
+
+				if (response.status === 200) {
+					setLoading(false);
+					setCourse(response.data);
+					return response.data;
+				} else {
+					throw new Error(response.data);
+				}
+			} catch (err) {
+				setLoading(false);
+				console.log(err);
+			}
+		},
+		[]
+	);
 
 	const createSession = useCallback(async (courseId: number) => {
 		setLoading(true);
@@ -119,8 +149,9 @@ const useCourses = () => {
 	return {
 		loading,
 		error,
-		data,
+		courses,
 		getCourses,
+		getCourse,
 		createSession,
 		startSession,
 		endSession

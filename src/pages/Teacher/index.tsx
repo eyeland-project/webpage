@@ -8,6 +8,7 @@ import Course from './Course';
 import NotFound from './NotFound';
 import useAuthStorage from '@hooks/useAuthStorage';
 import { Sections } from '@enums/Teacher';
+import { TeacherProvider } from '@contexts/TeacherContext';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
@@ -24,29 +25,34 @@ function Teacher() {
 	);
 
 	return (
-		<div className="flex h-screen">
-			<div className="h-full fixed">
-				<Menu
-					isSubmenuCollapsed={isSubmenuCollapsed}
-					setSubmenuCollapsed={setSubmenuCollapsed}
-					selectedKey={menuSelectedKey}
-					setSelectedKey={setMenuSelectedKey}
-				></Menu>
+		<TeacherProvider>
+			<div className="flex h-screen">
+				<div className="h-full fixed">
+					<Menu
+						isSubmenuCollapsed={isSubmenuCollapsed}
+						setSubmenuCollapsed={setSubmenuCollapsed}
+						selectedKey={menuSelectedKey}
+						setSelectedKey={setMenuSelectedKey}
+					></Menu>
+				</div>
+				<div
+					className="h-full grow transition-all duration-300"
+					style={{
+						marginLeft: isSubmenuCollapsed ? '4rem' : '18rem'
+					}}
+				>
+					<Routes>
+						<Route
+							path="/"
+							element={<Navigate to="/teacher/home" />}
+						/>
+						<Route path="/home" element={<Home />} />
+						<Route path="/courses" element={<Course />} />
+						<Route path="/*" element={<NotFound />} />
+					</Routes>
+				</div>
 			</div>
-			<div
-				className="h-full grow transition-all duration-300"
-				style={{
-					marginLeft: isSubmenuCollapsed ? '4rem' : '18rem'
-				}}
-			>
-				<Routes>
-					<Route path="/" element={<Navigate to="/teacher/home" />} />
-					<Route path="/home" element={<Home />} />
-					<Route path="/courses" element={<Course />} />
-					<Route path="/*" element={<NotFound />} />
-				</Routes>
-			</div>
-		</div>
+		</TeacherProvider>
 	);
 }
 
