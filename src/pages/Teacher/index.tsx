@@ -9,10 +9,11 @@ import NotFound from './NotFound';
 import useAuthStorage from '@hooks/useAuthStorage';
 import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
+import { validToken } from '@utils/auth';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
-	if (!authStorage.getAccessToken()) {
+	if (!validToken(authStorage.getAccessToken())) {
 		return <Navigate to={'/login'}></Navigate>;
 	}
 

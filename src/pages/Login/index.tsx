@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { useAlertContext } from '@hooks/useAlertContext';
+import { Navigate } from 'react-router-dom';
 
-import { useNavigate } from 'react-router-dom';
+import { useAlertContext } from '@hooks/useAlertContext';
+import useAuthStorage from '@hooks/useAuthStorage';
+import useLogin from '@hooks/useLogin';
+
+import { validToken } from '@utils/auth';
+
 import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
 import ReactLoading from 'react-loading';
-import useLogin from '@hooks/useLogin';
 
 import Logo from '@icons/Logo.svg';
 
@@ -20,10 +24,15 @@ const VALIDATION = {
 };
 
 function Login() {
-	const [form, setForm] = useState(INITIAL_STATE);
-	const { handleAlert } = useAlertContext();
-	const navigate = useNavigate();
 	const { loading, error, data, login } = useLogin();
+	const { handleAlert } = useAlertContext();
+	const [form, setForm] = useState(INITIAL_STATE);
+
+	const authStorage = useAuthStorage();
+
+	if (validToken(authStorage.getAccessToken()) || (data && !error)) {
+		return <Navigate to={'/teacher/home'}></Navigate>;
+	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		e.preventDefault();
@@ -48,10 +57,6 @@ function Login() {
 		}
 		await login({ username, password });
 	};
-
-	if (data && !error) {
-		navigate('/teacher/home');
-	}
 
 	if (error) {
 		handleAlert(error, 'error');
