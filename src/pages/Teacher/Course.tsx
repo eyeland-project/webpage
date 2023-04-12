@@ -37,27 +37,27 @@ function Course() {
 			{idSelectedCourse !== null ? (
 				course ? (
 					<>
-						<div className="absolute top-4 right-6">
+						<div className="absolute top-4 right-8">
 							{!sessionCreated ? (
 								<ButtonPrimary
 									text="Activar"
 									// onClick={handleCreateSession}
 									bgColor={Colors.GREEN_PRIMARY}
-									size="medium"
+									size="large"
 								/>
 							) : !sessionStarted ? (
 								<ButtonPrimary
 									text="¡Empezar!"
 									// onClick={startSession}
 									bgColor={Colors.GREEN_SECONDARY}
-									size="medium"
+									size="large"
 								/>
 							) : (
 								<ButtonPrimary
 									text="Terminar"
 									// onClick={endSession}
 									bgColor={Colors.RED_PRIMARY}
-									size="medium"
+									size="large"
 								/>
 							)}
 						</div>

@@ -13,27 +13,22 @@ function ButtonPrimary({
 }) {
 	return (
 		<div
-			className="cursor-pointer rounded-lg"
+			className="cursor-pointer rounded-lg font-semibold"
 			style={{
 				backgroundColor: bgColor || Colors.GREEN_SECONDARY,
+				color: color || 'white',
 				padding:
 					size === 'small'
 						? '0.5rem 1rem'
-						: size === 'medium'
-						? '1rem 2rem'
 						: size === 'large'
-						? '1.5rem 3rem'
-						: '1rem 2rem',
+						? '.7rem 3rem'
+						: '.47rem 2rem',
 				fontSize:
 					size === 'small'
 						? '0.75rem'
-						: size === 'medium'
-						? '1rem'
 						: size === 'large'
 						? '1.25rem'
-						: '1rem',
-				fontWeight: 600,
-				color: color || 'white'
+						: '1rem'
 			}}
 		>
 			{text}
