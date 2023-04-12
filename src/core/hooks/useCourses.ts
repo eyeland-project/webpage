@@ -151,6 +151,7 @@ const useCourses = () => {
 		error,
 		courses,
 		getCourses,
+		course,
 		getCourse,
 		createSession,
 		startSession,

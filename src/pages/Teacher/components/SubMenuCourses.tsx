@@ -4,7 +4,7 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import { useEffect } from 'react';
 
 function SubMenuCourses() {
-	const { courses, getCourses, loading, error } = useCourses();
+	const { courses, getCourses, loading } = useCourses();
 	const {
 		coursesData: { idSelectedCourse, setIdSelectedCourse }
 	} = useTeacherContext();

@@ -1,40 +1,103 @@
 import useCourses from '@hooks/useCourses';
 import { useEffect, useState } from 'react';
-import useAuthStorage from '@hooks/useAuthStorage';
-import { Link } from 'react-router-dom';
+import useTeacherContext from '@hooks/useTeacherContext';
+import { Colors } from '@enums/Styles.enum';
+import ButtonPrimary from '@components/ButtonPrimary';
 
 function Course() {
 	const {
-		getCourses,
-		courses,
+		coursesData: { idSelectedCourse }
+	} = useTeacherContext();
+
+	const {
+		course,
+		getCourse,
 		loading,
-		error,
 		createSession,
 		startSession,
 		endSession
 	} = useCourses();
-	const [selectedCourseId, setSelectedCourseId] = useState(null);
 	const [sessionCreated, setSessionCreated] = useState(false);
 	const [sessionStarted, setSessionStarted] = useState(false);
-	const authStorage = useAuthStorage();
 
 	useEffect(() => {
-		getCourses();
-	}, []);
-
-	const handleCourseSelection = (event: any) => {
-		setSelectedCourseId(event.target.value);
-		setSessionCreated(false); // Reset sessionCreated state when course is changed
-	};
+		if (idSelectedCourse === null) return;
+		getCourse(idSelectedCourse);
+	}, [idSelectedCourse]);
 
 	const handleCreateSession = async () => {
-		if (selectedCourseId) {
-			await createSession(selectedCourseId);
+		if (idSelectedCourse) {
+			await createSession(idSelectedCourse);
 			setSessionCreated(true); // Set sessionCreated state to true after creating session
 		}
 	};
 
-	return <></>;
+	return (
+		<div className="px-8 pt-7 h-full relative">
+			{idSelectedCourse !== null ? (
+				course ? (
+					<>
+						<div className="absolute top-4 right-6">
+							{!sessionCreated ? (
+								<ButtonPrimary
+									text="Activar"
+									// onClick={handleCreateSession}
+									bgColor={Colors.GREEN_PRIMARY}
+									size="medium"
+								/>
+							) : !sessionStarted ? (
+								<ButtonPrimary
+									text="¡Empezar!"
+									// onClick={startSession}
+									bgColor={Colors.GREEN_SECONDARY}
+									size="medium"
+								/>
+							) : (
+								<ButtonPrimary
+									text="Terminar"
+									// onClick={endSession}
+									bgColor={Colors.RED_PRIMARY}
+									size="medium"
+								/>
+							)}
+						</div>
+						<div className="flex-col h-full">
+							<div>
+								<div className="font-semibold text-3xl flex items-center gap-4">
+									<div
+										className="rounded-full w-5 h-5"
+										style={{
+											backgroundColor: !sessionCreated
+												? Colors.ORANGE_PRIMARY
+												: Colors.GREEN_SECONDARY
+										}}
+									></div>
+									{course.name}
+								</div>
+								<div className="text-xl">
+									{!sessionCreated ? (
+										<span>
+											El curso actualmente se encuentra{' '}
+											<b>Inactivo</b>
+										</span>
+									) : (
+										<span>
+											El curso actualmente se encuentra{' '}
+											<b>Activo</b>
+										</span>
+									)}
+								</div>
+							</div>
+						</div>
+					</>
+				) : (
+					<></>
+				)
+			) : (
+				<></>
+			)}
+		</div>
+	);
 
 	// return (
 	// 	<div className="h-screen flex flex-col">
