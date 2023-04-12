@@ -121,7 +121,13 @@ function Course() {
 								</div>
 							</div>
 							{teamsMock && (
-								<div className="grid grid-cols-3 gap-x-6 gap-y-8 pr-32 pb-6 mt-8">
+								<div
+									className="grid gap-x-6 gap-y-8 pr-32 pb-6 mt-8"
+									style={{
+										gridTemplateColumns:
+											'repeat(auto-fit, minmax(240px, 1fr))'
+									}}
+								>
 									{teamsMock.map((team, i) => (
 										<TeamCard key={i} team={team} />
 									))}
