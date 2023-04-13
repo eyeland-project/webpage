@@ -3,19 +3,22 @@ function ButtonPrimary({
 	color,
 	bgColor,
 	size,
+	shadow = true,
 	onClick
 }: {
 	text: string;
 	color?: string;
 	bgColor?: string;
 	size?: 'small' | 'medium' | 'large';
+	shadow?: boolean;
 	onClick?: Function;
 }) {
 	return (
 		<div
-			className={`cursor-pointer rounded-lg font-semibold ${
-				bgColor ? `bg-${bgColor}` : 'bg-greenPrimary'
-			}`}
+			className={`cursor-pointer rounded-lg font-semibold hover:brightness-110
+			${bgColor ? `bg-${bgColor}` : 'bg-greenPrimary'}
+			${shadow ? 'shadow-md' : ''}
+			`}
 			style={{
 				color: color || 'white',
 				padding:
