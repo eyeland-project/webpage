@@ -1,112 +1,133 @@
 import { useState, useCallback } from 'react';
-import useAuthStorage from './useAuthStorage';
+import useAuthStorage from '@hooks/useAuthStorage';
 import axios from 'axios';
 
 import { environment } from '@environments/environment';
 
-import { Course } from '@interfaces/Course.interface';
+import { CourseDetail, CourseSummary } from '@interfaces/Course.interface';
 
 const useCourses = () => {
-    const authStorage = useAuthStorage();
+	const authStorage = useAuthStorage();
 
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState("");
-    const [data, setData] = useState<Course[] | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [courses, setCourses] = useState<CourseSummary[] | null>(null);
+	const [course, setCourse] = useState<CourseDetail | null>(null);
 
-    const getCourses = useCallback(async () => {
-        setLoading(true);
-        try {
-            const response = await axios.get(`${environment.apiUrl}/courses`, {
-                headers: {
-                    Authorization: `Bearer ${authStorage.getAccessToken()}`,
-                },
-                timeout: 10000,
-            });
+	const getCourses: () => Promise<CourseSummary[]> = useCallback(async () => {
+		setLoading(true);
+		const response = await axios.get(`${environment.apiUrl}/courses`, {
+			headers: {
+				Authorization: `Bearer ${authStorage.getAccessToken()}`
+			},
+			timeout: 10000
+		});
 
-            if (response.status === 200) {
-                setLoading(false);
-                setData(response.data);
-                return response.data;
-            } else {
-                throw new Error(response.data);
-            }
-        } catch (err) {
-            setLoading(false);
-            console.log(err)
-        }
-    }, []);
+		setLoading(false);
+		if (response.status === 200) {
+			setCourses(response.data);
+			return response.data;
+		} else {
+			throw new Error(response.data);
+		}
+	}, []);
 
-    const createSession = useCallback(async (courseId: number) => {
-        setLoading(true);
-        try {
-            const response = await axios.post(`${environment.apiUrl}/courses/${courseId}/session`, {}, {
-                headers: {
-                    Authorization: `Bearer ${authStorage.getAccessToken()}`,
-                },
-                timeout: 10000,
-            });
+	const getCourse: (id: number) => Promise<CourseDetail> = useCallback(
+		async (id: number) => {
+			setLoading(true);
+			const response = await axios.get(
+				`${environment.apiUrl}/courses/${id}`,
+				{
+					headers: {
+						Authorization: `Bearer ${authStorage.getAccessToken()}`
+					},
+					timeout: 10000
+				}
+			);
 
-            console.log(response.data)
+			setLoading(false);
+			if (response.status === 200) {
+				setCourse(response.data);
+				return response.data;
+			} else {
+				throw new Error(response.data);
+			}
+		},
+		[]
+	);
 
-            if (response.status === 201) {
-                setLoading(false);
-                return response.data;
-            } else {
-                throw new Error(response.data);
-            }
-        } catch (err) {
-            setLoading(false);
-            console.log(err)
-        }
-    }, []);
+	const createSession = useCallback(async (courseId: number) => {
+		setLoading(true);
+		const response = await axios.post(
+			`${environment.apiUrl}/courses/${courseId}/session`,
+			{},
+			{
+				headers: {
+					Authorization: `Bearer ${authStorage.getAccessToken()}`
+				},
+				timeout: 10000
+			}
+		);
 
-    const startSession = useCallback(async (courseId: number) => {
-        setLoading(true);
-        try {
-            const response = await axios.post(`${environment.apiUrl}/courses/${courseId}/session/start`, {}, {
-                headers: {
-                    Authorization: `Bearer ${authStorage.getAccessToken()}`,
-                },
-                timeout: 10000,
-            });
+		setLoading(false);
+		if (response.status === 201) {
+			return response.data;
+		} else {
+			throw new Error(response.data);
+		}
+	}, []);
 
-            if (response.status === 200) {
-                setLoading(false);
-                return response.data;
-            } else {
-                throw new Error(response.data);
-            }
-        } catch (err) {
-            setLoading(false);
-            console.log(err)
-        }
-    }, []);
+	const startSession = useCallback(async (courseId: number) => {
+		setLoading(true);
+		const response = await axios.post(
+			`${environment.apiUrl}/courses/${courseId}/session/start`,
+			{},
+			{
+				headers: {
+					Authorization: `Bearer ${authStorage.getAccessToken()}`
+				},
+				timeout: 10000
+			}
+		);
 
-    const endSession = useCallback(async (courseId: number) => {
-        setLoading(true);
-        try {
-            const response = await axios.put(`${environment.apiUrl}/courses/${courseId}/session/end`, {}, {
-                headers: {
-                    Authorization: `Bearer ${authStorage.getAccessToken()}`,
-                },
-                timeout: 10000,
-            });
+		setLoading(false);
+		if (response.status === 200) {
+			return response.data;
+		} else {
+			throw new Error(response.data);
+		}
+	}, []);
 
-            if (response.status === 200) {
-                setLoading(false);
-                return response.data;
-            } else {
-                throw new Error(response.data);
-            }
-        } catch (err) {
-            setLoading(false);
-            console.log(err)
-        }
-    }, []);
+	const endSession = useCallback(async (courseId: number) => {
+		setLoading(true);
+		const response = await axios.put(
+			`${environment.apiUrl}/courses/${courseId}/session/end`,
+			{},
+			{
+				headers: {
+					Authorization: `Bearer ${authStorage.getAccessToken()}`
+				},
+				timeout: 10000
+			}
+		);
 
-    return { loading, error, data, getCourses, createSession, startSession, endSession };
+		setLoading(false);
+		if (response.status === 200) {
+			return response.data;
+		} else {
+			throw new Error(response.data);
+		}
+	}, []);
+
+	return {
+		loading,
+		courses,
+		getCourses,
+		course,
+		getCourse,
+		createSession,
+		startSession,
+		endSession
+	};
 };
 
 export default useCourses;
-
-
