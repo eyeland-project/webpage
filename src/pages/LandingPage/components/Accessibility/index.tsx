@@ -50,7 +50,7 @@ function Accesibility() {
 						alt=""
 						className="w-[500px]"
 					/>
-					<div className="group absolute -top-10 left-0 right-0 mx-auto flex h-20 w-20 translate-x-1/2 items-center justify-center rounded-full  bg-greenSecondary shadow-lg hover:cursor-default xl:-top-14 xl:h-28 xl:w-28 ">
+					<div className="group absolute -top-10 left-0 right-0 mx-auto flex h-20 w-20 translate-x-1/2 items-center justify-center rounded-full  bg-green-secondary shadow-lg hover:cursor-default xl:-top-14 xl:h-28 xl:w-28 ">
 						<img
 							src={Mouse}
 							alt=""

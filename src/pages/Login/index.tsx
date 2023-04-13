@@ -95,7 +95,7 @@ function Login() {
 								/>
 							</div>
 							<button
-								className="button mt-5 w-full bg-greenPrimary text-white"
+								className="button mt-5 w-full bg-green-primary text-white"
 								type="submit"
 							>
 								{loading ? (

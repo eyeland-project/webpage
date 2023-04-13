@@ -38,7 +38,7 @@ function Menu({
 	return (
 		<div className="h-full flex">
 			<div
-				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-greenTertiary"
+				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary"
 				style={{
 					width: '4rem',
 					boxShadow: '4px 0 4px rgba(0, 0, 0, 0.25)'
@@ -73,7 +73,7 @@ function Menu({
 				</div>
 				<Link to="/login" onClick={onClickLogout}>
 					<MenuItem
-						bgColor="redPrimary"
+						bgColor="red-primary"
 						src="src/assets/icons/Logout.svg"
 						alt="Logout"
 					></MenuItem>
@@ -111,7 +111,7 @@ function SectionItem({
 					style={{ width: 4 }}
 				></span>
 			)}
-			<MenuItem src={src} alt={alt} bgColor="greenPrimary"></MenuItem>
+			<MenuItem src={src} alt={alt} bgColor="green-primary"></MenuItem>
 		</>
 	);
 }

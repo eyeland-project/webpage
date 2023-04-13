@@ -43,7 +43,7 @@ function TeamWork() {
 	}, [counter]);
 
 	return (
-		<div className="mt-20 flex h-auto w-screen flex-col items-center justify-center bg-greenSecondary px-5">
+		<div className="mt-20 flex h-auto w-screen flex-col items-center justify-center bg-green-secondary px-5">
 			<Title textColor="text-black" title="Trabajo en equipo" />
 			<Description>
 				Cada During-Task se realiza en grupos de 3 personas en las que

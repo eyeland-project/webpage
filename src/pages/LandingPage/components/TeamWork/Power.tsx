@@ -24,7 +24,7 @@ function Power({
 	return (
 		<>
 			<div
-				className={`relative rounded-lg bg-yellowPrimary p-3 shadow-lg transition-all duration-500 ease-in-out hover:cursor-pointer ${classPower}`}
+				className={`relative rounded-lg bg-yellow-primary p-3 shadow-lg transition-all duration-500 ease-in-out hover:cursor-pointer ${classPower}`}
 				onMouseEnter={() => {
 					setClassPowerD('opacity-100');
 					setClassPower('scale-110');

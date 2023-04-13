@@ -18,8 +18,8 @@ function Course() {
 		getCourse,
 		loading: loadingCourses,
 		createSession,
-		startSession,
-		endSession
+		startSession: handleStartSession,
+		endSession: handleEndSession
 	} = useCourses();
 
 	const { teams, getTeams, initTeams, loading: loadingTeams } = useTeams();
@@ -68,29 +68,14 @@ function Course() {
 			{idSelectedCourse !== null ? (
 				course ? (
 					<>
-						<div className="absolute top-4 right-8">
-							{!isSessionCreated ? (
-								<ButtonPrimary
-									text="Activar"
-									onClick={handleCreateSession}
-									bgColor="greenTertiary"
-									size="large"
-								/>
-							) : !isSessionStarted ? (
-								<ButtonPrimary
-									text="¡Empezar!"
-									// onClick={startSession}
-									bgColor="greenPrimary"
-									size="large"
-								/>
-							) : (
-								<ButtonPrimary
-									text="Terminar"
-									// onClick={endSession}
-									bgColor="redPrimary"
-									size="large"
-								/>
-							)}
+						<div className="absolute top-4 right-8 flex items-stretch gap-4">
+							<SessionOptions
+								isSessionCreated={isSessionCreated}
+								isSessionStarted={isSessionStarted}
+								handleCreateSession={handleCreateSession}
+								handleStartSession={handleStartSession}
+								handleEndSession={handleEndSession}
+							/>
 						</div>
 						<div className="flex flex-col h-full">
 							<div>
@@ -98,8 +83,8 @@ function Course() {
 									<div
 										className={`rounded-full w-5 h-5 bg-${
 											!isSessionCreated
-												? 'orangePrimary'
-												: 'greenPrimary'
+												? 'orange-primary'
+												: 'green-primary'
 										}`}
 									></div>
 									{course.name}
@@ -234,7 +219,7 @@ function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 			<div className="flex flex-col gap-2 mt-4">
 				{students.map(({ firstName, lastName, power, id }) => (
 					<div key={id} className="flex gap-4 items-center">
-						<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellowPrimary">
+						<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellow-primary">
 							{power && (
 								<img
 									className="w-full h-full"
@@ -254,6 +239,63 @@ function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 				))}
 			</div>
 		</div>
+	);
+}
+
+function SessionOptions({
+	isSessionCreated,
+	isSessionStarted,
+	handleCreateSession,
+	handleStartSession,
+	handleEndSession
+}: {
+	isSessionCreated: boolean;
+	isSessionStarted: boolean;
+	handleCreateSession: Function;
+	handleStartSession: Function;
+	handleEndSession: Function;
+}) {
+	return (
+		<>
+			{!isSessionCreated ? (
+				<ButtonPrimary
+					onClick={handleCreateSession}
+					bgColor="green-tertiary"
+					size="large"
+				>
+					Activar
+				</ButtonPrimary>
+			) : (
+				<>
+					<ButtonPrimary
+						// onClick={handleEndSession}
+						bgColor="red-primary"
+						size="large"
+					>
+						Terminar
+					</ButtonPrimary>
+					<ButtonPrimary
+						// onClick={handleStartSession}
+						bgColor="green-primary"
+						size="large"
+						paddingX={!isSessionStarted}
+					>
+						{!isSessionStarted ? (
+							'Iniciar'
+						) : (
+							<div className="relative w-16 h-full text-green-primary">
+								.
+								<img
+									src="src/assets/icons/Flags.svg"
+									alt="Iniciar"
+									className="w-full h-full absolute top-0 left-0"
+								/>
+							</div>
+						)}
+					</ButtonPrimary>
+				</>
+			)}
+		</>
 	);
 }
 
