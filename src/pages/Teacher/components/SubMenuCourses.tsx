@@ -1,7 +1,8 @@
-import Loading from '@components/Loading';
+import { useEffect } from 'react';
+import Loading from 'react-loading';
+
 import useCourses from '@hooks/useCourses';
 import useTeacherContext from '@hooks/useTeacherContext';
-import { useEffect } from 'react';
 
 function SubMenuCourses() {
 	const { courses, getCourses, loading } = useCourses();
@@ -46,7 +47,7 @@ function SubMenuCourses() {
 				) : (
 					<div className="flex flex-col grow justify-center items-center">
 						{loading ? (
-							<Loading />
+							<Loading type="spin" width={50} />
 						) : (
 							<div className="italic w-3/5 text-center text-xs">
 								No se pudo obtener la información

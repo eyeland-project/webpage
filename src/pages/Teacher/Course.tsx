@@ -1,12 +1,21 @@
-import useCourses from '@hooks/useCourses';
 import { useEffect, useState } from 'react';
+import Lottie from 'lottie-react';
+import Loading from 'react-loading';
+
+import useCourses from '@hooks/useCourses';
 import useTeacherContext from '@hooks/useTeacherContext';
-import ButtonPrimary from '@components/ButtonPrimary';
 import useTeams from '@hooks/useTeams';
+
+import ButtonPrimary from '@components/ButtonPrimary';
+
 import useTeamsMock from '@mocks/hooks/useTeams.mock';
+
 import { TeamDetail } from '@interfaces/Team.interface';
 import { Power } from '@enums/Team.enum';
+
 import { parseStudentName } from '@utils/studentUtils';
+
+import desktopAndMobile from '@animations/DesktopAndMobile.json';
 
 function Course() {
 	const {
@@ -22,7 +31,7 @@ function Course() {
 		endSession
 	} = useCourses();
 
-	// const { teams, getTeams, initTeams, loading: loadingTeams } = useTeams();
+	// const { teams: teamsFetched, getTeams, initTeams, loading: loadingTeams } = useTeams();
 	const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
 
 	const [teams, setTeams] = useState<TeamDetail[]>([]);
@@ -150,96 +159,25 @@ function Course() {
 						</div>
 					</>
 				) : (
-					<></>
+					<div className="flex flex-col grow justify-center items-center h-full">
+						{loadingCourses ? (
+							<Loading type="spin" color="#0D9748" />
+						) : (
+							<div className="italic w-3/5 text-center text-lg">
+								No se pudo obtener la información
+							</div>
+						)}
+					</div>
 				)
 			) : (
-				<></>
+				<div className="flex flex-col justify-center items-center w-full h-full">
+					<div className="w-1/2">
+						<Lottie animationData={desktopAndMobile} loop={true} />
+					</div>
+				</div>
 			)}
 		</div>
 	);
-
-	// return (
-	// 	<div className="h-screen flex flex-col">
-	// 		{/* <div className="bg-gray-100 p-4 border-b border-gray-200">
-	// 			<Link
-	// 				className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-	// 				onClick={() => {
-	// 					authStorage.removeAccessToken();
-	// 				}}
-	// 				to={'/login'}
-	// 			>
-	// 				Cerrar sesión
-	// 			</Link>
-	// 		</div> */}
-	// 		{!courses || loading ? (
-	// 			<div className="text-center mt-4 text-xl">Loading...</div>
-	// 		) : (
-	// 			<div className="flex-grow flex justify-center items-center">
-	// 				<div className="w-full max-w-sm">
-	// 					{!sessionCreated && !sessionStarted && (
-	// 						<>
-	// 							<label
-	// 								htmlFor="courses"
-	// 								className="block text-gray-700 text-sm font-bold mb-2"
-	// 							>
-	// 								Selecciona un curso:
-	// 							</label>
-	// 							<select
-	// 								name="courses"
-	// 								id="courses"
-	// 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-	// 								onChange={handleCourseSelection}
-	// 							>
-	// 								<option value="">Select a course</option>
-	// 								{courses.map((course, index) => (
-	// 									<option value={course.id} key={index}>
-	// 										{course.name}
-	// 									</option>
-	// 								))}
-	// 							</select>
-	// 						</>
-	// 					)}
-	// 					{!sessionCreated ? ( // Conditionally render button based on sessionCreated state
-	// 						<button
-	// 							className="w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-	// 							onClick={handleCreateSession}
-	// 							disabled={!selectedCourseId}
-	// 						>
-	// 							Crear sesión
-	// 						</button>
-	// 					) : (
-	// 						<div className="flex">
-	// 							{!sessionStarted ? (
-	// 								<button
-	// 									className="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-	// 									onClick={() => {
-	// 										if (selectedCourseId)
-	// 											startSession(selectedCourseId);
-	// 										setSessionStarted(true);
-	// 									}}
-	// 								>
-	// 									Iniciar
-	// 								</button>
-	// 							) : (
-	// 								<button
-	// 									className="ml-4 w-full bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-	// 									onClick={() => {
-	// 										if (selectedCourseId)
-	// 											endSession(selectedCourseId);
-	// 										setSessionCreated(false);
-	// 										setSessionStarted(false);
-	// 									}}
-	// 								>
-	// 									Terminar
-	// 								</button>
-	// 							)}
-	// 						</div>
-	// 					)}
-	// 				</div>
-	// 			</div>
-	// 		)}
-	// 	</div>
-	// );
 }
 
 function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
