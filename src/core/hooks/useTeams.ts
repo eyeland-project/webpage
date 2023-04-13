@@ -17,7 +17,7 @@ const useTeams = () => {
 		async (courseId: number) => {
 			setLoading(true);
 			const response = await axios.get(
-				`${environment.apiUrl}courses/${courseId}/teams`,
+				`${environment.apiUrl}/courses/${courseId}/teams`,
 				{
 					headers: {
 						Authorization: `Bearer ${authStorage.getAccessToken()}`

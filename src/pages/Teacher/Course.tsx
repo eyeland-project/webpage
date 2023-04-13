@@ -4,7 +4,6 @@ import Loading from 'react-loading';
 
 import useCourses from '@hooks/useCourses';
 import useTeacherContext from '@hooks/useTeacherContext';
-import useTeams from '@hooks/useTeams';
 
 import ButtonPrimary from '@components/ButtonPrimary';
 
@@ -13,11 +12,17 @@ import useTeamsMock from '@mocks/hooks/useTeams.mock';
 import { TeamDetail } from '@interfaces/Team.interface';
 import { Power } from '@enums/Team.enum';
 
+import { connect, socket } from '@utils/socket';
 import { parseStudentName } from '@utils/studentUtils';
 
 import desktopAndMobile from '@animations/DesktopAndMobile.json';
+import useAuthStorage from '@hooks/useAuthStorage';
+import { SocketEvents } from '@enums/Socket.enum';
+import useTeams from '@hooks/useTeams';
 
 function Course() {
+	const authStorage = useAuthStorage();
+
 	const {
 		coursesData: { idSelectedCourse }
 	} = useTeacherContext();
@@ -31,8 +36,13 @@ function Course() {
 		endSession
 	} = useCourses();
 
-	// const { teams: teamsFetched, getTeams, initTeams, loading: loadingTeams } = useTeams();
-	const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
+	const {
+		teams: teamsFetched,
+		getTeams,
+		initTeams,
+		loading: loadingTeams
+	} = useTeams();
+	// const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
 
 	const [teams, setTeams] = useState<TeamDetail[]>([]);
 	const [isSessionCreated, setSessionCreated] = useState(false);
@@ -72,6 +82,12 @@ function Course() {
 		} catch (err) {}
 	};
 
+	const connectSocket = () => {
+		socket?.disconnect();
+		connect();
+		socket?.emit('join', authStorage.getAccessToken());
+	};
+
 	useEffect(() => {
 		if (!course) {
 			if (isSessionCreated) setSessionCreated(false);
@@ -90,18 +106,34 @@ function Course() {
 	useEffect(() => {
 		if (isSessionCreated) {
 			if (idSelectedCourse !== null) {
-				getTeamsMock(idSelectedCourse).catch(() => {});
+				getTeams(idSelectedCourse).catch(() => {});
+				connectSocket();
+				socket?.on(
+					SocketEvents.TEAMS_STUDENT_UPDATE,
+					(teams: TeamDetail[]) => {
+						setTeams(teams);
+					}
+				);
 			}
 		} else {
 			if (teams.length) setTeams([]);
 		}
+		return () => {
+			socket?.off(SocketEvents.TEAMS_STUDENT_UPDATE);
+		};
 	}, [isSessionCreated]);
 
 	useEffect(() => {
-		if (teamsMock) {
-			setTeams(teamsMock);
+		if (teamsFetched) {
+			setTeams(teamsFetched);
 		}
-	}, [teamsMock]);
+	}, [teamsFetched]);
+
+	useEffect(() => {
+		return () => {
+			socket?.disconnect();
+		};
+	}, []);
 
 	return (
 		<div className="px-8 pt-4 h-full relative">
