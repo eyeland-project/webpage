@@ -34,15 +34,21 @@ module.exports = {
 				Poppins: ['Poppins', 'sans-serif']
 			},
 			colors: {
-				greenPrimary: '#0D9748',
-				greenSecondary: '#41FB99',
-				greenTertiary: '#9BE931',
-				yellowPrimary: '#FBFF48',
-				redPrimary: '#DB3A3A',
-				orangePrimary: '#FC8507',
+				'green-primary': '#0D9748',
+				'green-secondary': '#41FB99',
+				'green-tertiary': '#9BE931',
+				'yellow-primary': '#FBFF48',
+				'red-primary': '#DB3A3A',
+				'orange-primary': '#FC8507',
 				whitish: '#F8F8F8'
 			}
 		}
 	},
-	plugins: []
+	plugins: [],
+	safelist: [
+		{
+			pattern:
+				/(bg|text|border)-(green|yellow|red|blue|orange|whitish|gray|black|white|purple|pink|indigo|teal|cyan|lime|emerald|fuchsia|violet|rose)-(primary|secondary|tertiary)/
+		}
+	]
 };
