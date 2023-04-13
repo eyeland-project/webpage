@@ -4,6 +4,8 @@ import Loading from 'react-loading';
 import useCourses from '@hooks/useCourses';
 import useTeacherContext from '@hooks/useTeacherContext';
 
+import Course from '@icons/Course.svg';
+
 function SubMenuCourses() {
 	const { courses, getCourses, loading } = useCourses();
 	const {
@@ -16,7 +18,7 @@ function SubMenuCourses() {
 
 	useEffect(() => {
 		setIdSelectedCourse(null);
-		getCourses().catch(() => {});
+		getCourses().catch(() => { });
 	}, []);
 
 	return (
@@ -29,15 +31,14 @@ function SubMenuCourses() {
 					courses.map(({ name, id }) => (
 						<div
 							key={id}
-							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
-								idSelectedCourse === id
+							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${idSelectedCourse === id
 									? 'bg-white bg-opacity-20'
 									: 'hover:bg-white hover:bg-opacity-10'
-							}`}
+								}`}
 							onClick={() => onSelectCourse(id)}
 						>
 							<img
-								src="src/assets/icons/Course.svg"
+								src={Course}
 								alt="Icon"
 								className=" w-6 h-6"
 							/>

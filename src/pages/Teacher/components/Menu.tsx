@@ -6,6 +6,11 @@ import SubMenu from './SubMenu';
 import SubMenuCourses from './SubMenuCourses';
 import { TeacherSections } from '@enums/Pages.enum';
 
+import Logo from '@icons/Logo.svg';
+import Logout from '@icons/Logout.svg';
+import Home from '@icons/Home.svg';
+import Whiteboard from '@icons/Whiteboard.svg';
+
 function Menu({
 	isSubmenuCollapsed,
 	setSubmenuCollapsed,
@@ -47,7 +52,7 @@ function Menu({
 				<div className="flex flex-col justify-between items-center gap-8">
 					<Link to=".">
 						<img
-							src="src/assets/icons/Logo.svg"
+							src={Logo}
 							alt="Logo"
 							className="w-9 h-9"
 							style={{
@@ -74,7 +79,7 @@ function Menu({
 				<Link to="/login" onClick={onClickLogout}>
 					<MenuItem
 						bgColor="red-primary"
-						src="src/assets/icons/Logout.svg"
+						src={Logout}
 						alt="Logout"
 					></MenuItem>
 				</Link>
@@ -145,11 +150,11 @@ const sections: {
 	[x: string]: SectionItemData;
 } = {
 	[TeacherSections.HOME]: {
-		src: 'src/assets/icons/Home.svg',
+		src: Home,
 		alt: 'Home'
 	},
 	[TeacherSections.COURSES]: {
-		src: 'src/assets/icons/Whiteboard.svg',
+		src: Whiteboard,
 		alt: 'Courses',
 		SubMenuElement: <SubMenuCourses />
 	}
