@@ -59,10 +59,10 @@ const useTeams = () => {
 			}
 		}, []);
 
-	const initTeams = useCallback(async (courseId: number, teamId: number) => {
+	const generateTeams = useCallback(async (courseId: number) => {
 		setLoading(true);
 		const response = await axios.post(
-			`${environment.apiUrl}/courses/${courseId}/teams/${teamId}/init`,
+			`${environment.apiUrl}/courses/${courseId}/teams/init`,
 			{},
 			{
 				headers: {
@@ -86,7 +86,7 @@ const useTeams = () => {
 		getTeams,
 		team,
 		getTeam,
-		initTeams
+		generateTeams
 	};
 };
 

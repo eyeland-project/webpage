@@ -39,7 +39,7 @@ function Course() {
 	const {
 		teams: teamsFetched,
 		getTeams,
-		initTeams,
+		generateTeams,
 		loading: loadingTeams
 	} = useTeams();
 	// const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
@@ -78,6 +78,15 @@ function Course() {
 				await endSession(idSelectedCourse);
 				if (isSessionStarted) setSessionStarted(false);
 				setSessionCreated(false);
+			}
+		} catch (err) {}
+	};
+
+	const handleGenerateTeams = async () => {
+		try {
+			if (idSelectedCourse !== null) {
+				await generateTeams(idSelectedCourse);
+				await getTeams(idSelectedCourse);
 			}
 		} catch (err) {}
 	};
@@ -176,16 +185,20 @@ function Course() {
 								</div>
 							</div>
 							{teams && (
-								<div
-									className="grid gap-x-6 gap-y-8 pr-32 pb-6 mt-8"
-									style={{
-										gridTemplateColumns:
-											'repeat(auto-fit, minmax(240px, 1fr))'
-									}}
-								>
+								<div className="grid gap-x-6 gap-y-8 pr-32 pb-6 mt-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
 									{teams.map((team, i) => (
 										<TeamCard key={i} team={team} />
 									))}
+									<div
+										className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-gray-100 flex flex-col justify-center items-center border border-gray-400"
+										onClick={handleGenerateTeams}
+									>
+										<img
+											src="src/assets/icons/Add.svg"
+											alt="Volver a generar"
+											className="w-2/5 h-2/5 opacity-70"
+										/>
+									</div>
 								</div>
 							)}
 						</div>
@@ -216,28 +229,34 @@ function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 	return (
 		<div className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-whitish">
 			<div className="font-bold text-xl">{name}</div>
-			<hr className="border-t-black" />
+			<hr className="border-t-gray-600 mt-2" />
 			<div className="flex flex-col gap-2 mt-4">
-				{students.map(({ firstName, lastName, power, id }) => (
-					<div key={id} className="flex gap-4 items-center">
-						<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellow-primary">
-							{power && (
-								<img
-									className="w-full h-full"
-									src={`src/assets/icons/${
-										power === Power.MEMORY_PRO
-											? 'MemoryPro'
-											: power === Power.SUPER_RADAR
-											? 'SuperRadar'
-											: 'SuperHearing'
-									}.svg`}
-									alt={power}
-								/>
-							)}
-						</span>
-						<span>{parseStudentName(firstName, lastName)}</span>
+				{students.length ? (
+					students.map(({ firstName, lastName, power, id }) => (
+						<div key={id} className="flex gap-4 items-center">
+							<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellow-primary">
+								{power && (
+									<img
+										className="w-full h-full"
+										src={`src/assets/icons/${
+											power === Power.MEMORY_PRO
+												? 'MemoryPro'
+												: power === Power.SUPER_RADAR
+												? 'SuperRadar'
+												: 'SuperHearing'
+										}.svg`}
+										alt={power}
+									/>
+								)}
+							</span>
+							<span>{parseStudentName(firstName, lastName)}</span>
+						</div>
+					))
+				) : (
+					<div className="text-center text-lg text-gray-300 font-semibold px-8">
+						No hay estudiantes en este equipo
 					</div>
-				))}
+				)}
 			</div>
 		</div>
 	);
