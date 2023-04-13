@@ -18,29 +18,49 @@ function Course() {
 		getCourse,
 		loading: loadingCourses,
 		createSession,
-		startSession: handleStartSession,
-		endSession: handleEndSession
+		startSession,
+		endSession
 	} = useCourses();
 
-	const { teams, getTeams, initTeams, loading: loadingTeams } = useTeams();
+	// const { teams, getTeams, initTeams, loading: loadingTeams } = useTeams();
 	const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
 
+	const [teams, setTeams] = useState<TeamDetail[]>([]);
 	const [isSessionCreated, setSessionCreated] = useState(false);
 	const [isSessionStarted, setSessionStarted] = useState(false);
 
 	useEffect(() => {
-		if (idSelectedCourse === null) return;
-		getCourse(idSelectedCourse).catch(() => {});
+		if (idSelectedCourse !== null) {
+			getCourse(idSelectedCourse).catch(() => {});
+		}
 	}, [idSelectedCourse]);
 
 	const handleCreateSession = async () => {
-		if (idSelectedCourse) {
-			createSession(idSelectedCourse)
-				.then(() => {
-					setSessionCreated(true); // Set sessionCreated state to true after creating session
-				})
-				.catch(() => {});
-		}
+		try {
+			if (idSelectedCourse !== null) {
+				await createSession(idSelectedCourse);
+				setSessionCreated(true);
+			}
+		} catch (err) {}
+	};
+
+	const handleStartSession = async () => {
+		try {
+			if (idSelectedCourse !== null) {
+				await startSession(idSelectedCourse);
+				setSessionStarted(true);
+			}
+		} catch (err) {}
+	};
+
+	const handleEndSession = async () => {
+		try {
+			if (idSelectedCourse !== null) {
+				await endSession(idSelectedCourse);
+				if (isSessionStarted) setSessionStarted(false);
+				setSessionCreated(false);
+			}
+		} catch (err) {}
 	};
 
 	useEffect(() => {
@@ -59,9 +79,20 @@ function Course() {
 	}, [course]);
 
 	useEffect(() => {
-		if (!idSelectedCourse) return;
-		getTeamsMock(idSelectedCourse).catch(() => {});
+		if (isSessionCreated) {
+			if (idSelectedCourse !== null) {
+				getTeamsMock(idSelectedCourse).catch(() => {});
+			}
+		} else {
+			if (teams.length) setTeams([]);
+		}
 	}, [isSessionCreated]);
+
+	useEffect(() => {
+		if (teamsMock) {
+			setTeams(teamsMock);
+		}
+	}, [teamsMock]);
 
 	return (
 		<div className="px-8 pt-4 h-full relative">
@@ -103,7 +134,7 @@ function Course() {
 									)}
 								</div>
 							</div>
-							{teamsMock && (
+							{teams && (
 								<div
 									className="grid gap-x-6 gap-y-8 pr-32 pb-6 mt-8"
 									style={{
@@ -111,7 +142,7 @@ function Course() {
 											'repeat(auto-fit, minmax(240px, 1fr))'
 									}}
 								>
-									{teamsMock.map((team, i) => (
+									{teams.map((team, i) => (
 										<TeamCard key={i} team={team} />
 									))}
 								</div>
@@ -268,14 +299,14 @@ function SessionOptions({
 			) : (
 				<>
 					<ButtonPrimary
-						// onClick={handleEndSession}
+						onClick={handleEndSession}
 						bgColor="red-primary"
 						size="large"
 					>
 						Terminar
 					</ButtonPrimary>
 					<ButtonPrimary
-						// onClick={handleStartSession}
+						onClick={handleStartSession}
 						bgColor="green-primary"
 						size="large"
 						paddingX={!isSessionStarted}
