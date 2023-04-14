@@ -1,7 +1,7 @@
 {
 	"name": "eyelandwebpage",
 	"private": true,
-	"homepage": "/",
+	"homepage": "Proyecto-Final-EPICS.github.io/EyeLandWebPage",
 	"version": "0.0.0",
 	"type": "module",
 	"scripts": {
