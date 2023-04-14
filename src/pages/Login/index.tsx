@@ -69,6 +69,7 @@ function Login() {
 				<div className="relative w-fit">
 					<img
 						src={Logo}
+						alt='Logo'
 						className="absolute -top-48 -right-48 w-96"
 					/>
 					<div className="card relative flex w-96 flex-col items-stretch justify-center">
