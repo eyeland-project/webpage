@@ -37,10 +37,7 @@ function Teacher() {
 					></Menu>
 				</div>
 				<div
-					className="h-full grow transition-all duration-300"
-					style={{
-						marginLeft: isSubmenuCollapsed ? '4rem' : '18rem'
-					}}
+					className={`h-full grow transition-all duration-300 ${isSubmenuCollapsed ? 'ml-16' : 'ml-72'}`}
 				>
 					<Routes>
 						<Route

@@ -43,21 +43,14 @@ function Menu({
 	return (
 		<div className="h-full flex">
 			<div
-				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary"
-				style={{
-					width: '4rem',
-					boxShadow: '4px 0 4px rgba(0, 0, 0, 0.25)'
-				}}
+				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary w-16 shadow-lateralNavbar"
 			>
 				<div className="flex flex-col justify-between items-center gap-8">
 					<Link to=".">
 						<img
 							src={Logo}
 							alt="Logo"
-							className="w-9 h-9"
-							style={{
-								filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.35))'
-							}}
+							className="w-9 h-9 drop-shadow-logoDropShadow"
 						></img>
 					</Link>
 					<div className="flex flex-col gap-4">
@@ -85,13 +78,7 @@ function Menu({
 				</Link>
 			</div>
 			<div
-				className="h-full transition-all duration-300"
-				style={{
-					marginLeft: isSubmenuCollapsed ? '-15rem' : 0,
-					boxShadow: isSubmenuCollapsed
-						? 'none'
-						: '4px 0 4px rgba(0, 0, 0, 0.25)'
-				}}
+				className={`h-full transition-all duration-300 ${isSubmenuCollapsed ? '-ml-60 none' : 'ml-0 shadow-lateralNavbar'}`}
 			>
 				<SubMenu>{sections[selectedKey]?.SubMenuElement}</SubMenu>
 			</div>
@@ -112,8 +99,7 @@ function SectionItem({
 		<>
 			{isSelected && (
 				<span
-					className="h-12 bg-white rounded-r-lg absolute left-0"
-					style={{ width: 4 }}
+					className="h-12 bg-white rounded-r-lg absolute left-0 w-1"
 				></span>
 			)}
 			<MenuItem src={src} alt={alt} bgColor="green-primary"></MenuItem>
@@ -132,10 +118,7 @@ function MenuItem({
 }) {
 	return (
 		<div
-			className={`rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300 bg-${bgColor}`}
-			style={{
-				boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.15)'
-			}}
+			className={`rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300 bg-${bgColor} shadow-buttonNavbar`}
 		>
 			<img
 				src={src}

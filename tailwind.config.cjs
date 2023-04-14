@@ -28,7 +28,8 @@ module.exports = {
 				appear: 'appear 0.5s'
 			},
 			boxShadow: {
-				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)'
+				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)',
+				buttonNavbar: '0px 4px 4px rgba(0, 0, 0, 0.15)'
 			},
 			fontFamily: {
 				Poppins: ['Poppins', 'sans-serif']
@@ -41,6 +42,9 @@ module.exports = {
 				'red-primary': '#DB3A3A',
 				'orange-primary': '#FC8507',
 				whitish: '#F8F8F8'
+			},
+			dropShadow: {
+				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.35)'
 			}
 		}
 	},

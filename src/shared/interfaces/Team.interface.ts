@@ -1,4 +1,3 @@
-import { Power } from '@enums/Team.enum';
 import { TeamMember } from './Student.interface';
 
 export interface TeamDetail {
