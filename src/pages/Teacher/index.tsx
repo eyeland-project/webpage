@@ -5,7 +5,6 @@ import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 import Menu from './components/Menu';
 import Home from './components/Home';
 import Course from './Course';
-import NotFound from './NotFound';
 import useAuthStorage from '@hooks/useAuthStorage';
 import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
@@ -37,7 +36,9 @@ function Teacher() {
 					></Menu>
 				</div>
 				<div
-					className={`h-full grow transition-all duration-300 ${isSubmenuCollapsed ? 'ml-16' : 'ml-72'}`}
+					className={`h-full grow transition-all duration-300 ${
+						isSubmenuCollapsed ? 'ml-16' : 'ml-72'
+					}`}
 				>
 					<Routes>
 						<Route
@@ -46,7 +47,7 @@ function Teacher() {
 						/>
 						<Route path="/home" element={<Home />} />
 						<Route path="/courses" element={<Course />} />
-						<Route path="/*" element={<NotFound />} />
+						<Route path="/*" element={<Navigate to="/404" />} />
 					</Routes>
 				</div>
 			</div>

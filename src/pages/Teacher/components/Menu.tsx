@@ -10,6 +10,7 @@ import Logo from '@icons/Logo.svg';
 import Logout from '@icons/Logout.svg';
 import Home from '@icons/Home.svg';
 import Whiteboard from '@icons/Whiteboard.svg';
+import MenuItem from './MenuItem';
 
 function Menu({
 	isSubmenuCollapsed,
@@ -42,9 +43,7 @@ function Menu({
 
 	return (
 		<div className="h-full flex">
-			<div
-				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary w-16 shadow-lateralNavbar"
-			>
+			<div className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary w-16 shadow-lateralNavbar">
 				<div className="flex flex-col justify-between items-center gap-8">
 					<Link to=".">
 						<img
@@ -60,11 +59,16 @@ function Menu({
 								key={sectionName}
 								onClick={() => onSelectSection(sectionName)}
 							>
-								<SectionItem
-									isSelected={sectionName === selectedKey}
-									src={sections[sectionName].src}
-									alt={sections[sectionName].alt}
-								></SectionItem>
+								<>
+									{sectionName == selectedKey && (
+										<span className="h-12 bg-white rounded-r-lg absolute left-0 w-1"></span>
+									)}
+									<MenuItem
+										src={sections[sectionName].src}
+										alt={sections[sectionName].alt}
+										bgColor="green-primary"
+									></MenuItem>
+								</>
 							</Link>
 						))}
 					</div>
@@ -78,53 +82,14 @@ function Menu({
 				</Link>
 			</div>
 			<div
-				className={`h-full transition-all duration-300 ${isSubmenuCollapsed ? '-ml-60 none' : 'ml-0 shadow-lateralNavbar'}`}
+				className={`h-full transition-all duration-300 ${
+					isSubmenuCollapsed
+						? '-ml-60 none'
+						: 'ml-0 shadow-lateralNavbar'
+				}`}
 			>
 				<SubMenu>{sections[selectedKey]?.SubMenuElement}</SubMenu>
 			</div>
-		</div>
-	);
-}
-
-function SectionItem({
-	src,
-	alt,
-	isSelected
-}: {
-	src: string;
-	alt: string;
-	isSelected: boolean;
-}) {
-	return (
-		<>
-			{isSelected && (
-				<span
-					className="h-12 bg-white rounded-r-lg absolute left-0 w-1"
-				></span>
-			)}
-			<MenuItem src={src} alt={alt} bgColor="green-primary"></MenuItem>
-		</>
-	);
-}
-
-function MenuItem({
-	src,
-	alt,
-	bgColor
-}: {
-	src: string;
-	alt: string;
-	bgColor: string;
-}) {
-	return (
-		<div
-			className={`rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300 bg-${bgColor} shadow-buttonNavbar`}
-		>
-			<img
-				src={src}
-				alt={alt}
-				className="w-3/5 h-3/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-			/>
 		</div>
 	);
 }

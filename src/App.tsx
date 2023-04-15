@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 
 import LandingPage from '@pages/LandingPage';
 import Login from '@pages/Login';
@@ -12,7 +12,8 @@ function App() {
 				<Route path="/" element={<LandingPage />} />
 				<Route path="/login" element={<Login />} />
 				<Route path="/teacher/*" element={<Teacher />} />
-				<Route path="/*" element={<NotFound />} />
+				<Route path="/404" element={<NotFound />} />
+				<Route path="/*" element={<Navigate to="/404" />} />
 			</Routes>
 		</div>
 	);

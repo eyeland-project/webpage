@@ -44,7 +44,7 @@ module.exports = {
 				whitish: '#F8F8F8'
 			},
 			dropShadow: {
-				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.35)'
+				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.20)'
 			}
 		}
 	},
