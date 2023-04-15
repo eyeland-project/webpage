@@ -29,7 +29,8 @@ module.exports = {
 			},
 			boxShadow: {
 				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)',
-				buttonNavbar: '0px 4px 4px rgba(0, 0, 0, 0.15)'
+				buttonNavbar: '0px 4px 4px rgba(0, 0, 0, 0.15)',
+				tooltipMenu: '0px 4px 8px rgba(0, 0, 0, 0.25)'
 			},
 			fontFamily: {
 				Poppins: ['Poppins', 'sans-serif']
@@ -41,7 +42,8 @@ module.exports = {
 				'yellow-primary': '#FBFF48',
 				'red-primary': '#DB3A3A',
 				'orange-primary': '#FC8507',
-				whitish: '#F8F8F8'
+				whitish: '#F8F8F8',
+				'gray-primary': '#787878'
 			},
 			dropShadow: {
 				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.20)'
