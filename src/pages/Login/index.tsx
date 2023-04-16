@@ -9,7 +9,7 @@ import { validToken } from '@utils/auth';
 
 import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
-import ReactLoading from 'react-loading';
+import Loading from 'react-loading';
 
 import Logo from '@icons/Logo.svg';
 
@@ -69,7 +69,7 @@ function Login() {
 				<div className="relative w-fit">
 					<img
 						src={Logo}
-						alt='Logo'
+						alt="Logo"
 						className="absolute -top-48 -right-48 w-96"
 					/>
 					<div className="card relative flex w-96 flex-col items-stretch justify-center">
@@ -100,7 +100,7 @@ function Login() {
 								type="submit"
 							>
 								{loading ? (
-									<ReactLoading
+									<Loading
 										type="spin"
 										color="white"
 										height={20}
