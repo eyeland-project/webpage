@@ -6,7 +6,7 @@ import { environment } from '@environments/environment';
 
 import { TeamDetail } from '@interfaces/Team.interface';
 
-const useTeams = () => {
+const useTeam = () => {
 	const authStorage = useAuthStorage();
 
 	const [loading, setLoading] = useState(false);
@@ -98,11 +98,13 @@ const useTeams = () => {
 	return {
 		loading,
 		teams,
+		setTeams,
 		getTeams,
 		team,
+		setTeam,
 		getTeam,
 		generateTeams
 	};
 };
 
-export default useTeams;
+export default useTeam;

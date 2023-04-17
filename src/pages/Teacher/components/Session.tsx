@@ -3,9 +3,9 @@ import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import Loading from 'react-loading';
 
-import useCourses from '@hooks/useCourses';
+import useCourses from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
-import useTeams from '@hooks/useTeams';
+import useTeam from '@hooks/useTeam';
 
 import { TeamDetail } from '@interfaces/Team.interface';
 
@@ -36,8 +36,6 @@ function Session() {
 	} = useTeacherContext();
 	// useCourses hook
 	const {
-		// course,
-		// setCourse,
 		getCourse,
 		loading: loadingCourses,
 		createSession,
@@ -46,14 +44,14 @@ function Session() {
 	} = useCourses();
 	// useTeams hook
 	const {
-		teams: teamsFetched,
+		teams,
+		setTeams,
 		getTeams,
-		generateTeams,
-		loading: loadingTeams
-	} = useTeams();
+		generateTeams
+		// loading: loadingTeams
+	} = useTeam();
 
 	// states
-	const [teams, setTeams] = useState<TeamDetail[]>([]);
 	const [isSessionCreated, setSessionCreated] = useState(false);
 	const [isSessionStarted, setSessionStarted] = useState(false);
 	const [idCourse, setIdCourse] = useState<number | null>(
@@ -131,7 +129,7 @@ function Session() {
 				);
 			}
 		} else {
-			if (teams.length) setTeams([]);
+			if (teams?.length) setTeams([]);
 		}
 		return () => {
 			socket?.off(SocketEvents.TEAMS_STUDENT_UPDATE);
@@ -139,16 +137,12 @@ function Session() {
 	}, [isSessionCreated]);
 
 	useEffect(() => {
-		if (teamsFetched) {
-			setTeams(teamsFetched);
+		const idCourseNum = parseIdCourse(searchParams.get('idCourse'));
+		if (idCourseNum === null) {
+			return navigate('/teacher/courses');
 		}
-	}, [teamsFetched]);
-
-	useEffect(() => {
-		return () => {
-			socket?.disconnect();
-		};
-	}, []);
+		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+	}, [searchParams]);
 
 	useEffect(() => {
 		if (idCourse === null) {
@@ -165,6 +159,12 @@ function Session() {
 				});
 		}
 	}, [idCourse]);
+
+	useEffect(() => {
+		return () => {
+			socket?.disconnect();
+		};
+	}, []);
 
 	return (
 		<div className="px-8 py-4 h-full relative">

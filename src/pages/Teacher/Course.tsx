@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import Lottie from 'lottie-react';
 
-import useCourses from '@hooks/useCourses';
+import useCourses from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
@@ -51,7 +51,7 @@ function Course() {
 		if (idCourseNum === null) {
 			return navigate('/teacher/courses');
 		}
-		setIdCourse(idCourseNum);
+		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
 	}, [idCourseStr]);
 
 	useEffect(() => {
