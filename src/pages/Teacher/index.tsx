@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 
-// components
-import Menu from './components/Menu';
-import Home from './components/Home';
-import Course from './Course';
 import useAuthStorage from '@hooks/useAuthStorage';
 import { TeacherProvider } from '@contexts/TeacherContext';
+
+import Menu from '@pages/Teacher/components/Menu';
+import Home from '@pages/Teacher/Home';
+import Course from '@pages/Teacher/Course';
+import Courses from '@pages/Teacher/Courses';
+import Session from '@pages/Teacher/Session';
+import Task from '@pages/Teacher/Task';
+import Tasks from '@pages/Teacher/Tasks';
+
 import { validToken } from '@utils/auth';
-import Courses from './Courses';
-import Session from './components/Session';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
@@ -50,6 +53,8 @@ function Teacher() {
 						<Route path="/courses" element={<Courses />} />
 						<Route path="/courses/:idCourse" element={<Course />} />
 						<Route path="/session" element={<Session />} />
+						<Route path="/tasks" element={<Tasks />} />
+						<Route path="/tasks/:idTask" element={<Task />} />
 						<Route path="/*" element={<Navigate to="/404" />} />
 					</Routes>
 				</div>

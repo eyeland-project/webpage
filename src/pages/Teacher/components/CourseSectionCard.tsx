@@ -20,7 +20,7 @@ export function CourseSectionCard({
 				<div className="text-sm">{description}</div>
 				<div className="w-4/6">{img}</div>
 			</div>
-			<div className="absolute bottom-6 right-8">
+			<div className="absolute bottom-4 right-8">
 				<Link to={link}>
 					<ButtonPrimary size="medium">Ir</ButtonPrimary>
 				</Link>

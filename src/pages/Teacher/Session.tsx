@@ -1,22 +1,23 @@
 import { useEffect, useState } from 'react';
-import { Navigate, useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import Loading from 'react-loading';
 
-import useCourses from '@hooks/useCourse';
+import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 import useTeam from '@hooks/useTeam';
-
-import { TeamDetail } from '@interfaces/Team.interface';
-
-import { connect, socket } from '@utils/socket';
-
-import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import useAuthStorage from '@hooks/useAuthStorage';
-import { SocketEvents } from '@enums/Socket.enum';
 
 import TeamGrid from '@pages/Teacher/components/TeamGrid';
 import SessionOptions from '@pages/Teacher/components/SessionOptions';
+
+import { TeamDetail } from '@interfaces/Team.interface';
+import { SocketEvents } from '@enums/Socket.enum';
+
+import { parseNumericParam } from '@utils/routing.utils';
+import { connect, socket } from '@utils/socket';
+
+import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 
 function Session() {
 	// auth
@@ -41,7 +42,7 @@ function Session() {
 		createSession,
 		startSession,
 		endSession
-	} = useCourses();
+	} = useCourse();
 	// useTeams hook
 	const {
 		teams,
@@ -55,7 +56,7 @@ function Session() {
 	const [isSessionCreated, setSessionCreated] = useState(false);
 	const [isSessionStarted, setSessionStarted] = useState(false);
 	const [idCourse, setIdCourse] = useState<number | null>(
-		parseIdCourse(searchParams.get('idCourse'))
+		parseNumericParam(searchParams.get('idCourse'))
 	);
 
 	const handleCreateSession = async () => {
@@ -137,7 +138,7 @@ function Session() {
 	}, [isSessionCreated]);
 
 	useEffect(() => {
-		const idCourseNum = parseIdCourse(searchParams.get('idCourse'));
+		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
 		if (idCourseNum === null) {
 			return navigate('/teacher/courses');
 		}
@@ -238,12 +239,6 @@ function Session() {
 			)}
 		</div>
 	);
-}
-
-function parseIdCourse(idCourseStr: string | null) {
-	const idCourseNum = parseInt(String(idCourseStr));
-	if (isNaN(idCourseNum)) return null;
-	return idCourseNum;
 }
 
 export default Session;

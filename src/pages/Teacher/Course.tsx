@@ -3,14 +3,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import Lottie from 'lottie-react';
 
-import useCourses from '@hooks/useCourse';
+import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
+import { CourseSectionCard } from '@pages/Teacher/components/CourseSectionCard';
 
-import CourseIcon from '@icons/Course.svg';
-import { CourseSectionCard } from './components/CourseSectionCard';
+import { parseNumericParam } from '@utils/routing.utils';
 
+import DataGridIcon from '@icons/DataGrid.svg';
 import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import Taskman from '@animations/Taskman.json';
 
@@ -29,16 +30,11 @@ function Course() {
 		}
 	} = useTeacherContext();
 	// useCourses hook
-	const {
-		// course: courseFetched,
-		// setCourse: setCourseFetched,
-		getCourse,
-		loading
-	} = useCourses();
+	const { getCourse, loading } = useCourse();
 
 	// states
 	const [idCourse, setIdCourse] = useState<number | null>(
-		parseIdCourse(idCourseStr)
+		parseNumericParam(idCourseStr)
 	);
 
 	const sections = useCallback(() => {
@@ -47,7 +43,7 @@ function Course() {
 	}, [idCourse]);
 
 	useEffect(() => {
-		const idCourseNum = parseIdCourse(idCourseStr);
+		const idCourseNum = parseNumericParam(idCourseStr);
 		if (idCourseNum === null) {
 			return navigate('/teacher/courses');
 		}
@@ -73,12 +69,16 @@ function Course() {
 	return (
 		<div className="h-screen">
 			<Ribbon>
-				<img src={CourseIcon} alt="GraduationCap" className="w-5 h-5" />
+				<img
+					src={DataGridIcon}
+					alt="GraduationCap"
+					className="w-5 h-5"
+				/>
 				<div className="text-white font-semibold">
 					{course?.name || ''}
 				</div>
 			</Ribbon>
-			<div className="px-8 py-4 h-full">
+			<div className="px-8 pb-4 pt-12 h-full">
 				{course ? (
 					<div className="grid grid-cols-2 gap-x-16 gap-y-8 px-10 py-8">
 						{sections().map(
@@ -107,12 +107,6 @@ function Course() {
 			</div>
 		</div>
 	);
-}
-
-function parseIdCourse(idCourseStr: string | undefined) {
-	const idCourseNum = parseInt(String(idCourseStr));
-	if (isNaN(idCourseNum)) return null;
-	return idCourseNum;
 }
 
 function getSections(idCourse: number): {

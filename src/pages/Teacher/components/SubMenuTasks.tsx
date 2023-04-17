@@ -2,43 +2,43 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 
-import useCourse from '@hooks/useCourse';
+import useTask from '@hooks/useTask';
 import useTeacherContext from '@hooks/useTeacherContext';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 
-function SubMenuCourses() {
+function SubMenuTasks() {
 	const navigate = useNavigate();
-	const { courses, getCourses, loading } = useCourse();
+	const { tasks, getTasks, loading } = useTask();
 	const {
-		coursesData: { idSelectedCourse, setIdSelectedCourse }
+		tasksData: { idSelectedTask, setIdSelectedTask }
 	} = useTeacherContext();
 
-	const onSelectCourse = (id: number) => {
-		setIdSelectedCourse(id);
-		navigate(`/teacher/courses/${id}`);
+	const onSelectTask = (id: number) => {
+		setIdSelectedTask(id);
+		navigate(`/teacher/tasks/${id}`);
 	};
 
 	useEffect(() => {
-		if (!courses) getCourses().catch(() => {});
+		if (!tasks) getTasks().catch(() => {});
 	}, []);
 
 	return (
 		<div className="h-full text-white px-6 py-6 flex flex-col">
 			<div className="font-semibold text-lg flex items-center gap-4 text-center before:content-[''] before:grow before:border before:border-white before:border-solid after:content-[''] after:grow after:border after:border-white after:border-solid">
-				Cursos
+				Tasks
 			</div>
 			<div className="flex flex-col gap-4 mt-4 items-center text-sm grow">
-				{courses ? (
-					courses.map(({ name, id }, i) => (
+				{tasks ? (
+					tasks.map(({ name, id }, i) => (
 						<div
 							key={i}
 							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
-								idSelectedCourse === id
+								idSelectedTask === id
 									? 'bg-white bg-opacity-20'
 									: 'hover:bg-white hover:bg-opacity-10'
 							}`}
-							onClick={() => onSelectCourse(id)}
+							onClick={() => onSelectTask(id)}
 						>
 							<img
 								src={DataGridIcon}
@@ -64,4 +64,4 @@ function SubMenuCourses() {
 	);
 }
 
-export default SubMenuCourses;
+export default SubMenuTasks;

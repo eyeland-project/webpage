@@ -3,7 +3,6 @@ import Lottie from 'lottie-react';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 
-import FormCourse from '@pages/Teacher/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
 import GraduationCap from '@icons/GraduationCap.svg';
@@ -13,13 +12,13 @@ import Website from '@icons/Website.svg';
 import Phone from '@icons/Phone.svg';
 import FlyingStudents from '@animations/FlyingStudents.json';
 
-function Courses() {
+function Tasks() {
 	const {
-		coursesData: { setIdSelectedCourse }
+		tasksData: { setIdSelectedTask }
 	} = useTeacherContext();
 
 	useEffect(() => {
-		setIdSelectedCourse(null);
+		setIdSelectedTask(null);
 	}, []);
 
 	return (
@@ -38,9 +37,7 @@ function Courses() {
 				<div className="text-center mx-auto w-4/6">
 					<Lottie animationData={FlyingStudents} loop={true} />
 				</div>
-				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-14 sm:mt-6">
-					<FormCourse />
-				</div>
+				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-14 sm:mt-6"></div>
 				<div className="mt-20">
 					<div className="font-bold text-lg">
 						Información adicional
@@ -77,4 +74,4 @@ function Courses() {
 	);
 }
 
-export default Courses;
+export default Tasks;

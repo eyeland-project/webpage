@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import * as releaseApi from '../api/release';
+import * as releaseApi from '@api/release';
 
 import { ReleaseDetail } from '@interfaces/Release.interface';
 

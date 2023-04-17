@@ -8,11 +8,13 @@ import useAuthStorage from '@hooks/useAuthStorage';
 import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
 import SubMenuCourses from './SubMenuCourses';
+import SubMenuTasks from './SubMenuTasks';
 
 import Logo from '@icons/Logo.svg';
 import Logout from '@icons/Logout.svg';
 import Home from '@icons/Home.svg';
 import Whiteboard from '@icons/Whiteboard.svg';
+import TasksIcon from '@icons/Tasks.svg';
 
 function Menu({
 	isSubmenuCollapsed,
@@ -62,7 +64,10 @@ function Menu({
 		<div className="h-full flex">
 			<div className="h-full flex flex-col justify-between items-center py-3 relative z-20 bg-green-tertiary w-16 shadow-lateralNavbar">
 				<div className="flex flex-col justify-between items-center gap-8">
-					<Link to=".">
+					<Link
+						to="/teacher/home"
+						onClick={() => onSelectSection('home')}
+					>
 						<img
 							src={Logo}
 							alt="Logo"
@@ -130,6 +135,13 @@ const sections: {
 		alt: 'Cursos',
 		tooltip: 'Cursos',
 		submenu: <SubMenuCourses />
+	},
+	{
+		name: 'tasks',
+		src: TasksIcon,
+		alt: 'Tasks',
+		tooltip: 'Tasks',
+		submenu: <SubMenuTasks />
 	}
 ];
 

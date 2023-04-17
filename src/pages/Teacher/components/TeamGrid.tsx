@@ -3,7 +3,7 @@ import { MouseEventHandler } from 'react';
 import { TeamDetail } from '@interfaces/Team.interface';
 import { Power } from '@enums/Team.enum';
 
-import { parseStudentName } from '@utils/studentUtils';
+import { parseStudentName } from '@utils/student.utils';
 
 import Add from '@icons/Add.svg';
 import MemoryPro from '@icons/MemoryPro.svg';

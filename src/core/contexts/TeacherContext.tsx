@@ -8,12 +8,20 @@ const TeacherContext = createContext<{
 		course: CourseDetail | null;
 		setCourse: Function;
 	};
+	tasksData: {
+		idSelectedTask: number | null;
+		setIdSelectedTask: Function;
+	};
 }>({
 	coursesData: {
 		idSelectedCourse: null,
 		setIdSelectedCourse: () => {},
 		course: null,
 		setCourse: () => {}
+	},
+	tasksData: {
+		idSelectedTask: null,
+		setIdSelectedTask: () => {}
 	}
 });
 
@@ -22,6 +30,7 @@ const TeacherProvider = ({ children }: { children: React.ReactNode }) => {
 		null
 	);
 	const [course, setCourse] = useState<CourseDetail | null>(null);
+	const [idSelectedTask, setIdSelectedTask] = useState<number | null>(null);
 
 	return (
 		<TeacherContext.Provider
@@ -31,6 +40,10 @@ const TeacherProvider = ({ children }: { children: React.ReactNode }) => {
 					setIdSelectedCourse,
 					course,
 					setCourse
+				},
+				tasksData: {
+					idSelectedTask,
+					setIdSelectedTask
 				}
 			}}
 		>

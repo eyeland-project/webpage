@@ -6,7 +6,7 @@ import { environment } from '@environments/environment';
 
 import { CourseDetail, CourseSummary } from '@interfaces/Course.interface';
 
-const useCourses = () => {
+const useCourse = () => {
 	const authStorage = useAuthStorage();
 
 	const [loading, setLoading] = useState(false);
@@ -157,4 +157,4 @@ const useCourses = () => {
 	};
 };
 
-export default useCourses;
+export default useCourse;
