@@ -47,7 +47,7 @@ function Menu({
 
 	return (
 		<div className="h-full flex">
-			<div className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary w-16 shadow-lateralNavbar">
+			<div className="h-full flex flex-col justify-between items-center py-3 relative z-20 bg-green-tertiary w-16 shadow-lateralNavbar">
 				<div className="flex flex-col justify-between items-center gap-8">
 					<Link to=".">
 						<img

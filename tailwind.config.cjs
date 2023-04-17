@@ -30,7 +30,8 @@ module.exports = {
 			boxShadow: {
 				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)',
 				buttonNavbar: '0px 4px 4px rgba(0, 0, 0, 0.15)',
-				tooltipMenu: '0px 4px 8px rgba(0, 0, 0, 0.25)'
+				tooltipMenu: '0px 4px 8px rgba(0, 0, 0, 0.25)',
+				form: '0px 3px 8px rgba(0, 0, 0, 0.25)'
 			},
 			fontFamily: {
 				Poppins: ['Poppins', 'sans-serif']
@@ -39,6 +40,7 @@ module.exports = {
 				'green-primary': '#0D9748',
 				'green-secondary': '#41FB99',
 				'green-tertiary': '#9BE931',
+				'green-quaternary': '#038741',
 				'yellow-primary': '#FBFF48',
 				'red-primary': '#DB3A3A',
 				'orange-primary': '#FC8507',
@@ -54,7 +56,7 @@ module.exports = {
 	safelist: [
 		{
 			pattern:
-				/(bg|text|border)-(green|yellow|red|blue|orange|whitish|gray|black|white|purple|pink|indigo|teal|cyan|lime|emerald|fuchsia|violet|rose)-(primary|secondary|tertiary)/
+				/(bg|text|border)-(green|yellow|red|blue|orange|whitish|gray|black|white|purple|pink|indigo|teal|cyan|lime|emerald|fuchsia|violet|rose)-(primary|secondary|tertiary|quaternary)/
 		}
 	]
 };

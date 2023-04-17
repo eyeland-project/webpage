@@ -9,6 +9,7 @@ import useAuthStorage from '@hooks/useAuthStorage';
 import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
 import { validToken } from '@utils/auth';
+import Courses from './Courses';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
@@ -46,7 +47,10 @@ function Teacher() {
 							element={<Navigate to="/teacher/home" />}
 						/>
 						<Route path="/home" element={<Home />} />
-						<Route path="/courses" element={<Course />} />
+						<Route path="/courses" element={<Courses />}>
+							<Route path=":id" element={<Course />} />
+						</Route>
+						{/* <Route path="/session" element={<Session />}/> */}
 						<Route path="/*" element={<Navigate to="/404" />} />
 					</Routes>
 				</div>
