@@ -15,13 +15,28 @@ import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import Taskman from '@animations/Taskman.json';
 
 function Course() {
+	// navigation
 	const navigate = useNavigate();
+	// params
 	const { idCourse: idCourseStr } = useParams<{ idCourse: string }>();
+	// context
 	const {
-		coursesData: { setIdSelectedCourse }
+		coursesData: {
+			idSelectedCourse,
+			setIdSelectedCourse,
+			course,
+			setCourse
+		}
 	} = useTeacherContext();
-	const { course, setCourse, getCourse, loading } = useCourses();
+	// useCourses hook
+	const {
+		// course: courseFetched,
+		// setCourse: setCourseFetched,
+		getCourse,
+		loading
+	} = useCourses();
 
+	// states
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseIdCourse(idCourseStr)
 	);
@@ -43,10 +58,16 @@ function Course() {
 		if (idCourse === null) {
 			return navigate('/teacher/courses');
 		}
-		setIdSelectedCourse(idCourse);
-		getCourse(idCourse).catch(() => {
-			if (course !== null) setCourse(null);
-		});
+		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
+		if (idSelectedCourse !== idCourse || !course) {
+			getCourse(idCourse)
+				.then((course) => {
+					setCourse(course);
+				})
+				.catch(() => {
+					if (course !== null) setCourse(null);
+				});
+		}
 	}, [idCourse]);
 
 	return (

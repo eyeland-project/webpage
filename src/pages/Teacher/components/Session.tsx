@@ -19,32 +19,40 @@ import TeamGrid from '@pages/Teacher/components/TeamGrid';
 import SessionOptions from '@pages/Teacher/components/SessionOptions';
 
 function Session() {
+	// auth
 	const authStorage = useAuthStorage();
+	// navigation
 	const navigate = useNavigate();
-	const [searchParams, setSearchParams] = useSearchParams();
-
+	// query params
+	const [searchParams] = useSearchParams();
+	// context
 	const {
-		coursesData: { idSelectedCourse, setIdSelectedCourse }
+		coursesData: {
+			idSelectedCourse,
+			setIdSelectedCourse,
+			course,
+			setCourse
+		}
 	} = useTeacherContext();
-
+	// useCourses hook
 	const {
-		course,
-		setCourse,
+		// course,
+		// setCourse,
 		getCourse,
 		loading: loadingCourses,
 		createSession,
 		startSession,
 		endSession
 	} = useCourses();
-
+	// useTeams hook
 	const {
 		teams: teamsFetched,
 		getTeams,
 		generateTeams,
 		loading: loadingTeams
 	} = useTeams();
-	// const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
 
+	// states
 	const [teams, setTeams] = useState<TeamDetail[]>([]);
 	const [isSessionCreated, setSessionCreated] = useState(false);
 	const [isSessionStarted, setSessionStarted] = useState(false);
@@ -143,15 +151,19 @@ function Session() {
 	}, []);
 
 	useEffect(() => {
-		console.log('idCourse', idCourse);
-
 		if (idCourse === null) {
 			return navigate('/teacher/courses');
 		}
-		setIdSelectedCourse(idCourse);
-		getCourse(idCourse).catch(() => {
-			if (course !== null) setCourse(null);
-		});
+		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
+		if (idSelectedCourse !== idCourse || !course) {
+			getCourse(idCourse)
+				.then((course) => {
+					setCourse(course);
+				})
+				.catch(() => {
+					if (course !== null) setCourse(null);
+				});
+		}
 	}, [idCourse]);
 
 	return (

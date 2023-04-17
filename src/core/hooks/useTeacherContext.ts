@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { TeacherContext, TeacherProvider } from '@contexts/TeacherContext';
+import { TeacherContext } from '@contexts/TeacherContext';
 
 function useTeacherContext() {
 	const context = useContext(TeacherContext);
