@@ -9,8 +9,6 @@ import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
 import SubMenuCourses from './SubMenuCourses';
 
-import { TeacherSections } from '@enums/Pages.enum';
-
 import Logo from '@icons/Logo.svg';
 import Logout from '@icons/Logout.svg';
 import Home from '@icons/Home.svg';
@@ -31,18 +29,33 @@ function Menu({
 
 	const onSelectSection = (sectionName: string) => {
 		setSelectedKey(sectionName);
-		if (sectionName !== TeacherSections.HOME && isSubmenuCollapsed) {
+		if (sectionName !== 'home' && isSubmenuCollapsed) {
 			setSubmenuCollapsed(false);
-		} else if (
-			sectionName === TeacherSections.HOME &&
-			!isSubmenuCollapsed
-		) {
+		} else if (sectionName === 'home' && !isSubmenuCollapsed) {
 			setSubmenuCollapsed(true);
 		}
 	};
 
 	const onClickLogout = () => {
 		authStorage.removeAccessToken();
+	};
+
+	const getSubMenuElement = (): ReactNode => {
+		const section = sections.find(
+			(section) => section.name === selectedKey
+		);
+		if (!section) return null;
+		return (
+			<div
+				className={`h-full transition-all duration-300 ${
+					isSubmenuCollapsed
+						? '-ml-60 none'
+						: 'ml-0 shadow-lateralNavbar'
+				}`}
+			>
+				<SubMenu>{section.submenu}</SubMenu>
+			</div>
+		);
 	};
 
 	return (
@@ -57,27 +70,27 @@ function Menu({
 						></img>
 					</Link>
 					<div className="flex flex-col gap-4">
-						{Object.keys(sections).map((sectionName) => (
+						{sections.map(({ name, alt, src, tooltip }) => (
 							<Link
-								to={`/teacher/${sectionName}`}
-								key={sectionName}
-								onClick={() => onSelectSection(sectionName)}
+								to={`/teacher/${name}`}
+								key={name}
+								onClick={() => onSelectSection(name)}
 							>
 								<>
-									{sectionName == selectedKey && (
+									{name == selectedKey && (
 										<span className="h-12 bg-white rounded-r-lg absolute left-0 w-1"></span>
 									)}
-									<div id={`teacher-menu-${sectionName}`}>
+									<div id={`teacher-menu-${name}`}>
 										<MenuItem
-											src={sections[sectionName].src}
-											alt={sections[sectionName].alt}
+											src={src}
+											alt={alt}
 											bgColor="green-primary"
 										></MenuItem>
 									</div>
 									<Tooltip
-										anchorSelect={`#teacher-menu-${sectionName}`}
+										anchorSelect={`#teacher-menu-${name}`}
 										place="right"
-										content={sections[sectionName].tooltip}
+										content={tooltip}
 										className="bg-gray-primary text-white shadow-tooltipMenu opacity-100 ml-2 font-semibold px-6"
 									/>
 								</>
@@ -93,40 +106,31 @@ function Menu({
 					></MenuItem>
 				</Link>
 			</div>
-			<div
-				className={`h-full transition-all duration-300 ${
-					isSubmenuCollapsed
-						? '-ml-60 none'
-						: 'ml-0 shadow-lateralNavbar'
-				}`}
-			>
-				<SubMenu>{sections[selectedKey]?.SubMenuElement}</SubMenu>
-			</div>
+			{getSubMenuElement()}
 		</div>
 	);
 }
 
 const sections: {
-	[x: string]: SectionItemData;
-} = {
-	[TeacherSections.HOME]: {
+	name: string;
+	src: string;
+	alt: string;
+	tooltip: string;
+	submenu?: ReactNode;
+}[] = [
+	{
+		name: 'home',
 		src: Home,
 		alt: 'Home',
 		tooltip: 'Home'
 	},
-	[TeacherSections.COURSES]: {
+	{
+		name: 'courses',
 		src: Whiteboard,
 		alt: 'Cursos',
 		tooltip: 'Cursos',
-		SubMenuElement: <SubMenuCourses />
+		submenu: <SubMenuCourses />
 	}
-};
-
-interface SectionItemData {
-	src: string;
-	alt: string;
-	tooltip: string;
-	SubMenuElement?: ReactNode;
-}
+];
 
 export default Menu;

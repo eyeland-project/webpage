@@ -15,23 +15,28 @@ const useTeams = () => {
 
 	const getTeams: (courseId: number) => Promise<TeamDetail[]> = useCallback(
 		async (courseId: number) => {
-			setLoading(true);
-			const response = await axios.get(
-				`${environment.apiUrl}/courses/${courseId}/teams`,
-				{
-					headers: {
-						Authorization: `Bearer ${authStorage.getAccessToken()}`
-					},
-					timeout: 10000
-				}
-			);
+			try {
+				setLoading(true);
+				const response = await axios.get(
+					`${environment.apiUrl}/courses/${courseId}/teams`,
+					{
+						headers: {
+							Authorization: `Bearer ${authStorage.getAccessToken()}`
+						},
+						timeout: 10000
+					}
+				);
 
-			setLoading(false);
-			if (response.status === 200) {
-				setTeams(response.data);
-				return response.data;
-			} else {
-				throw new Error(response.data);
+				setLoading(false);
+				if (response.status === 200) {
+					setTeams(response.data);
+					return response.data;
+				} else {
+					throw new Error(response.data);
+				}
+			} catch (err) {
+				setLoading(false);
+				throw err;
 			}
 		},
 		[]
@@ -39,9 +44,37 @@ const useTeams = () => {
 
 	const getTeam: (courseId: number, teamId: number) => Promise<TeamDetail> =
 		useCallback(async (courseId: number, teamId: number) => {
+			try {
+				setLoading(true);
+				const response = await axios.get(
+					`${environment.apiUrl}/courses/${courseId}teams/${teamId}`,
+					{
+						headers: {
+							Authorization: `Bearer ${authStorage.getAccessToken()}`
+						},
+						timeout: 10000
+					}
+				);
+
+				setLoading(false);
+				if (response.status === 200) {
+					setTeam(response.data);
+					return response.data;
+				} else {
+					throw new Error(response.data);
+				}
+			} catch (err) {
+				setLoading(false);
+				throw err;
+			}
+		}, []);
+
+	const generateTeams = useCallback(async (courseId: number) => {
+		try {
 			setLoading(true);
-			const response = await axios.get(
-				`${environment.apiUrl}/courses/${courseId}teams/${teamId}`,
+			const response = await axios.post(
+				`${environment.apiUrl}/courses/${courseId}/teams/init`,
+				{},
 				{
 					headers: {
 						Authorization: `Bearer ${authStorage.getAccessToken()}`
@@ -52,31 +85,13 @@ const useTeams = () => {
 
 			setLoading(false);
 			if (response.status === 200) {
-				setTeam(response.data);
 				return response.data;
 			} else {
 				throw new Error(response.data);
 			}
-		}, []);
-
-	const generateTeams = useCallback(async (courseId: number) => {
-		setLoading(true);
-		const response = await axios.post(
-			`${environment.apiUrl}/courses/${courseId}/teams/init`,
-			{},
-			{
-				headers: {
-					Authorization: `Bearer ${authStorage.getAccessToken()}`
-				},
-				timeout: 10000
-			}
-		);
-
-		setLoading(false);
-		if (response.status === 200) {
-			return response.data;
-		} else {
-			throw new Error(response.data);
+		} catch (err) {
+			setLoading(false);
+			throw err;
 		}
 	}, []);
 

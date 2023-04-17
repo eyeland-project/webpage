@@ -31,7 +31,8 @@ module.exports = {
 				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)',
 				buttonNavbar: '0px 4px 4px rgba(0, 0, 0, 0.15)',
 				tooltipMenu: '0px 4px 8px rgba(0, 0, 0, 0.25)',
-				form: '0px 3px 8px rgba(0, 0, 0, 0.25)'
+				form: '0px 3px 8px rgba(0, 0, 0, 0.25)',
+				card: '0px 3px 8px rgba(0, 0, 0, 0.25)'
 			},
 			fontFamily: {
 				Poppins: ['Poppins', 'sans-serif']

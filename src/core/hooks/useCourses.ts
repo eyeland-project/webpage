@@ -14,28 +14,89 @@ const useCourses = () => {
 	const [course, setCourse] = useState<CourseDetail | null>(null);
 
 	const getCourses: () => Promise<CourseSummary[]> = useCallback(async () => {
-		setLoading(true);
-		const response = await axios.get(`${environment.apiUrl}/courses`, {
-			headers: {
-				Authorization: `Bearer ${authStorage.getAccessToken()}`
-			},
-			timeout: 10000
-		});
+		try {
+			setLoading(true);
+			const response = await axios.get(`${environment.apiUrl}/courses`, {
+				headers: {
+					Authorization: `Bearer ${authStorage.getAccessToken()}`
+				},
+				timeout: 10000
+			});
 
-		setLoading(false);
-		if (response.status === 200) {
-			setCourses(response.data);
-			return response.data;
-		} else {
-			throw new Error(response.data);
+			setLoading(false);
+			if (response.status === 200) {
+				setCourses(response.data);
+				return response.data;
+			} else {
+				throw new Error(response.data);
+			}
+		} catch (err) {
+			setLoading(false);
+			throw err;
 		}
 	}, []);
 
 	const getCourse: (id: number) => Promise<CourseDetail> = useCallback(
 		async (id: number) => {
+			try {
+				setLoading(true);
+				const response = await axios.get(
+					`${environment.apiUrl}/courses/${id}`,
+					{
+						headers: {
+							Authorization: `Bearer ${authStorage.getAccessToken()}`
+						},
+						timeout: 10000
+					}
+				);
+
+				setLoading(false);
+				if (response.status === 200) {
+					setCourse(response.data);
+					return response.data;
+				} else {
+					throw new Error(response.data);
+				}
+			} catch (err) {
+				setLoading(false);
+				throw err;
+			}
+		},
+		[]
+	);
+
+	const createSession = useCallback(async (courseId: number) => {
+		try {
 			setLoading(true);
-			const response = await axios.get(
-				`${environment.apiUrl}/courses/${id}`,
+			const response = await axios.post(
+				`${environment.apiUrl}/courses/${courseId}/session`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${authStorage.getAccessToken()}`
+					},
+					timeout: 10000
+				}
+			);
+
+			setLoading(false);
+			if (response.status === 201) {
+				return response.data;
+			} else {
+				throw new Error(response.data);
+			}
+		} catch (err) {
+			setLoading(false);
+			throw err;
+		}
+	}, []);
+
+	const startSession = useCallback(async (courseId: number) => {
+		try {
+			setLoading(true);
+			const response = await axios.post(
+				`${environment.apiUrl}/courses/${courseId}/session/start`,
+				{},
 				{
 					headers: {
 						Authorization: `Bearer ${authStorage.getAccessToken()}`
@@ -46,83 +107,49 @@ const useCourses = () => {
 
 			setLoading(false);
 			if (response.status === 200) {
-				setCourse(response.data);
 				return response.data;
 			} else {
 				throw new Error(response.data);
 			}
-		},
-		[]
-	);
-
-	const createSession = useCallback(async (courseId: number) => {
-		setLoading(true);
-		const response = await axios.post(
-			`${environment.apiUrl}/courses/${courseId}/session`,
-			{},
-			{
-				headers: {
-					Authorization: `Bearer ${authStorage.getAccessToken()}`
-				},
-				timeout: 10000
-			}
-		);
-
-		setLoading(false);
-		if (response.status === 201) {
-			return response.data;
-		} else {
-			throw new Error(response.data);
-		}
-	}, []);
-
-	const startSession = useCallback(async (courseId: number) => {
-		setLoading(true);
-		const response = await axios.post(
-			`${environment.apiUrl}/courses/${courseId}/session/start`,
-			{},
-			{
-				headers: {
-					Authorization: `Bearer ${authStorage.getAccessToken()}`
-				},
-				timeout: 10000
-			}
-		);
-
-		setLoading(false);
-		if (response.status === 200) {
-			return response.data;
-		} else {
-			throw new Error(response.data);
+		} catch (err) {
+			setLoading(false);
+			throw err;
 		}
 	}, []);
 
 	const endSession = useCallback(async (courseId: number) => {
-		setLoading(true);
-		const response = await axios.put(
-			`${environment.apiUrl}/courses/${courseId}/session/end`,
-			{},
-			{
-				headers: {
-					Authorization: `Bearer ${authStorage.getAccessToken()}`
-				},
-				timeout: 10000
-			}
-		);
+		try {
+			setLoading(true);
+			const response = await axios.put(
+				`${environment.apiUrl}/courses/${courseId}/session/end`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${authStorage.getAccessToken()}`
+					},
+					timeout: 10000
+				}
+			);
 
-		setLoading(false);
-		if (response.status === 200) {
-			return response.data;
-		} else {
-			throw new Error(response.data);
+			setLoading(false);
+			if (response.status === 200) {
+				return response.data;
+			} else {
+				throw new Error(response.data);
+			}
+		} catch (err) {
+			setLoading(false);
+			throw err;
 		}
 	}, []);
 
 	return {
 		loading,
 		courses,
+		setCourses,
 		getCourses,
 		course,
+		setCourse,
 		getCourse,
 		createSession,
 		startSession,

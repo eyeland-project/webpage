@@ -44,7 +44,7 @@ function FormCourse() {
 					</div>
 				</div>
 				<div className="mt-7 flex justify-end">
-					<ButtonPrimary size="small">Crear</ButtonPrimary>
+					<ButtonPrimary size="medium">Crear</ButtonPrimary>
 				</div>
 			</form>
 		</div>

@@ -6,10 +6,10 @@ import Menu from './components/Menu';
 import Home from './components/Home';
 import Course from './Course';
 import useAuthStorage from '@hooks/useAuthStorage';
-import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
 import { validToken } from '@utils/auth';
 import Courses from './Courses';
+import Session from './components/Session';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
@@ -22,7 +22,7 @@ function Teacher() {
 
 	const [menuSelectedKey, setMenuSelectedKey] = useState(selectedKey);
 	const [isSubmenuCollapsed, setSubmenuCollapsed] = useState(
-		selectedKey === TeacherSections.HOME ? true : false
+		selectedKey === 'home' ? true : false
 	);
 
 	return (
@@ -47,10 +47,9 @@ function Teacher() {
 							element={<Navigate to="/teacher/home" />}
 						/>
 						<Route path="/home" element={<Home />} />
-						<Route path="/courses" element={<Courses />}>
-							<Route path=":id" element={<Course />} />
-						</Route>
-						{/* <Route path="/session" element={<Session />}/> */}
+						<Route path="/courses" element={<Courses />} />
+						<Route path="/courses/:idCourse" element={<Course />} />
+						<Route path="/session" element={<Session />} />
 						<Route path="/*" element={<Navigate to="/404" />} />
 					</Routes>
 				</div>
@@ -59,7 +58,12 @@ function Teacher() {
 	);
 }
 
-const getMenuSelectedKeyFromPath = (pathname: string): string =>
-	String(pathname.split('/teacher').at(-1)).split('/')[1];
+const getMenuSelectedKeyFromPath = (pathname: string): string => {
+	const section = String(pathname.split('/teacher').at(-1)).split('/')[1];
+	if (section === 'session' || section === 'students') {
+		return 'courses';
+	}
+	return section;
+};
 
 export default Teacher;

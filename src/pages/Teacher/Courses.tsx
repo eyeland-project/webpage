@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
 import Lottie from 'lottie-react';
 
-import useCourses from '@hooks/useCourses';
 import useTeacherContext from '@hooks/useTeacherContext';
-
-import useAuthStorage from '@hooks/useAuthStorage';
 
 import FormCourse from './components/FormCourse';
 
@@ -14,46 +11,38 @@ import Location from '@icons/Location.svg';
 import Website from '@icons/Website.svg';
 import Phone from '@icons/Phone.svg';
 import FlyingStudents from '@animations/FlyingStudents.json';
+import Ribbon from './components/Ribbon';
 
 function Courses() {
 	// const authStorage = useAuthStorage();
 
 	const {
-		coursesData: { idSelectedCourse }
+		coursesData: { setIdSelectedCourse }
 	} = useTeacherContext();
 
-	const {
-		course,
-		getCourse,
-		loading: loadingCourses,
-		createSession,
-		startSession,
-		endSession
-	} = useCourses();
-
 	useEffect(() => {
-		if (idSelectedCourse !== null) {
-			getCourse(idSelectedCourse).catch(() => {});
-		}
-	}, [idSelectedCourse]);
+		setIdSelectedCourse(null);
+	}, []);
 
 	return (
 		<>
-			<div className="fixed w-full bg-green-quaternary flex gap-2 items-center px-5 py-2 z-10">
-				<img
-					src={GraduationCap}
-					alt="GraduationCap"
-					className="w-5 h-5"
-				/>
-				<div className="text-white font-semibold">
-					Institución Educativa Distrital La Magdalena
-				</div>
+			<div className="fixed w-full">
+				<Ribbon>
+					<img
+						src={GraduationCap}
+						alt="GraduationCap"
+						className="w-5 h-5"
+					/>
+					<div className="text-white font-semibold">
+						Institución Educativa Distrital La Magdalena
+					</div>
+				</Ribbon>
 			</div>
 			<div className="px-8 pb-6 relative">
 				<div className="text-center mx-auto w-4/6">
 					<Lottie animationData={FlyingStudents} loop={true} />
 				</div>
-				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-20">
+				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-14 sm:mt-6">
 					<FormCourse />
 				</div>
 				<div className="mt-20">

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 
 import useCourses from '@hooks/useCourses';
@@ -7,6 +8,7 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import Course from '@icons/Course.svg';
 
 function SubMenuCourses() {
+	const navigate = useNavigate();
 	const { courses, getCourses, loading } = useCourses();
 	const {
 		coursesData: { idSelectedCourse, setIdSelectedCourse }
@@ -14,11 +16,12 @@ function SubMenuCourses() {
 
 	const onSelectCourse = (id: number) => {
 		setIdSelectedCourse(id);
+		navigate(`/teacher/courses/${id}`);
 	};
 
 	useEffect(() => {
-		setIdSelectedCourse(null);
-		getCourses().catch(() => { });
+		// setIdSelectedCourse(null);
+		if (!courses) getCourses().catch(() => {});
 	}, []);
 
 	return (
@@ -31,17 +34,14 @@ function SubMenuCourses() {
 					courses.map(({ name, id }) => (
 						<div
 							key={id}
-							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${idSelectedCourse === id
+							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
+								idSelectedCourse === id
 									? 'bg-white bg-opacity-20'
 									: 'hover:bg-white hover:bg-opacity-10'
-								}`}
+							}`}
 							onClick={() => onSelectCourse(id)}
 						>
-							<img
-								src={Course}
-								alt="Icon"
-								className=" w-6 h-6"
-							/>
+							<img src={Course} alt="Icon" className=" w-6 h-6" />
 							{name}
 						</div>
 					))
