@@ -28,9 +28,9 @@ function SubMenuTasks() {
 			<div className="font-semibold text-lg flex items-center gap-4 text-center before:content-[''] before:grow before:border before:border-white before:border-solid after:content-[''] after:grow after:border after:border-white after:border-solid">
 				Tasks
 			</div>
-			<div className="flex flex-col gap-4 mt-4 items-center text-sm grow">
-				{tasks ? (
-					tasks.map(({ name, id }, i) => (
+			{tasks ? (
+				<div className="flex flex-col gap-4 mt-4 items-start text-sm grow">
+					{tasks.map(({ name, id }, i) => (
 						<div
 							key={i}
 							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
@@ -47,19 +47,19 @@ function SubMenuTasks() {
 							/>
 							{name}
 						</div>
-					))
-				) : (
-					<div className="flex flex-col grow justify-center items-center">
-						{loading ? (
-							<Loading type="spin" width={50} />
-						) : (
-							<div className="italic w-3/5 text-center text-xs">
-								No se pudo obtener la información
-							</div>
-						)}
-					</div>
-				)}
-			</div>
+					))}
+				</div>
+			) : (
+				<div className="flex flex-col grow justify-center items-center">
+					{loading ? (
+						<Loading type="spin" width={50} />
+					) : (
+						<div className="italic w-3/5 text-center text-xs">
+							No se pudo obtener la información
+						</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

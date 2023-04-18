@@ -21,23 +21,20 @@ function SessionOptions({
 				<ButtonPrimary
 					onClick={handleCreateSession}
 					bgColor="green-tertiary"
-					size="large"
 				>
 					Activar
 				</ButtonPrimary>
 			) : (
-				<>
+				<div className="flex gap-3">
 					<ButtonPrimary
 						onClick={handleEndSession}
 						bgColor="red-primary"
-						size="large"
 					>
 						Terminar
 					</ButtonPrimary>
 					<ButtonPrimary
 						onClick={handleStartSession}
 						bgColor="green-primary"
-						size="large"
 						paddingX={!isSessionStarted}
 					>
 						{!isSessionStarted ? (
@@ -53,7 +50,7 @@ function SessionOptions({
 							</div>
 						)}
 					</ButtonPrimary>
-				</>
+				</div>
 			)}
 		</>
 	);

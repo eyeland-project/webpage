@@ -19,13 +19,25 @@ module.exports = {
 				appear: {
 					'0%': { transform: 'translateX(-100%)' },
 					'100%': { transform: 'translateX(0)' }
+				},
+				playing: {
+					'0%': {
+						boxShadow: '0px 0px 4px 1px #0D9748'
+					},
+					'50%': {
+						boxShadow: 'none'
+					},
+					'100%': {
+						boxShadow: '0px 0px 4px 1px #0D9748'
+					}
 				}
 			},
 			animation: {
 				'entrance-1': 'animate-entrance 0.5s 0.5s backwards',
 				'entrance-2': 'animate-entrance 0.5s 0.6s backwards',
 				'entrance-3': 'animate-entrance 0.5s 0.7s backwards',
-				appear: 'appear 0.5s'
+				appear: 'appear 0.5s',
+				playing: 'playing 2s infinite linear'
 			},
 			boxShadow: {
 				lateralNavbar: '4px 0px 4px rgba(0, 0, 0, 0.25)',
@@ -46,7 +58,8 @@ module.exports = {
 				'red-primary': '#DB3A3A',
 				'orange-primary': '#FC8507',
 				whitish: '#F8F8F8',
-				'gray-primary': '#787878'
+				'gray-primary': '#A9A9A9',
+				'gray-secondary': '#6C6C6C'
 			},
 			dropShadow: {
 				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.20)'

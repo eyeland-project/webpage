@@ -8,8 +8,9 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useTeam from '@hooks/useTeam';
 import useAuthStorage from '@hooks/useAuthStorage';
 
+import Ribbon from './components/Ribbon';
+import ButtonPrimary from '@components/ButtonPrimary';
 import TeamGrid from '@pages/Teacher/components/TeamGrid';
-import SessionOptions from '@pages/Teacher/components/SessionOptions';
 
 import { TeamDetail } from '@interfaces/Team.interface';
 import { SocketEvents } from '@enums/Socket.enum';
@@ -17,7 +18,11 @@ import { SocketEvents } from '@enums/Socket.enum';
 import { parseNumericParam } from '@utils/routing.utils';
 import { connect, socket } from '@utils/socket';
 
-import DesktopAndMobile from '@animations/DesktopAndMobile.json';
+import DataGridIcon from '@icons/DataGrid.svg';
+import PulseGray from '@animations/PulseGray.json';
+import Activity from '@animations/Activity.json';
+import SessionPanel from './components/SessionPanel';
+import { TaskDetail } from '@interfaces/Task.interface';
 
 function Session() {
 	// auth
@@ -29,10 +34,10 @@ function Session() {
 	// context
 	const {
 		coursesData: {
-			idSelectedCourse,
-			setIdSelectedCourse,
 			course,
-			setCourse
+			setCourse,
+			idSelectedCourse,
+			setIdSelectedCourse
 		}
 	} = useTeacherContext();
 	// useCourses hook
@@ -58,11 +63,12 @@ function Session() {
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseNumericParam(searchParams.get('idCourse'))
 	);
+	const [task, setTask] = useState<TaskDetail | null>(null);
 
 	const handleCreateSession = async () => {
 		try {
-			if (idSelectedCourse !== null) {
-				await createSession(idSelectedCourse);
+			if (idCourse !== null) {
+				await createSession(idCourse);
 				setSessionCreated(true);
 			}
 		} catch (err) {}
@@ -70,8 +76,8 @@ function Session() {
 
 	const handleStartSession = async () => {
 		try {
-			if (idSelectedCourse !== null) {
-				await startSession(idSelectedCourse);
+			if (idCourse !== null) {
+				await startSession(idCourse);
 				setSessionStarted(true);
 			}
 		} catch (err) {}
@@ -79,8 +85,8 @@ function Session() {
 
 	const handleEndSession = async () => {
 		try {
-			if (idSelectedCourse !== null) {
-				await endSession(idSelectedCourse);
+			if (idCourse !== null) {
+				await endSession(idCourse);
 				if (isSessionStarted) setSessionStarted(false);
 				setSessionCreated(false);
 			}
@@ -89,9 +95,9 @@ function Session() {
 
 	const handleGenerateTeams = async () => {
 		try {
-			if (idSelectedCourse !== null) {
-				await generateTeams(idSelectedCourse);
-				await getTeams(idSelectedCourse);
+			if (idCourse !== null) {
+				await generateTeams(idCourse);
+				await getTeams(idCourse);
 			}
 		} catch (err) {}
 	};
@@ -100,6 +106,12 @@ function Session() {
 		socket?.disconnect();
 		connect();
 		socket?.emit(SocketEvents.JOIN, authStorage.getAccessToken());
+	};
+
+	const getFilteredTeams = () => {
+		if (!teams) return [];
+		if (!task) return teams;
+		return teams.filter(({ taskOrder }) => taskOrder === task?.taskOrder);
 	};
 
 	useEffect(() => {
@@ -119,8 +131,8 @@ function Session() {
 
 	useEffect(() => {
 		if (isSessionCreated) {
-			if (idSelectedCourse !== null) {
-				getTeams(idSelectedCourse).catch(() => {});
+			if (idCourse !== null) {
+				getTeams(idCourse).catch(() => {});
 				connectSocket();
 				socket?.on(
 					SocketEvents.TEAMS_STUDENT_UPDATE,
@@ -167,50 +179,75 @@ function Session() {
 		};
 	}, []);
 
+	if (idCourse === null) return <></>;
+
 	return (
-		<div className="px-8 py-4 h-full relative">
-			{idSelectedCourse !== null ? (
-				course ? (
+		<div className="h-screen">
+			<Ribbon
+				bgColor={isSessionCreated ? 'green-quaternary' : 'gray-primary'}
+			>
+				{course ? (
 					<>
-						<div className="absolute top-4 right-8 flex items-stretch gap-4">
-							<SessionOptions
+						<img
+							src={DataGridIcon}
+							alt="GraduationCap"
+							className="w-5 h-5"
+						/>
+						<div className="text-white font-semibold">
+							{course?.name || ''}
+						</div>
+					</>
+				) : (
+					<div className="text-gray-primary">.</div>
+				)}
+			</Ribbon>
+			<div className="pt-12 h-full relative">
+				{course ? (
+					!isSessionCreated ? (
+						<div className="shadow-card rounded-md px-14 py-6 hover:scale-105 transition-all duration-300 flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+							<Lottie
+								animationData={PulseGray}
+								loop
+								className="w-24 h-24"
+							/>
+							<div className="text-green-primary text-center">
+								El curso actualmente se encuentra{' '}
+								<div className="font-semibold text-gray-secondary">
+									Inactivo
+								</div>
+							</div>
+							<div className="w-min">
+								<ButtonPrimary
+									size="medium"
+									onClick={handleCreateSession}
+								>
+									¡Activar!
+								</ButtonPrimary>
+							</div>
+						</div>
+					) : (
+						<div className="">
+							<SessionPanel
 								isSessionCreated={isSessionCreated}
 								isSessionStarted={isSessionStarted}
 								handleCreateSession={handleCreateSession}
 								handleStartSession={handleStartSession}
 								handleEndSession={handleEndSession}
+								task={task}
+								setTask={setTask}
 							/>
-						</div>
-						<div className="flex flex-col h-full">
-							<div>
-								<div className="font-semibold text-3xl flex items-center gap-4">
-									<div
-										className={`rounded-full w-5 h-5 bg-${
-											!isSessionCreated
-												? 'orange-primary'
-												: 'green-primary'
-										}`}
-									></div>
-									{course.name}
-								</div>
-								<div className="text-xl">
-									{!isSessionCreated ? (
-										<span>
-											El curso actualmente se encuentra{' '}
-											<b>Inactivo</b>
-										</span>
-									) : (
-										<span>
-											El curso actualmente se encuentra{' '}
-											<b>Activo</b>
-										</span>
-									)}
-								</div>
-							</div>
-							{isSessionCreated && teams && (
-								<div className="sm:pr-0 sm:pb-2 md:pr-0 md:pb-4 lg:pr-32 lg:pb-6 xl:pr-36 xl:pb-8 2xl:pr-48 2xl:pb-10">
+							{teams && (
+								<div
+									className="
+									sm:pl-6 sm:pr-16 sm:pb-10
+									md:pl-6 md:pr-6 md:pb-10
+									lg:pl-10 lg:pr-16 lg:pb-10
+									xl:pl-12 xl:pr-40 xl:pb-10
+									2xl:pr-48 2xl:pb-10
+								"
+								>
 									<TeamGrid
-										teams={teams}
+										teams={getFilteredTeams()}
 										handleGenerateTeams={
 											handleGenerateTeams
 										}
@@ -218,7 +255,7 @@ function Session() {
 								</div>
 							)}
 						</div>
-					</>
+					)
 				) : (
 					<div className="flex flex-col grow justify-center items-center h-full">
 						{loadingCourses ? (
@@ -229,14 +266,8 @@ function Session() {
 							</div>
 						)}
 					</div>
-				)
-			) : (
-				<div className="flex flex-col justify-center items-center w-full h-full">
-					<div className="w-1/2">
-						<Lottie animationData={DesktopAndMobile} loop={true} />
-					</div>
-				</div>
-			)}
+				)}
+			</div>
 		</div>
 	);
 }

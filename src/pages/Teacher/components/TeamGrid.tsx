@@ -18,7 +18,7 @@ function TeamGrid({
 	handleGenerateTeams: MouseEventHandler<HTMLDivElement>;
 }) {
 	return (
-		<div className="grid gap-x-6 gap-y-8 mt-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
+		<div className="grid gap-x-6 gap-y-8 mt-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
 			{teams.map((team, i) => (
 				<TeamCard key={i} team={team} />
 			))}
@@ -36,9 +36,13 @@ function TeamGrid({
 	);
 }
 
-function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
+function TeamCard({ team: { name, students, playing } }: { team: TeamDetail }) {
 	return (
-		<div className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-whitish">
+		<div
+			className={`shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-whitish ${
+				playing ? 'animate-playing' : ''
+			}`}
+		>
 			<div className="font-bold text-xl">{name}</div>
 			<hr className="border-t-gray-600 mt-2" />
 			<div className="flex flex-col gap-2 mt-4">
@@ -64,7 +68,7 @@ function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
 						</div>
 					))
 				) : (
-					<div className="text-center text-lg text-gray-300 font-semibold px-8">
+					<div className="text-center text-lg text-gray-300 font-semibold px-8 pb-6 pt-4">
 						No hay estudiantes en este equipo
 					</div>
 				)}

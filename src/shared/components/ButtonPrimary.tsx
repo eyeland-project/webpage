@@ -74,7 +74,7 @@ function ButtonPrimary({
 
 	return (
 		<div
-			className={`
+			className={`text-center
 				${baseClassName} 
 				${bgColorClass} 
 				${colorClass} 
