@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 
 import useAuthStorage from '@hooks/useAuthStorage';
-import * as taskApi from '@api/task';
+import * as taskApi from '@api/task.api';
 
 import { TaskDetail, TaskSummary } from '@interfaces/Task.interface';
 

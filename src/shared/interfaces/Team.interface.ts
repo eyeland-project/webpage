@@ -1,4 +1,4 @@
-import { TeamMember } from './Student.interface';
+import { Power } from '@enums/Team.enum';
 
 export interface TeamDetail {
 	id: number;
@@ -8,4 +8,12 @@ export interface TeamDetail {
 	active: boolean;
 	taskOrder: number | null;
 	playing: boolean;
+}
+
+export interface TeamMember {
+	id: number;
+	firstName: string;
+	lastName: string;
+	username: string;
+	power: Power | null;
 }

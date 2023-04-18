@@ -8,11 +8,14 @@ import Menu from '@pages/Teacher/components/Menu';
 import Home from '@pages/Teacher/Home';
 import Course from '@pages/Teacher/Course';
 import Courses from '@pages/Teacher/Courses';
+import Student from '@pages/Teacher/Student';
+import Students from '@pages/Teacher/Students';
 import Session from '@pages/Teacher/Session';
 import Task from '@pages/Teacher/Task';
 import Tasks from '@pages/Teacher/Tasks';
 
 import { validToken } from '@utils/auth';
+import { getMenuSelectedKeyFromPath } from '@utils/routing.utils';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
@@ -52,6 +55,14 @@ function Teacher() {
 						<Route path="/home" element={<Home />} />
 						<Route path="/courses" element={<Courses />} />
 						<Route path="/courses/:idCourse" element={<Course />} />
+						<Route
+							path="/courses/:idCourse/students"
+							element={<Students />}
+						/>
+						<Route
+							path="/courses/:idCourse/students/:idStudent"
+							element={<Student />}
+						/>
 						<Route path="/session" element={<Session />} />
 						<Route path="/tasks" element={<Tasks />} />
 						<Route path="/tasks/:idTask" element={<Task />} />
@@ -62,13 +73,5 @@ function Teacher() {
 		</TeacherProvider>
 	);
 }
-
-const getMenuSelectedKeyFromPath = (pathname: string): string => {
-	const section = String(pathname.split('/teacher').at(-1)).split('/')[1];
-	if (section === 'session' || section === 'students') {
-		return 'courses';
-	}
-	return section;
-};
 
 export default Teacher;
