@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import { Route, Routes, useLocation, Navigate } from 'react-router-dom';
 
-// components
-import Menu from './components/Menu';
-import Home from './components/Home';
-import Course from './Course';
-import NotFound from './NotFound';
 import useAuthStorage from '@hooks/useAuthStorage';
-import { TeacherSections } from '@enums/Pages.enum';
 import { TeacherProvider } from '@contexts/TeacherContext';
+
+import Menu from '@pages/Teacher/components/Menu';
+import Home from '@pages/Teacher/Home';
+import Course from '@pages/Teacher/Course';
+import Courses from '@pages/Teacher/Courses';
+import Session from '@pages/Teacher/Session';
+import Task from '@pages/Teacher/Task';
+import Tasks from '@pages/Teacher/Tasks';
+
 import { validToken } from '@utils/auth';
 
 function Teacher() {
@@ -22,7 +25,7 @@ function Teacher() {
 
 	const [menuSelectedKey, setMenuSelectedKey] = useState(selectedKey);
 	const [isSubmenuCollapsed, setSubmenuCollapsed] = useState(
-		selectedKey === TeacherSections.HOME ? true : false
+		selectedKey === 'home' ? true : false
 	);
 
 	return (
@@ -37,7 +40,9 @@ function Teacher() {
 					></Menu>
 				</div>
 				<div
-					className={`h-full grow transition-all duration-300 ${isSubmenuCollapsed ? 'ml-16' : 'ml-72'}`}
+					className={`h-full grow transition-all duration-300 ${
+						isSubmenuCollapsed ? 'ml-16' : 'ml-72'
+					}`}
 				>
 					<Routes>
 						<Route
@@ -45,8 +50,12 @@ function Teacher() {
 							element={<Navigate to="/teacher/home" />}
 						/>
 						<Route path="/home" element={<Home />} />
-						<Route path="/courses" element={<Course />} />
-						<Route path="/*" element={<NotFound />} />
+						<Route path="/courses" element={<Courses />} />
+						<Route path="/courses/:idCourse" element={<Course />} />
+						<Route path="/session" element={<Session />} />
+						<Route path="/tasks" element={<Tasks />} />
+						<Route path="/tasks/:idTask" element={<Task />} />
+						<Route path="/*" element={<Navigate to="/404" />} />
 					</Routes>
 				</div>
 			</div>
@@ -54,7 +63,12 @@ function Teacher() {
 	);
 }
 
-const getMenuSelectedKeyFromPath = (pathname: string): string =>
-	String(pathname.split('/teacher').at(-1)).split('/')[1];
+const getMenuSelectedKeyFromPath = (pathname: string): string => {
+	const section = String(pathname.split('/teacher').at(-1)).split('/')[1];
+	if (section === 'session' || section === 'students') {
+		return 'courses';
+	}
+	return section;
+};
 
 export default Teacher;

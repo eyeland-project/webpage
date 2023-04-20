@@ -1,15 +1,20 @@
 import { ReactNode } from 'react';
-
 import { Link } from 'react-router-dom';
+import 'react-tooltip/dist/react-tooltip.css';
+import { Tooltip } from 'react-tooltip';
+
 import useAuthStorage from '@hooks/useAuthStorage';
+
+import MenuItem from './MenuItem';
 import SubMenu from './SubMenu';
 import SubMenuCourses from './SubMenuCourses';
-import { TeacherSections } from '@enums/Pages.enum';
+import SubMenuTasks from './SubMenuTasks';
 
 import Logo from '@icons/Logo.svg';
 import Logout from '@icons/Logout.svg';
 import Home from '@icons/Home.svg';
 import Whiteboard from '@icons/Whiteboard.svg';
+import TasksIcon from '@icons/Tasks.svg';
 
 function Menu({
 	isSubmenuCollapsed,
@@ -26,12 +31,9 @@ function Menu({
 
 	const onSelectSection = (sectionName: string) => {
 		setSelectedKey(sectionName);
-		if (sectionName !== TeacherSections.HOME && isSubmenuCollapsed) {
+		if (sectionName !== 'home' && isSubmenuCollapsed) {
 			setSubmenuCollapsed(false);
-		} else if (
-			sectionName === TeacherSections.HOME &&
-			!isSubmenuCollapsed
-		) {
+		} else if (sectionName === 'home' && !isSubmenuCollapsed) {
 			setSubmenuCollapsed(true);
 		}
 	};
@@ -40,13 +42,32 @@ function Menu({
 		authStorage.removeAccessToken();
 	};
 
+	const getSubMenuElement = (): ReactNode => {
+		const section = sections.find(
+			(section) => section.name === selectedKey
+		);
+		if (!section) return null;
+		return (
+			<div
+				className={`h-full transition-all duration-300 ${
+					isSubmenuCollapsed
+						? '-ml-60 none'
+						: 'ml-0 shadow-lateralNavbar'
+				}`}
+			>
+				<SubMenu>{section.submenu}</SubMenu>
+			</div>
+		);
+	};
+
 	return (
 		<div className="h-full flex">
-			<div
-				className="h-full flex flex-col justify-between items-center py-3 relative z-10 bg-green-tertiary w-16 shadow-lateralNavbar"
-			>
+			<div className="h-full flex flex-col justify-between items-center py-3 relative z-20 bg-green-tertiary w-16 shadow-lateralNavbar">
 				<div className="flex flex-col justify-between items-center gap-8">
-					<Link to=".">
+					<Link
+						to="/teacher/home"
+						onClick={() => onSelectSection('home')}
+					>
 						<img
 							src={Logo}
 							alt="Logo"
@@ -54,17 +75,30 @@ function Menu({
 						></img>
 					</Link>
 					<div className="flex flex-col gap-4">
-						{Object.keys(sections).map((sectionName) => (
+						{sections.map(({ name, alt, src, tooltip }) => (
 							<Link
-								to={`/teacher/${sectionName}`}
-								key={sectionName}
-								onClick={() => onSelectSection(sectionName)}
+								to={`/teacher/${name}`}
+								key={name}
+								onClick={() => onSelectSection(name)}
 							>
-								<SectionItem
-									isSelected={sectionName === selectedKey}
-									src={sections[sectionName].src}
-									alt={sections[sectionName].alt}
-								></SectionItem>
+								<>
+									{name == selectedKey && (
+										<span className="h-12 bg-white rounded-r-lg absolute left-0 w-1"></span>
+									)}
+									<div id={`teacher-menu-${name}`}>
+										<MenuItem
+											src={src}
+											alt={alt}
+											bgColor="green-primary"
+										></MenuItem>
+									</div>
+									<Tooltip
+										anchorSelect={`#teacher-menu-${name}`}
+										place="right"
+										content={tooltip}
+										className="bg-gray-primary text-white shadow-tooltipMenu opacity-100 ml-2 font-semibold px-6"
+									/>
+								</>
 							</Link>
 						))}
 					</div>
@@ -77,76 +111,38 @@ function Menu({
 					></MenuItem>
 				</Link>
 			</div>
-			<div
-				className={`h-full transition-all duration-300 ${isSubmenuCollapsed ? '-ml-60 none' : 'ml-0 shadow-lateralNavbar'}`}
-			>
-				<SubMenu>{sections[selectedKey]?.SubMenuElement}</SubMenu>
-			</div>
-		</div>
-	);
-}
-
-function SectionItem({
-	src,
-	alt,
-	isSelected
-}: {
-	src: string;
-	alt: string;
-	isSelected: boolean;
-}) {
-	return (
-		<>
-			{isSelected && (
-				<span
-					className="h-12 bg-white rounded-r-lg absolute left-0 w-1"
-				></span>
-			)}
-			<MenuItem src={src} alt={alt} bgColor="green-primary"></MenuItem>
-		</>
-	);
-}
-
-function MenuItem({
-	src,
-	alt,
-	bgColor
-}: {
-	src: string;
-	alt: string;
-	bgColor: string;
-}) {
-	return (
-		<div
-			className={`rounded-xl w-12 h-12 cursor-pointer relative hover:scale-105 transition-all duration-300 bg-${bgColor} shadow-buttonNavbar`}
-		>
-			<img
-				src={src}
-				alt={alt}
-				className="w-3/5 h-3/5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-			/>
+			{getSubMenuElement()}
 		</div>
 	);
 }
 
 const sections: {
-	[x: string]: SectionItemData;
-} = {
-	[TeacherSections.HOME]: {
-		src: Home,
-		alt: 'Home'
-	},
-	[TeacherSections.COURSES]: {
-		src: Whiteboard,
-		alt: 'Courses',
-		SubMenuElement: <SubMenuCourses />
-	}
-};
-
-interface SectionItemData {
+	name: string;
 	src: string;
 	alt: string;
-	SubMenuElement?: ReactNode;
-}
+	tooltip: string;
+	submenu?: ReactNode;
+}[] = [
+	{
+		name: 'home',
+		src: Home,
+		alt: 'Home',
+		tooltip: 'Home'
+	},
+	{
+		name: 'courses',
+		src: Whiteboard,
+		alt: 'Cursos',
+		tooltip: 'Cursos',
+		submenu: <SubMenuCourses />
+	},
+	{
+		name: 'tasks',
+		src: TasksIcon,
+		alt: 'Tasks',
+		tooltip: 'Tasks',
+		submenu: <SubMenuTasks />
+	}
+];
 
 export default Menu;

@@ -23,13 +23,13 @@ function ButtonPrimary({
 	paddingY = true,
 	width,
 	height,
-	onClick,
+	onClick
 }: ButtonPrimaryProps) {
 	const getPaddingX = () => {
 		if (!paddingX) return '';
 		switch (size) {
 			case 'small':
-				return 'px-4';
+				return 'px-6';
 			case 'large':
 				return 'px-12';
 			default:
@@ -74,7 +74,7 @@ function ButtonPrimary({
 
 	return (
 		<div
-			className={`
+			className={`text-center
 				${baseClassName} 
 				${bgColorClass} 
 				${colorClass} 

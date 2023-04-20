@@ -16,9 +16,12 @@
 		"lottie-react": "^2.4.0",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
+		"react-dropdown": "1.11.0",
+		"react-hook-form": "7.43.9",
 		"react-jwt": "1.1.8",
 		"react-loading": "^2.0.3",
 		"react-router-dom": "^6.8.1",
+		"react-tooltip": "5.11.1",
 		"socket.io-client": "4.6.1"
 	},
 	"devDependencies": {

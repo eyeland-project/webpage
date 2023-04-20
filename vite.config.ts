@@ -18,6 +18,7 @@ export default defineConfig({
 			'@sounds': `${path.resolve(__dirname, './src/assets/sounds/')}`,
 			'@contexts': `${path.resolve(__dirname, './src/core/contexts/')}`,
 			'@hooks': `${path.resolve(__dirname, './src/core/hooks/')}`,
+			'@api': `${path.resolve(__dirname, './src/core/api/')}`,
 			'@utils': `${path.resolve(__dirname, './src/core/utils/')}`,
 			'@pages': `${path.resolve(__dirname, './src/pages/')}`,
 			'@enums': `${path.resolve(__dirname, './src/shared/enums/')}`,

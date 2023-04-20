@@ -1,216 +1,101 @@
-import { useEffect, useState } from 'react';
-import Lottie from 'lottie-react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
+import Lottie from 'lottie-react';
 
-import useCourses from '@hooks/useCourses';
+import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 
-import ButtonPrimary from '@components/ButtonPrimary';
+import Ribbon from '@pages/Teacher/components/Ribbon';
+import { CourseSectionCard } from '@pages/Teacher/components/CourseSectionCard';
 
-import useTeamsMock from '@mocks/hooks/useTeams.mock';
+import { parseNumericParam } from '@utils/routing.utils';
 
-import { TeamDetail } from '@interfaces/Team.interface';
-import { Power } from '@enums/Team.enum';
-
-import { connect, socket } from '@utils/socket';
-import { parseStudentName } from '@utils/studentUtils';
-
-import desktopAndMobile from '@animations/DesktopAndMobile.json';
-import useAuthStorage from '@hooks/useAuthStorage';
-import { SocketEvents } from '@enums/Socket.enum';
-import useTeams from '@hooks/useTeams';
-
-import Add from '@icons/Add.svg';
-import Flags from '@icons/Flags.svg';
-import MemoryPro from '@icons/MemoryPro.svg';
-import SuperHearing from '@icons/SuperHearing.svg';
-import SuperRadar from '@icons/SuperRadar.svg';
+import DataGridIcon from '@icons/DataGrid.svg';
+import DesktopAndMobile from '@animations/DesktopAndMobile.json';
+import Taskman from '@animations/Taskman.json';
 
 function Course() {
-	const authStorage = useAuthStorage();
-
+	// navigation
+	const navigate = useNavigate();
+	// params
+	const { idCourse: idCourseStr } = useParams<{ idCourse: string }>();
+	// context
 	const {
-		coursesData: { idSelectedCourse }
+		coursesData: {
+			idSelectedCourse,
+			setIdSelectedCourse,
+			course,
+			setCourse
+		}
 	} = useTeacherContext();
+	// useCourses hook
+	const { getCourse, loading } = useCourse();
 
-	const {
-		course,
-		getCourse,
-		loading: loadingCourses,
-		createSession,
-		startSession,
-		endSession
-	} = useCourses();
+	// states
+	const [idCourse, setIdCourse] = useState<number | null>(
+		parseNumericParam(idCourseStr)
+	);
 
-	const {
-		teams: teamsFetched,
-		getTeams,
-		generateTeams,
-		loading: loadingTeams
-	} = useTeams();
-	// const { teams: teamsMock, getTeams: getTeamsMock } = useTeamsMock();
-
-	const [teams, setTeams] = useState<TeamDetail[]>([]);
-	const [isSessionCreated, setSessionCreated] = useState(false);
-	const [isSessionStarted, setSessionStarted] = useState(false);
+	const sections = useCallback(() => {
+		if (idCourse === null) return [];
+		return getSections(idCourse);
+	}, [idCourse]);
 
 	useEffect(() => {
-		if (idSelectedCourse !== null) {
-			getCourse(idSelectedCourse).catch(() => { });
+		const idCourseNum = parseNumericParam(idCourseStr);
+		if (idCourseNum === null) {
+			return navigate('/teacher/courses');
 		}
-	}, [idSelectedCourse]);
-
-	const handleCreateSession = async () => {
-		try {
-			if (idSelectedCourse !== null) {
-				await createSession(idSelectedCourse);
-				setSessionCreated(true);
-			}
-		} catch (err) { }
-	};
-
-	const handleStartSession = async () => {
-		try {
-			if (idSelectedCourse !== null) {
-				await startSession(idSelectedCourse);
-				setSessionStarted(true);
-			}
-		} catch (err) { }
-	};
-
-	const handleEndSession = async () => {
-		try {
-			if (idSelectedCourse !== null) {
-				await endSession(idSelectedCourse);
-				if (isSessionStarted) setSessionStarted(false);
-				setSessionCreated(false);
-			}
-		} catch (err) { }
-	};
-
-	const handleGenerateTeams = async () => {
-		try {
-			if (idSelectedCourse !== null) {
-				await generateTeams(idSelectedCourse);
-				await getTeams(idSelectedCourse);
-			}
-		} catch (err) { }
-	};
-
-	const connectSocket = () => {
-		socket?.disconnect();
-		connect();
-		socket?.emit('join', authStorage.getAccessToken());
-	};
+		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+	}, [idCourseStr]);
 
 	useEffect(() => {
-		if (!course) {
-			if (isSessionCreated) setSessionCreated(false);
-			if (isSessionStarted) setSessionStarted(false);
-		} else {
-			const { session } = course;
-			if (session && !isSessionCreated) {
-				setSessionCreated(true);
-			} else if (!session) {
-				if (isSessionCreated) setSessionCreated(false);
-				if (isSessionStarted) setSessionStarted(false);
-			}
+		if (idCourse === null) {
+			return navigate('/teacher/courses');
 		}
-	}, [course]);
-
-	useEffect(() => {
-		if (isSessionCreated) {
-			if (idSelectedCourse !== null) {
-				getTeams(idSelectedCourse).catch(() => { });
-				connectSocket();
-				socket?.on(
-					SocketEvents.TEAMS_STUDENT_UPDATE,
-					(teams: TeamDetail[]) => {
-						setTeams(teams);
-					}
-				);
-			}
-		} else {
-			if (teams.length) setTeams([]);
+		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
+		if (idSelectedCourse !== idCourse || !course) {
+			getCourse(idCourse)
+				.then((course) => {
+					setCourse(course);
+				})
+				.catch(() => {
+					if (course !== null) setCourse(null);
+				});
 		}
-		return () => {
-			socket?.off(SocketEvents.TEAMS_STUDENT_UPDATE);
-		};
-	}, [isSessionCreated]);
-
-	useEffect(() => {
-		if (teamsFetched) {
-			setTeams(teamsFetched);
-		}
-	}, [teamsFetched]);
-
-	useEffect(() => {
-		return () => {
-			socket?.disconnect();
-		};
-	}, []);
+	}, [idCourse]);
 
 	return (
-		<div className="px-8 pt-4 h-full relative">
-			{idSelectedCourse !== null ? (
-				course ? (
-					<>
-						<div className="absolute top-4 right-8 flex items-stretch gap-4">
-							<SessionOptions
-								isSessionCreated={isSessionCreated}
-								isSessionStarted={isSessionStarted}
-								handleCreateSession={handleCreateSession}
-								handleStartSession={handleStartSession}
-								handleEndSession={handleEndSession}
-							/>
-						</div>
-						<div className="flex flex-col h-full">
-							<div>
-								<div className="font-semibold text-3xl flex items-center gap-4">
-									<div
-										className={`rounded-full w-5 h-5 bg-${!isSessionCreated
-											? 'orange-primary'
-											: 'green-primary'
-											}`}
-									></div>
-									{course.name}
-								</div>
-								<div className="text-xl">
-									{!isSessionCreated ? (
-										<span>
-											El curso actualmente se encuentra{' '}
-											<b>Inactivo</b>
-										</span>
-									) : (
-										<span>
-											El curso actualmente se encuentra{' '}
-											<b>Activo</b>
-										</span>
-									)}
-								</div>
-							</div>
-							{teams && (
-								<div className="grid gap-x-6 gap-y-8 pr-32 pb-6 mt-8 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-5">
-									{teams.map((team, i) => (
-										<TeamCard key={i} team={team} />
-									))}
-									<div
-										className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-gray-100 flex flex-col justify-center items-center border border-gray-400"
-										onClick={handleGenerateTeams}
-									>
-										<img
-											src={Add}
-											alt="Volver a generar"
-											className="w-2/5 h-2/5 opacity-70"
-										/>
-									</div>
-								</div>
-							)}
-						</div>
-					</>
+		<div className="h-screen">
+			<Ribbon>
+				<img
+					src={DataGridIcon}
+					alt="GraduationCap"
+					className="w-5 h-5"
+				/>
+				<div className="text-white font-semibold">
+					{course?.name || ''}
+				</div>
+			</Ribbon>
+			<div className="px-8 pb-4 pt-12 h-full">
+				{course ? (
+					<div className="grid grid-cols-2 gap-x-16 gap-y-8 px-10 py-8">
+						{sections().map(
+							({ img, link, title, description }, index) => (
+								<CourseSectionCard
+									key={index}
+									img={img}
+									link={link}
+									title={title}
+									description={description}
+								/>
+							)
+						)}
+					</div>
 				) : (
 					<div className="flex flex-col grow justify-center items-center h-full">
-						{loadingCourses ? (
+						{loading ? (
 							<Loading type="spin" color="#0D9748" />
 						) : (
 							<div className="italic w-3/5 text-center text-lg">
@@ -218,110 +103,36 @@ function Course() {
 							</div>
 						)}
 					</div>
-				)
-			) : (
-				<div className="flex flex-col justify-center items-center w-full h-full">
-					<div className="w-1/2">
-						<Lottie animationData={desktopAndMobile} loop={true} />
-					</div>
-				</div>
-			)}
-		</div>
-	);
-}
-
-function TeamCard({ team: { name, students } }: { team: TeamDetail }) {
-	return (
-		<div className="shadow-md rounded-lg p-4 cursor-pointer hover:scale-105 transform transition duration-300 ease-in-out bg-whitish">
-			<div className="font-bold text-xl">{name}</div>
-			<hr className="border-t-gray-600 mt-2" />
-			<div className="flex flex-col gap-2 mt-4">
-				{students.length ? (
-					students.map(({ firstName, lastName, power, id }) => (
-						<div key={id} className="flex gap-4 items-center">
-							<span className="rounded-md shadow-sm p-1 w-10 h-10 bg-yellow-primary">
-								{power && (
-									<img
-										className="w-full h-full"
-										src={
-											power === Power.MEMORY_PRO
-												? MemoryPro
-												: power === Power.SUPER_RADAR
-													? SuperRadar
-													: SuperHearing
-										}
-										alt={power}
-									/>
-								)}
-							</span>
-							<span>{parseStudentName(firstName, lastName)}</span>
-						</div>
-					))
-				) : (
-					<div className="text-center text-lg text-gray-300 font-semibold px-8">
-						No hay estudiantes en este equipo
-					</div>
 				)}
 			</div>
 		</div>
 	);
 }
 
-function SessionOptions({
-	isSessionCreated,
-	isSessionStarted,
-	handleCreateSession,
-	handleStartSession,
-	handleEndSession
-}: {
-	isSessionCreated: boolean;
-	isSessionStarted: boolean;
-	handleCreateSession: Function;
-	handleStartSession: Function;
-	handleEndSession: Function;
-}) {
-	return (
-		<>
-			{!isSessionCreated ? (
-				<ButtonPrimary
-					onClick={handleCreateSession}
-					bgColor="green-tertiary"
-					size="large"
-				>
-					Activar
-				</ButtonPrimary>
-			) : (
+function getSections(idCourse: number): {
+	title: ReactNode;
+	description?: ReactNode;
+	img: ReactNode;
+	link: string;
+}[] {
+	return [
+		{
+			title: 'Colaboración',
+			description: (
 				<>
-					<ButtonPrimary
-						onClick={handleEndSession}
-						bgColor="red-primary"
-						size="large"
-					>
-						Terminar
-					</ButtonPrimary>
-					<ButtonPrimary
-						onClick={handleStartSession}
-						bgColor="green-primary"
-						size="large"
-						paddingX={!isSessionStarted}
-					>
-						{!isSessionStarted ? (
-							'Iniciar'
-						) : (
-							<div className="relative w-16 h-full text-green-primary">
-								.
-								<img
-									src={Flags}
-									alt="Iniciar"
-									className="w-full h-full absolute top-0 left-0"
-								/>
-							</div>
-						)}
-					</ButtonPrimary>
+					El curso actualmente se encuentra{' '}
+					<span className="font-bold">Activo</span>
 				</>
-			)}
-		</>
-	);
+			),
+			img: <Lottie animationData={DesktopAndMobile} loop={true} />,
+			link: `/teacher/session?idCourse=${idCourse}`
+		},
+		{
+			title: 'Listado de alumnos',
+			img: <Lottie animationData={Taskman} loop={true} />,
+			link: '/teacher/students'
+		}
+	];
 }
 
 export default Course;

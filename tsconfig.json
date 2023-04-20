@@ -39,6 +39,9 @@
       "@contexts/*": [
         "src/core/contexts/*"
       ],
+      "@api/*": [
+        "src/core/api/*"
+      ],
       "@hooks/*": [
         "src/core/hooks/*"
       ],

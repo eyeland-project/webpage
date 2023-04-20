@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import MiniLogo from '@icons/MiniLogo.svg';
+// import Login from '@images/Login.svg';
 
 function NavBar({ showTeacherButton = true }) {
 	const navigate = useNavigate();
@@ -22,7 +23,7 @@ function NavBar({ showTeacherButton = true }) {
 						className="flex items-center justify-center rounded-lg bg-green-primary px-2 py-2 text-base font-bold text-white shadow-lg hover:opacity-80 active:opacity-70 md:px-5 md:py-3"
 						to={'/login'}
 					>
-						<img src="Login.svg" alt="" className="md:hidden" />
+						{/* <img src={Login} alt="" className="md:hidden" /> */}
 						<p className="hidden md:block">Soy profesor</p>
 					</Link>
 				</div>
