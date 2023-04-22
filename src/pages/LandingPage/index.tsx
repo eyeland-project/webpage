@@ -3,7 +3,6 @@ import Hero from './components/Hero';
 import Methodology from './components/Methodology';
 import TeamWork from './components/TeamWork';
 import Accessibility from './components/Accessibility';
-import OurTeam from './components/OurTeam';
 import Footer from '@components/Footer';
 
 function LandingPage() {
@@ -14,7 +13,6 @@ function LandingPage() {
 			<Methodology />
 			<TeamWork />
 			<Accessibility />
-			<OurTeam />
 			<Footer />
 		</div>
 	);
