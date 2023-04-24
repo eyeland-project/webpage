@@ -1,7 +1,6 @@
 import useRelease from '@hooks/useRelease';
 import EyeLandHero from '@images/EyeLandHero.svg';
 import { useRef } from 'react';
-import Loading from 'react-loading';
 
 function Hero() {
 	const downloadRef = useRef<HTMLAnchorElement>(null);
@@ -19,7 +18,7 @@ function Hero() {
 	};
 
 	return (
-		<div className="flex h-auto w-screen flex-col-reverse items-center justify-center gap-3 px-20 md:flex-row xl:gap-20">
+		<div className="flex h-auto w-screen flex-col-reverse items-center justify-center gap-3 px-20 md:flex-row xl:gap-20 mt-40">
 			<div className="flex flex-col items-start xl:w-[550px]">
 				<h1 className="to animate-entrance-1 bg-gradient-to-r from-green-primary to-green-secondary bg-clip-text text-7xl font-bold text-transparent xl:text-9xl">
 					EYELAND
@@ -31,14 +30,6 @@ function Hero() {
 					className="button mt-5 animate-entrance-3 cursor-default bg-green-tertiary text-xl text-white xl:text-4xl flex items-center gap-2"
 					onClick={handleDownload}
 				>
-					{loading && (
-						<Loading
-							type="spin"
-							color="white"
-							height={30}
-							width={30}
-						/>
-					)}
 					¡Descargar aquí!
 					<a
 						className="hidden"

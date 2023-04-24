@@ -71,8 +71,13 @@ function Students() {
 		}
 	}, [idCourse]);
 
-	// useEffect(() => {
-	// }, []);
+	useEffect(() => {
+		if (!students && idCourse !== null) {
+			getStudents(idCourse).catch(() => {
+				if (students !== null) setStudents(null);
+			});
+		}
+	}, []);
 
 	if (idCourse === null) return <></>;
 

@@ -65,7 +65,8 @@ function Login() {
 	return (
 		<>
 			<NavBar showTeacherButton={false} />
-			<div className="flex h-auto w-auto flex-col items-center justify-center">
+			<div className='h-40' />
+			<div className="flex w-auto flex-col items-center justify-center">
 				<div className="relative w-fit">
 					<img
 						src={Logo}
