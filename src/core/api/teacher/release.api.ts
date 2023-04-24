@@ -1,11 +1,11 @@
 import { environment } from '@environments/environment';
-import { ReleaseDetail } from '@interfaces/Release.interface';
+import { ReleaseDetail } from '@interfaces/teacher/Release.interface';
 import axios from 'axios';
 
-const { apiUrl } = environment;
+const { apiTeacherUrl } = environment;
 
 export async function getLatestRelease(): Promise<ReleaseDetail> {
-	const response = await axios.get(`${apiUrl}/releases/latest`, {
+	const response = await axios.get(`${apiTeacherUrl}/releases/latest`, {
 		timeout: 10000
 	});
 	if (response.status === 200) {

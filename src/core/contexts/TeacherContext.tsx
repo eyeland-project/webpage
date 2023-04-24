@@ -1,4 +1,4 @@
-import { CourseDetail } from '@interfaces/Course.interface';
+import { CourseDetail } from '@interfaces/teacher/Course.interface';
 import React, { createContext, useState } from 'react';
 
 const TeacherContext = createContext<{

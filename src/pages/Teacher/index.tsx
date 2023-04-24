@@ -55,12 +55,9 @@ function Teacher() {
 						<Route path="/home" element={<Home />} />
 						<Route path="/courses" element={<Courses />} />
 						<Route path="/courses/:idCourse" element={<Course />} />
+						<Route path="/students" element={<Students />} />
 						<Route
-							path="/courses/:idCourse/students"
-							element={<Students />}
-						/>
-						<Route
-							path="/courses/:idCourse/students/:idStudent"
+							path="/students/:idStudent"
 							element={<Student />}
 						/>
 						<Route path="/session" element={<Session />} />

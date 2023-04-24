@@ -34,7 +34,7 @@ function SubMenuCourses() {
 					{courses.map(({ name, id }, i) => (
 						<div
 							key={i}
-							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
+							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer w-full ${
 								idSelectedCourse === id
 									? 'bg-white bg-opacity-20'
 									: 'hover:bg-white hover:bg-opacity-10'

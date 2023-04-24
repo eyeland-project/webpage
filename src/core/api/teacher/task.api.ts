@@ -1,15 +1,15 @@
 import { environment } from '@environments/environment';
-import { TaskDetail, TaskSummary } from '@interfaces/Task.interface';
+import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 import axios from 'axios';
 
-const { apiUrl } = environment;
+const { apiTeacherUrl } = environment;
 
 export async function getTasks({
 	token
 }: {
 	token: string;
 }): Promise<TaskSummary[]> {
-	const response = await axios.get(`${apiUrl}/tasks`, {
+	const response = await axios.get(`${apiTeacherUrl}/tasks`, {
 		timeout: 10000,
 		headers: {
 			Authorization: `Bearer ${token}`
@@ -29,7 +29,7 @@ export async function getTask({
 	idTask: number;
 	token: string;
 }): Promise<TaskDetail> {
-	const response = await axios.get(`${apiUrl}/tasks/${idTask}`, {
+	const response = await axios.get(`${apiTeacherUrl}/tasks/${idTask}`, {
 		timeout: 10000,
 		headers: {
 			Authorization: `Bearer ${token}`

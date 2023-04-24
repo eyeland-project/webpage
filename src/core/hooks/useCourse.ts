@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react';
 import useAuthStorage from '@hooks/useAuthStorage';
-import axios from 'axios';
 
-import { environment } from '@environments/environment';
+import * as courseApi from '@api/teacher/course.api';
 
-import { CourseDetail, CourseSummary } from '@interfaces/Course.interface';
+import {
+	CourseDetail,
+	CourseSummary
+} from '@interfaces/teacher/Course.interface';
 
 const useCourse = () => {
 	const authStorage = useAuthStorage();
@@ -14,49 +16,31 @@ const useCourse = () => {
 	const [course, setCourse] = useState<CourseDetail | null>(null);
 
 	const getCourses: () => Promise<CourseSummary[]> = useCallback(async () => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await axios.get(`${environment.apiUrl}/courses`, {
-				headers: {
-					Authorization: `Bearer ${authStorage.getAccessToken()}`
-				},
-				timeout: 10000
+			const courses = await courseApi.getCourses({
+				token: authStorage.getAccessToken()!
 			});
-
 			setLoading(false);
-			if (response.status === 200) {
-				setCourses(response.data);
-				return response.data;
-			} else {
-				throw new Error(response.data);
-			}
+			setCourses(courses);
+			return courses;
 		} catch (err) {
 			setLoading(false);
 			throw err;
 		}
 	}, []);
 
-	const getCourse: (id: number) => Promise<CourseDetail> = useCallback(
-		async (id: number) => {
+	const getCourse: (idCourse: number) => Promise<CourseDetail> = useCallback(
+		async (idCourse: number) => {
+			setLoading(true);
 			try {
-				setLoading(true);
-				const response = await axios.get(
-					`${environment.apiUrl}/courses/${id}`,
-					{
-						headers: {
-							Authorization: `Bearer ${authStorage.getAccessToken()}`
-						},
-						timeout: 10000
-					}
-				);
-
+				const course = await courseApi.getCourse({
+					token: authStorage.getAccessToken()!,
+					idCourse
+				});
 				setLoading(false);
-				if (response.status === 200) {
-					setCourse(response.data);
-					return response.data;
-				} else {
-					throw new Error(response.data);
-				}
+				setCourse(course);
+				return course;
 			} catch (err) {
 				setLoading(false);
 				throw err;
@@ -65,78 +49,45 @@ const useCourse = () => {
 		[]
 	);
 
-	const createSession = useCallback(async (courseId: number) => {
+	const createSession = useCallback(async (idCourse: number) => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await axios.post(
-				`${environment.apiUrl}/courses/${courseId}/session`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${authStorage.getAccessToken()}`
-					},
-					timeout: 10000
-				}
-			);
-
+			const response = await courseApi.createSession({
+				token: authStorage.getAccessToken()!,
+				idCourse
+			});
 			setLoading(false);
-			if (response.status === 201) {
-				return response.data;
-			} else {
-				throw new Error(response.data);
-			}
+			return response;
 		} catch (err) {
 			setLoading(false);
 			throw err;
 		}
 	}, []);
 
-	const startSession = useCallback(async (courseId: number) => {
+	const startSession = useCallback(async (idCourse: number) => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await axios.post(
-				`${environment.apiUrl}/courses/${courseId}/session/start`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${authStorage.getAccessToken()}`
-					},
-					timeout: 10000
-				}
-			);
-
+			const response = await courseApi.startSession({
+				token: authStorage.getAccessToken()!,
+				idCourse
+			});
 			setLoading(false);
-			if (response.status === 200) {
-				return response.data;
-			} else {
-				throw new Error(response.data);
-			}
+			return response;
 		} catch (err) {
 			setLoading(false);
 			throw err;
 		}
 	}, []);
 
-	const endSession = useCallback(async (courseId: number) => {
+	const endSession = useCallback(async (idCourse: number) => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await axios.put(
-				`${environment.apiUrl}/courses/${courseId}/session/end`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${authStorage.getAccessToken()}`
-					},
-					timeout: 10000
-				}
-			);
-
+			const response = await courseApi.endSession({
+				token: authStorage.getAccessToken()!,
+				idCourse
+			});
 			setLoading(false);
-			if (response.status === 200) {
-				return response.data;
-			} else {
-				throw new Error(response.data);
-			}
+			return response;
 		} catch (err) {
 			setLoading(false);
 			throw err;

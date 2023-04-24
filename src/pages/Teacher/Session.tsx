@@ -8,21 +8,20 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useTeam from '@hooks/useTeam';
 import useAuthStorage from '@hooks/useAuthStorage';
 
-import Ribbon from './components/Ribbon';
-import ButtonPrimary from '@components/ButtonPrimary';
+import SessionPanel from '@pages/Teacher/components/SessionPanel';
+import Ribbon from '@pages/Teacher/components/Ribbon';
 import TeamGrid from '@pages/Teacher/components/TeamGrid';
+import ButtonPrimary from '@components/ButtonPrimary';
 
-import { TeamDetail } from '@interfaces/Team.interface';
+import { TeamDetail } from '@interfaces/teacher/Team.interface';
+import { TaskDetail } from '@interfaces/teacher/Task.interface';
 import { SocketEvents } from '@enums/Socket.enum';
 
 import { parseNumericParam } from '@utils/routing.utils';
-import { connect, socket } from '@utils/socket';
+import { connect, socket } from '@listeners/socket';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 import PulseGray from '@animations/PulseGray.json';
-import Activity from '@animations/Activity.json';
-import SessionPanel from './components/SessionPanel';
-import { TaskDetail } from '@interfaces/Task.interface';
 
 function Session() {
 	// auth

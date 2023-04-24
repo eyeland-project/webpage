@@ -4,6 +4,7 @@ interface ButtonPrimaryProps {
 	children?: ReactNode;
 	color?: string;
 	bgColor?: string;
+	rounded?: string;
 	size?: 'small' | 'medium' | 'large';
 	shadow?: boolean;
 	paddingX?: boolean;
@@ -17,6 +18,7 @@ function ButtonPrimary({
 	children,
 	color,
 	bgColor,
+	rounded = 'lg',
 	size = 'medium',
 	shadow = true,
 	paddingX = true,
@@ -65,10 +67,11 @@ function ButtonPrimary({
 	};
 
 	const baseClassName =
-		'cursor-pointer rounded-lg font-semibold hover:brightness-110 transition-[padding] duration-200';
+		'cursor-pointer font-semibold hover:brightness-110 transition-[padding] duration-200';
 
 	const colorClass = color ? `text-${color}` : 'text-white';
 	const bgColorClass = bgColor ? `bg-${bgColor}` : 'bg-green-primary';
+	const roundedClass = rounded ? `rounded-${rounded}` : 'rounded-lg';
 	const widthClass = width ? `w-${width}` : 'w-auto';
 	const heightClass = height ? `h-${height}` : 'h-auto';
 
@@ -77,6 +80,7 @@ function ButtonPrimary({
 			className={`text-center
 				${baseClassName} 
 				${bgColorClass} 
+				${roundedClass}
 				${colorClass} 
 				${shadow ? 'shadow-md' : ''} 
 				${getPaddingX()} 

@@ -48,6 +48,9 @@
       "@utils/*": [
         "src/core/utils/*"
       ],
+      "@listeners/*": [
+        "src/core/listeners/*"
+      ],
       "@pages/*": [
         "src/pages/*"
       ],

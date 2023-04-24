@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { environment } from '@environments/environment';
 
-import { Login } from '@interfaces/Login.interface';
+import { Login } from '@interfaces/teacher/Auth.interface';
 
 const useLogin = () => {
 	const authStorage = useAuthStorage();
@@ -17,7 +17,7 @@ const useLogin = () => {
 		setLoading(true);
 		try {
 			const response = await axios.post(
-				`${environment.apiUrl}/login`,
+				`${environment.apiTeacherUrl}/login`,
 				{
 					username: username,
 					password: password

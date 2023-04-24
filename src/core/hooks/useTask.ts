@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 
 import useAuthStorage from '@hooks/useAuthStorage';
-import * as taskApi from '@api/task.api';
+import * as taskApi from '@api/teacher/task.api';
 
-import { TaskDetail, TaskSummary } from '@interfaces/Task.interface';
+import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 
 const useTask = () => {
 	const authStorage = useAuthStorage();

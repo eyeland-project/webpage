@@ -1,32 +1,22 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Lottie from 'lottie-react';
-import Loading from 'react-loading';
 
-import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
-import useTeam from '@hooks/useTeam';
-import useAuthStorage from '@hooks/useAuthStorage';
 
 import Ribbon from './components/Ribbon';
-import ButtonPrimary from '@components/ButtonPrimary';
-import TeamGrid from '@pages/Teacher/components/TeamGrid';
-
-import { TeamDetail } from '@interfaces/Team.interface';
-import { SocketEvents } from '@enums/Socket.enum';
 
 import { parseNumericParam } from '@utils/routing.utils';
-import { connect, socket } from '@utils/socket';
+
+import useStudent from '@hooks/useStudent';
+import useCourse from '@hooks/useCourse';
+import ButtonPrimary from '@components/ButtonPrimary';
 
 import DataGridIcon from '@icons/DataGrid.svg';
-import PulseGray from '@animations/PulseGray.json';
-import Activity from '@animations/Activity.json';
-import SessionPanel from './components/SessionPanel';
-import { TaskDetail } from '@interfaces/Task.interface';
+import AddIcon from '@icons/Add.svg';
+import Loading from 'react-loading';
+import TableStudents from './components/TableStudents';
 
 function Students() {
-	// auth
-	const authStorage = useAuthStorage();
 	// navigation
 	const navigate = useNavigate();
 	// query params
@@ -40,14 +30,15 @@ function Students() {
 			setIdSelectedCourse
 		}
 	} = useTeacherContext();
-	// useCourses hook
+	// useStudents
 	const {
-		getCourse,
-		loading: loadingCourses,
-		createSession,
-		startSession,
-		endSession
-	} = useCourse();
+		getStudents,
+		students,
+		setStudents,
+		loading: loadingStudents
+	} = useStudent();
+	const { getCourse } = useCourse();
+
 	// states
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseNumericParam(searchParams.get('idCourse'))
@@ -74,14 +65,14 @@ function Students() {
 				.catch(() => {
 					if (course !== null) setCourse(null);
 				});
+			getStudents(idCourse).catch(() => {
+				if (students !== null) setStudents(null);
+			});
 		}
 	}, [idCourse]);
 
-	useEffect(() => {
-		return () => {
-			socket?.disconnect();
-		};
-	}, []);
+	// useEffect(() => {
+	// }, []);
 
 	if (idCourse === null) return <></>;
 
@@ -99,61 +90,33 @@ function Students() {
 					</div>
 				</>
 			</Ribbon>
-			<div className="pt-12 h-full relative">
+			<div className="pt-12 h-full relative flex flex-col items-center gap-10">
+				<div className="flex flex-row gap-3 mt-4">
+					<div className="shadow-md px-36 py-2 font-semibold text-2xl">
+						Listado de alumnos
+					</div>
+					<ButtonPrimary paddingX={false} bgColor="green-primary">
+						<div className="relative h-full px-6 hover:scale-105 duration-200 ease-in-out">
+							<img
+								src={AddIcon}
+								alt="Nuevo"
+								className="invert w-5/6 h-5/6 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+							/>
+						</div>
+						{/* <div className="relative w-12 h-full text-green-primary">
+							.
+							<img
+								src={AddIcon}
+								alt="Nuevo"
+								className="invert w-full h-full absolute top-0 left-0"
+							/>
+						</div> */}
+					</ButtonPrimary>
+				</div>
 				{students ? (
-					!isSessionCreated ? (
-						<div className="shadow-card rounded-md px-14 py-6 hover:scale-105 transition-all duration-300 flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-							<Lottie
-								animationData={PulseGray}
-								loop
-								className="w-24 h-24"
-							/>
-							<div className="text-green-primary text-center">
-								El curso actualmente se encuentra{' '}
-								<div className="font-semibold text-gray-secondary">
-									Inactivo
-								</div>
-							</div>
-							<div className="w-min">
-								<ButtonPrimary
-									size="medium"
-									onClick={handleCreateSession}
-								>
-									¡Activar!
-								</ButtonPrimary>
-							</div>
-						</div>
-					) : (
-						<div className="">
-							<SessionPanel
-								isSessionCreated={isSessionCreated}
-								isSessionStarted={isSessionStarted}
-								handleCreateSession={handleCreateSession}
-								handleStartSession={handleStartSession}
-								handleEndSession={handleEndSession}
-								task={task}
-								setTask={setTask}
-							/>
-							{teams && (
-								<div
-									className="
-									sm:pl-6 sm:pr-16 sm:pb-10
-									md:pl-6 md:pr-6 md:pb-10
-									lg:pl-10 lg:pr-16 lg:pb-10
-									xl:pl-12 xl:pr-40 xl:pb-10
-									2xl:pr-48 2xl:pb-10
-								"
-								>
-									<TeamGrid
-										teams={getFilteredTeams()}
-										handleGenerateTeams={
-											handleGenerateTeams
-										}
-									/>
-								</div>
-							)}
-						</div>
-					)
+					<div className="pb-10">
+						<TableStudents students={students} />
+					</div>
 				) : (
 					<div className="flex flex-col grow justify-center items-center h-full">
 						{loadingStudents ? (

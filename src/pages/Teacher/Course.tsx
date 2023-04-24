@@ -130,7 +130,7 @@ function getSections(idCourse: number): {
 		{
 			title: 'Listado de alumnos',
 			img: <Lottie animationData={Taskman} loop={true} />,
-			link: '/teacher/students'
+			link: `/teacher/students?idCourse=${idCourse}`
 		}
 	];
 }

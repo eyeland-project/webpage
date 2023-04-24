@@ -20,6 +20,7 @@ export default defineConfig({
 			'@hooks': `${path.resolve(__dirname, './src/core/hooks/')}`,
 			'@api': `${path.resolve(__dirname, './src/core/api/')}`,
 			'@utils': `${path.resolve(__dirname, './src/core/utils/')}`,
+			'@listeners': `${path.resolve(__dirname, './src/core/listeners/')}`,
 			'@pages': `${path.resolve(__dirname, './src/pages/')}`,
 			'@enums': `${path.resolve(__dirname, './src/shared/enums/')}`,
 			'@interfaces': `${path.resolve(

@@ -59,7 +59,9 @@ module.exports = {
 				'orange-primary': '#FC8507',
 				whitish: '#F8F8F8',
 				'gray-primary': '#A9A9A9',
-				'gray-secondary': '#6C6C6C'
+				'gray-secondary': '#6C6C6C',
+				'gray-tertiary': '#ECECEC',
+				'blue-primary': '#1BA4CF'
 			},
 			dropShadow: {
 				logoDropShadow: '0px 4px 4px rgba(0, 0, 0, 0.20)'

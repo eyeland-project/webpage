@@ -1,9 +1,9 @@
 import { MouseEventHandler } from 'react';
 
-import { TeamDetail } from '@interfaces/Team.interface';
+import { TeamDetail } from '@interfaces/teacher/Team.interface';
 import { Power } from '@enums/Team.enum';
 
-import { parseStudentName } from '@utils/student.utils';
+import { parseStudentName } from '@utils/general.utils';
 
 import Add from '@icons/Add.svg';
 import MemoryPro from '@icons/MemoryPro.svg';
