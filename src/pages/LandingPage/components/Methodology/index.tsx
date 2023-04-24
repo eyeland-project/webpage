@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import Title from '@components/Title';
-import Task from './Task';
-import Description from '../Description';
+import Task from '@pages/LandingPage/components/Methodology/Task';
+import Description from '@pages/LandingPage/components/Description';
 
 import PreTaskPhone from '@images/PreTaskPhone.svg';
 import DuringTaskPhone from '@images/DuringTaskPhone.svg';

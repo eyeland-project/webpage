@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import Loading from 'react-loading';
 
 import useTeacherContext from '@hooks/useTeacherContext';
+import useStudent from '@hooks/useStudent';
+import useCourse from '@hooks/useCourse';
 
-import Ribbon from './components/Ribbon';
+import Ribbon from '@pages/Teacher/components/Ribbon';
+
+import ButtonPrimary from '@components/ButtonPrimary';
+import TableStudents from '@pages/Teacher/components/TableStudents';
 
 import { parseNumericParam } from '@utils/routing.utils';
 
-import useStudent from '@hooks/useStudent';
-import useCourse from '@hooks/useCourse';
-import ButtonPrimary from '@components/ButtonPrimary';
-
 import DataGridIcon from '@icons/DataGrid.svg';
 import AddIcon from '@icons/Add.svg';
-import Loading from 'react-loading';
-import TableStudents from './components/TableStudents';
 
 function Students() {
 	// navigation

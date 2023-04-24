@@ -1,5 +1,5 @@
 import NavBar from '@components/NavBar';
-import Section from './components/Section';
+import Section from '@pages/OurTeam/components/Section';
 import Title from '@components/Title';
 import Footer from '@components/Footer';
 

@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react';
-import useAuthStorage from './useAuthStorage';
+import useAuthStorage from '@hooks/useAuthStorage';
 import axios from 'axios';
 
 import { environment } from '@environments/environment';

@@ -1,8 +1,8 @@
 import NavBar from '@components/NavBar';
-import Hero from './components/Hero';
-import Methodology from './components/Methodology';
-import TeamWork from './components/TeamWork';
-import Accessibility from './components/Accessibility';
+import Hero from '@pages/LandingPage/components/Hero';
+import Methodology from '@pages/LandingPage/components/Methodology';
+import TeamWork from '@pages/LandingPage/components/TeamWork';
+import Accessibility from '@pages/LandingPage/components/Accessibility';
 import Footer from '@components/Footer';
 
 function LandingPage() {

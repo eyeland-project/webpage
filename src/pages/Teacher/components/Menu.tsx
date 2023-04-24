@@ -5,10 +5,10 @@ import { Tooltip } from 'react-tooltip';
 
 import useAuthStorage from '@hooks/useAuthStorage';
 
-import MenuItem from './MenuItem';
-import SubMenu from './SubMenu';
-import SubMenuCourses from './SubMenuCourses';
-import SubMenuTasks from './SubMenuTasks';
+import MenuItem from '@pages/Teacher/components/MenuItem';
+import SubMenu from '@pages/Teacher/components/SubMenu';
+import SubMenuCourses from '@pages/Teacher/components/SubMenuCourses';
+import SubMenuTasks from '@pages/Teacher/components/SubMenuTasks';
 
 import Logo from '@icons/Logo.svg';
 import Logout from '@icons/Logout.svg';

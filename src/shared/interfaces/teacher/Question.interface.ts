@@ -1,5 +1,5 @@
 import { QuestionTopic, QuestionType } from '@enums/Question.enum';
-import { Option } from './Option.interface';
+import { Option } from '@interfaces/teacher/Option.interface';
 
 interface QuestionDetail {
 	id: number;

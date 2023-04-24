@@ -1,4 +1,4 @@
-import PersonCard from './PersonCard';
+import PersonCard from '@pages/OurTeam/components/PersonCard';
 
 interface Props {
 	title: string;
