@@ -36,8 +36,7 @@ function StudentForm({
 	// states
 	const [step, setStep] = useState(1);
 
-	const onSubmit: SubmitHandler<Inputs> = (data) => {
-		console.log(data);
+	const onSubmit: SubmitHandler<Inputs> = ({ confirmPassword, ...data }) => {
 		if (action === 'update') {
 			const updateFields: StudentUpdate = data;
 			if (defaultValues) {
@@ -52,6 +51,8 @@ function StudentForm({
 			}
 			onFinish(updateFields);
 		} else {
+			const createFields: StudentCreate = data;
+			onFinish(createFields);
 		}
 	};
 

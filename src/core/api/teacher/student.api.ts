@@ -76,7 +76,7 @@ export async function createStudent({
 			}
 		}
 	);
-	if (response.status === 200) {
+	if (response.status === 201) {
 		return response.data;
 	} else {
 		throw new Error(response.data);

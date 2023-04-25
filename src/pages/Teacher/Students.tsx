@@ -18,7 +18,12 @@ import DataGridIcon from '@icons/DataGrid.svg';
 import AddIcon from '@icons/Add.svg';
 import Modal from '@components/Modal';
 import FormStudentUpdate from './components/FormStudentUpdate';
-import { StudentUpdate } from '@interfaces/teacher/Student.interface';
+import {
+	StudentCreate,
+	StudentSummary,
+	StudentUpdate
+} from '@interfaces/teacher/Student.interface';
+import FormStudentCreate from './components/FormStudentCreate';
 
 function Students() {
 	// navigation
@@ -53,11 +58,19 @@ function Students() {
 
 	// actions
 	// create
-	const handleCreateStudent = () => {};
+	const handleCreateStudent = () => {
+		if (idCourse === null) return;
+		setModalContent(
+			<FormStudentCreate
+				idCourse={idCourse}
+				onFinishCreate={onFinishCreate}
+			/>
+		);
+		setIsModalOpen(true);
+	};
 	// update
 	const handleUpdateStudent = (idStudent: number) => {
 		if (idCourse === null) return;
-		setIsModalOpen(true);
 		setModalContent(
 			<FormStudentUpdate
 				idCourse={idCourse}
@@ -65,13 +78,43 @@ function Students() {
 				onFinishUpdate={onFinishUpdate}
 			/>
 		);
+		setIsModalOpen(true);
 	};
 	// delete
 	const handleDeleteStudent = (idStudent: number) => {};
 
 	// actions completed
 	// create
-	const onStudentCreated = () => {};
+	const onFinishCreate = (
+		err: unknown,
+		idStudent: number,
+		fields: Omit<StudentCreate, 'password'>
+	) => {
+		if (students === null) return;
+		if (err) {
+			toast.error('Error al registrar el estudiante');
+			return;
+		}
+		const { email, firstName, lastName, phoneCode, username, phoneNumber } =
+			fields;
+		const newStudent: StudentSummary = {
+			email,
+			firstName,
+			id: idStudent,
+			lastName,
+			phone: phoneNumber
+				? {
+						countryCode: phoneCode,
+						number: phoneNumber
+				  }
+				: null,
+			username
+		};
+		setStudents([newStudent, ...students]);
+		setIsModalOpen(false);
+		setModalContent(null);
+		toast.success('Estudiante registrado');
+	};
 	// update
 	const onFinishUpdate = (
 		err: unknown,
@@ -161,7 +204,10 @@ function Students() {
 					<div className="shadow-md px-36 font-semibold text-2xl flex flex-col justify-center">
 						Listado de alumnos
 					</div>
-					<Button className="rounded-xl px-1 relative w-12 h-12 hover:scale-105 transition duration-200 ease-in-out">
+					<Button
+						className="rounded-xl px-1 relative w-12 h-12 hover:scale-105 transition duration-200 ease-in-out"
+						onClick={handleCreateStudent}
+					>
 						<img
 							src={AddIcon}
 							alt="Nuevo"
