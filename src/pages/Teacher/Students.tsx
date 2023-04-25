@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Loading from 'react-loading';
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 import useStudent from '@hooks/useStudent';
@@ -81,7 +84,33 @@ function Students() {
 		setIsModalOpen(true);
 	};
 	// delete
-	const handleDeleteStudent = (idStudent: number) => {};
+	const handleDeleteStudent = (idStudent: number) => {
+		const onConfirm = async () => {
+			if (idCourse === null) return;
+			try {
+				await deleteStudent(idCourse, idStudent);
+				setStudents(
+					students!.filter((student) => student.id !== idStudent)
+				);
+				toast.success('Estudiante eliminado');
+			} catch (err) {
+				toast.error('Error al eliminar el estudiante');
+			}
+		};
+		confirmAlert({
+			title: 'Eliminar estudiante',
+			message: '¿Está seguro que desea eliminar el estudiante?',
+			buttons: [
+				{
+					label: 'Sí',
+					onClick: onConfirm
+				},
+				{
+					label: 'No'
+				}
+			]
+		});
+	};
 
 	// actions completed
 	// create
@@ -137,8 +166,6 @@ function Students() {
 		setModalContent(null);
 		toast.success('Estudiante actualizado');
 	};
-	// delete
-	const onStudentDeleted = () => {};
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));

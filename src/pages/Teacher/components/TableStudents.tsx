@@ -41,7 +41,7 @@ function TableStudents({
 						({ firstName, lastName, username, phone, id }, i) => (
 							<tr
 								key={i}
-								className="border-b-gray-500 border-solid border-b"
+								className="border-b-gray-500 border-solid border-b hover:bg-gray-100 transition duration-300 ease-in-out"
 							>
 								<td>
 									<div className="flex gap-4 py-4 pl-2 pr-8">
@@ -51,10 +51,10 @@ function TableStudents({
 											className="rounded-full w-14"
 										/>
 										<div className="">
-											<div className="text-lg font-bold">
+											<div className="text-xl font-semibold">
 												{lastName}
 											</div>
-											<div className="text-xs">
+											<div className="text-base">
 												{firstName}
 											</div>
 										</div>
