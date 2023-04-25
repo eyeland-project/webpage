@@ -5,8 +5,17 @@ import ButtonPrimary from '@components/ButtonPrimary';
 import EditIcon from '@icons/Edit.svg';
 import TrashIcon from '@icons/Trash.svg';
 import SavageBrunner from '@images/Brunner.jpg';
+import Button from '@components/Button';
 
-export function TableStudents({ students }: { students: StudentSummary[] }) {
+function TableStudents({
+	students,
+	handleDeleteStudent,
+	handleUpdateStudent
+}: {
+	students: StudentSummary[];
+	handleUpdateStudent: Function;
+	handleDeleteStudent: Function;
+}) {
 	return (
 		<div>
 			<table>
@@ -29,7 +38,7 @@ export function TableStudents({ students }: { students: StudentSummary[] }) {
 				</thead>
 				<tbody>
 					{students.map(
-						({ firstName, lastName, username, phone }, i) => (
+						({ firstName, lastName, username, phone, id }, i) => (
 							<tr
 								key={i}
 								className="border-b-gray-500 border-solid border-b"
@@ -61,44 +70,37 @@ export function TableStudents({ students }: { students: StudentSummary[] }) {
 								</td>
 								<td>
 									<div className="flex justify-center px-8">
-										<ButtonPrimary
-											size="medium"
-											rounded="xl"
-										>
+										<Button className="px-5 rounded-xl">
 											ir
-										</ButtonPrimary>
+										</Button>
 									</div>
 								</td>
 								<td>
 									<div className="flex gap-1 pl-8 pr-2">
-										<ButtonPrimary
-											size="small"
-											paddingX={false}
-											bgColor="blue-primary"
-											rounded="xl"
+										<Button
+											className="bg-blue-primary rounded-xl p-0 relative w-10 h-10"
+											onClick={() =>
+												handleUpdateStudent(id)
+											}
 										>
-											<div className="relative h-6 px-5">
-												<img
-													src={EditIcon}
-													alt="Actualizar"
-													className="w-5/6 h-5/6 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-												/>
-											</div>
-										</ButtonPrimary>
-										<ButtonPrimary
-											size="small"
-											paddingX={false}
-											bgColor="red-primary"
-											rounded="xl"
+											<img
+												src={EditIcon}
+												alt="Actualizar"
+												className="w-3/5 h-3/5 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+											/>
+										</Button>
+										<Button
+											className="bg-red-primary rounded-xl p-0 relative w-10 h-10"
+											onClick={() =>
+												handleDeleteStudent(id)
+											}
 										>
-											<div className="relative h-6 px-5">
-												<img
-													src={TrashIcon}
-													alt="Eliminar"
-													className="w-5/6 h-5/6 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-												/>
-											</div>
-										</ButtonPrimary>
+											<img
+												src={TrashIcon}
+												alt="Eliminar"
+												className="w-3/5 h-3/5 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+											/>
+										</Button>
 									</div>
 								</td>
 							</tr>

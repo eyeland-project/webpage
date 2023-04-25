@@ -60,6 +60,9 @@
       "@enums/*": [
         "src/shared/enums/*"
       ],
+      "@constants/*": [
+        "src/shared/constants/*"
+      ],
       "@interfaces/*": [
         "src/shared/interfaces/*"
       ],

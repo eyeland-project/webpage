@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Loading from 'react-loading';
+import { ToastContainer, toast } from 'react-toastify';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 import useStudent from '@hooks/useStudent';
@@ -8,13 +9,16 @@ import useCourse from '@hooks/useCourse';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
-import ButtonPrimary from '@components/ButtonPrimary';
+import Button from '@components/Button';
 import TableStudents from '@pages/Teacher/components/TableStudents';
 
 import { parseNumericParam } from '@utils/routing.utils';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 import AddIcon from '@icons/Add.svg';
+import Modal from '@components/Modal';
+import FormStudentUpdate from './components/FormStudentUpdate';
+import { StudentUpdate } from '@interfaces/teacher/Student.interface';
 
 function Students() {
 	// navigation
@@ -35,7 +39,8 @@ function Students() {
 		getStudents,
 		students,
 		setStudents,
-		loading: loadingStudents
+		loading: loadingStudents,
+		deleteStudent
 	} = useStudent();
 	const { getCourse } = useCourse();
 
@@ -43,6 +48,54 @@ function Students() {
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseNumericParam(searchParams.get('idCourse'))
 	);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [modalContent, setModalContent] = useState<JSX.Element | null>(null);
+
+	// actions
+	// create
+	const handleCreateStudent = () => {};
+	// update
+	const handleUpdateStudent = (idStudent: number) => {
+		if (idCourse === null) return;
+		setIsModalOpen(true);
+		setModalContent(
+			<FormStudentUpdate
+				idCourse={idCourse}
+				idStudent={idStudent}
+				onFinishUpdate={onFinishUpdate}
+			/>
+		);
+	};
+	// delete
+	const handleDeleteStudent = (idStudent: number) => {};
+
+	// actions completed
+	// create
+	const onStudentCreated = () => {};
+	// update
+	const onFinishUpdate = (
+		err: unknown,
+		idStudent: number,
+		fields: StudentUpdate
+	) => {
+		if (students === null) return;
+		if (err) {
+			toast.error('Error al actualizar el estudiante');
+			return;
+		}
+		const newStudents = students.map((student) => {
+			if (student.id === idStudent) {
+				return { ...student, ...fields };
+			}
+			return student;
+		});
+		setStudents(newStudents);
+		setIsModalOpen(false);
+		setModalContent(null);
+		toast.success('Estudiante actualizado');
+	};
+	// delete
+	const onStudentDeleted = () => {};
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
@@ -83,6 +136,14 @@ function Students() {
 
 	return (
 		<div className="h-screen">
+			<Modal
+				isOpen={isModalOpen}
+				setIsOpen={setIsModalOpen}
+				styles={{ content: { width: '45%' } }}
+			>
+				{modalContent}
+			</Modal>
+			<ToastContainer />
 			<Ribbon>
 				<>
 					<img
@@ -97,30 +158,24 @@ function Students() {
 			</Ribbon>
 			<div className="pt-12 h-full relative flex flex-col items-center gap-10">
 				<div className="flex flex-row gap-3 mt-4">
-					<div className="shadow-md px-36 py-2 font-semibold text-2xl">
+					<div className="shadow-md px-36 font-semibold text-2xl flex flex-col justify-center">
 						Listado de alumnos
 					</div>
-					<ButtonPrimary paddingX={false} bgColor="green-primary">
-						<div className="relative h-full px-6 hover:scale-105 duration-200 ease-in-out">
-							<img
-								src={AddIcon}
-								alt="Nuevo"
-								className="invert w-5/6 h-5/6 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-							/>
-						</div>
-						{/* <div className="relative w-12 h-full text-green-primary">
-							.
-							<img
-								src={AddIcon}
-								alt="Nuevo"
-								className="invert w-full h-full absolute top-0 left-0"
-							/>
-						</div> */}
-					</ButtonPrimary>
+					<Button className="rounded-xl px-1 relative w-12 h-12 hover:scale-105 transition duration-200 ease-in-out">
+						<img
+							src={AddIcon}
+							alt="Nuevo"
+							className="w-3/5 h-3/5 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+						/>
+					</Button>
 				</div>
 				{students ? (
 					<div className="pb-10">
-						<TableStudents students={students} />
+						<TableStudents
+							students={students}
+							handleUpdateStudent={handleUpdateStudent}
+							handleDeleteStudent={handleDeleteStudent}
+						/>
 					</div>
 				) : (
 					<div className="flex flex-col grow justify-center items-center h-full">

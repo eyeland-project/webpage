@@ -23,6 +23,10 @@ export default defineConfig({
 			'@listeners': `${path.resolve(__dirname, './src/core/listeners/')}`,
 			'@pages': `${path.resolve(__dirname, './src/pages/')}`,
 			'@enums': `${path.resolve(__dirname, './src/shared/enums/')}`,
+			'@constants': `${path.resolve(
+				__dirname,
+				'./src/shared/constants/'
+			)}`,
 			'@interfaces': `${path.resolve(
 				__dirname,
 				'./src/shared/interfaces/'

@@ -28,8 +28,8 @@ function TeamGrid({
 			>
 				<img
 					src={Add}
-					alt="Volver a generar"
-					className="w-2/5 h-2/5 opacity-70"
+					alt="Generar equipos"
+					className="invert w-2/5 h-2/5 opacity-70"
 				/>
 			</div>
 		</div>
