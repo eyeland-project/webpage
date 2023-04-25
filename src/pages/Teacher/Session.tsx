@@ -161,7 +161,7 @@ function Session() {
 			return navigate('/teacher/courses');
 		}
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
-		if (idSelectedCourse !== idCourse || !course) {
+		if (!course || course.id !== idCourse) {
 			getCourse(idCourse)
 				.then((course) => {
 					setCourse(course);

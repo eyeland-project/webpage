@@ -18,11 +18,13 @@ import {
 function StudentForm({
 	onFinish,
 	defaultValues,
-	action
+	action,
+	onCancel
 }: {
 	onFinish: (student: StudentUpdate | StudentCreate) => void;
 	defaultValues?: DefaultValues;
 	action: 'create' | 'update';
+	onCancel: () => void;
 }) {
 	const {
 		register,
@@ -261,7 +263,10 @@ function StudentForm({
 							</div>
 						</div>
 						<div className="mt-7 flex justify-end gap-2">
-							<Button className="bg-gray-primary px-6">
+							<Button
+								className="bg-gray-primary px-6"
+								onClick={onCancel}
+							>
 								Cancelar
 							</Button>
 							<Button

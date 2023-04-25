@@ -65,6 +65,7 @@ function Students() {
 		if (idCourse === null) return;
 		setModalContent(
 			<FormStudentCreate
+				onCancel={closeForm}
 				idCourse={idCourse}
 				onFinishCreate={onFinishCreate}
 			/>
@@ -76,6 +77,7 @@ function Students() {
 		if (idCourse === null) return;
 		setModalContent(
 			<FormStudentUpdate
+				onCancel={closeForm}
 				idCourse={idCourse}
 				idStudent={idStudent}
 				onFinishUpdate={onFinishUpdate}
@@ -167,6 +169,11 @@ function Students() {
 		toast.success('Estudiante actualizado');
 	};
 
+	const closeForm = () => {
+		setIsModalOpen(false);
+		setModalContent(null);
+	};
+
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
 		if (idCourseNum === null) {
@@ -180,7 +187,7 @@ function Students() {
 			return navigate('/teacher/courses');
 		}
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
-		if (idSelectedCourse !== idCourse || !course) {
+		if (!course || course.id !== idCourse) {
 			getCourse(idCourse)
 				.then((course) => {
 					setCourse(course);
@@ -227,19 +234,20 @@ function Students() {
 				</>
 			</Ribbon>
 			<div className="pt-12 h-full relative flex flex-col items-center gap-10">
-				<div className="flex flex-row gap-3 mt-4">
+				<div className="flex flex-col items-center gap-3 mt-4">
 					<div className="shadow-md px-36 font-semibold text-2xl flex flex-col justify-center">
 						Listado de alumnos
 					</div>
 					<Button
-						className="rounded-xl px-1 relative w-12 h-12 hover:scale-105 transition duration-200 ease-in-out"
+						className="rounded-xl relative hover:scale-105 transition duration-200 ease-in-out"
 						onClick={handleCreateStudent}
 					>
-						<img
+						Registrar estudiante
+						{/* <img
 							src={AddIcon}
 							alt="Nuevo"
 							className="w-3/5 h-3/5 absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-						/>
+						/> */}
 					</Button>
 				</div>
 				{students ? (

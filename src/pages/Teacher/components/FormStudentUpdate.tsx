@@ -11,7 +11,8 @@ import Loading from 'react-loading';
 function FormStudentUpdate({
 	idCourse,
 	idStudent,
-	onFinishUpdate
+	onFinishUpdate,
+	onCancel
 }: {
 	idCourse: number;
 	idStudent: number;
@@ -20,6 +21,7 @@ function FormStudentUpdate({
 		idStudente: number,
 		fields: StudentUpdate
 	) => void;
+	onCancel: () => void;
 }) {
 	const { getStudent, student, setStudent, loading, updateStudent } =
 		useStudent();
@@ -71,6 +73,7 @@ function FormStudentUpdate({
 			action="update"
 			defaultValues={getDefaultValues()}
 			onFinish={onFinish}
+			onCancel={onCancel}
 		/>
 	) : (
 		<div className="flex flex-col grow justify-center items-center h-full">

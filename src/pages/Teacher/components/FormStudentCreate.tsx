@@ -4,7 +4,8 @@ import FormStudent from '@pages/Teacher/components/FormStudent';
 
 function FormStudentCreate({
 	idCourse,
-	onFinishCreate
+	onFinishCreate,
+	onCancel
 }: {
 	idCourse: number;
 	onFinishCreate: (
@@ -12,6 +13,7 @@ function FormStudentCreate({
 		idStudente: number,
 		fields: Omit<StudentCreate, 'password'>
 	) => void;
+	onCancel: () => void;
 }) {
 	const { createStudent } = useStudent();
 
@@ -25,7 +27,9 @@ function FormStudentCreate({
 			onFinishCreate(err, -1, student);
 		}
 	};
-	return <FormStudent action="create" onFinish={onFinish} />;
+	return (
+		<FormStudent action="create" onFinish={onFinish} onCancel={onCancel} />
+	);
 }
 
 export default FormStudentCreate;

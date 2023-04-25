@@ -61,10 +61,12 @@ function TableStudents({
 									</div>
 								</td>
 								<td>
-									<div className="px-8">{username}</div>
+									<div className="px-8 text-center">
+										{username}
+									</div>
 								</td>
 								<td>
-									<div className="px-8">
+									<div className="px-8 text-center">
 										{parsePhone(phone)}
 									</div>
 								</td>
