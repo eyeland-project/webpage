@@ -22,11 +22,16 @@ function AlertProvider({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		if (alertOpen) {
-			setTimeout(() => {
+			const timer = setTimeout(() => {
 				setAlertOpen(false);
 			}, 2000);
+
+			return () => {
+				clearTimeout(timer);
+			};
 		}
 	}, [alertOpen]);
+
 
 	return (
 		<AlertContext.Provider

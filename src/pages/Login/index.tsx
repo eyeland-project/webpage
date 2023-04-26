@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
@@ -57,16 +57,20 @@ function Login() {
 			handleAlert(passwordError, 'error');
 			return;
 		}
-		await login({ username, password }, 'teacher');
-
-		if (error) {
-			await login({ username, password }, 'admin');
-		}
-
-		if (error) {
-			handleAlert(error, 'error');
+		try {
+			await login({ username, password }, 'teacher');
+		} catch (err) {
+			try {
+				await login({ username, password }, 'admin');
+			} catch (err) {
+				handleAlert(error, 'error');
+			}
 		}
 	};
+
+	if (error) {
+		handleAlert(error, 'error');
+	}
 
 	return (
 		<>
