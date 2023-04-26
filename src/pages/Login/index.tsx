@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 import { useAlertContext } from '@hooks/useAlertContext';
 import useAuthStorage from '@hooks/useAuthStorage';
@@ -9,9 +11,9 @@ import { validToken } from '@utils/auth';
 
 import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
-import Loading from 'react-loading';
 
 import Logo from '@icons/Logo.svg';
+import LoginForm from './components/LoginForm';
 
 const INITIAL_STATE = {
 	username: '',
@@ -27,6 +29,7 @@ function Login() {
 	const { loading, error, data, login } = useLogin();
 	const { handleAlert } = useAlertContext();
 	const [form, setForm] = useState(INITIAL_STATE);
+	const [selectedTab, setSelectedTab] = useState(0);
 
 	const authStorage = useAuthStorage();
 
@@ -55,7 +58,16 @@ function Login() {
 			handleAlert(passwordError, 'error');
 			return;
 		}
-		await login({ username, password });
+		await login(
+			{ username, password },
+			selectedTab === 0 ? 'teacher' : 'admin'
+		);
+	};
+
+	const onTabSelect = (index: number, lastIndex: number) => {
+		if (index === lastIndex) return;
+		setSelectedTab(index);
+		setForm(INITIAL_STATE);
 	};
 
 	if (error) {
@@ -65,53 +77,39 @@ function Login() {
 	return (
 		<>
 			<NavBar showTeacherButton={false} />
-			<div className='h-40' />
 			<div className="flex w-auto flex-col items-center justify-center">
 				<div className="relative w-fit">
 					<img
 						src={Logo}
 						alt="Logo"
-						className="absolute -top-48 -right-48 w-96"
+						className="absolute -top-24 -right-48 w-96"
 					/>
 					<div className="card relative flex w-96 flex-col items-stretch justify-center">
-						<h2 className="text-center">Iniciar sesión</h2>
-						<form onSubmit={handleSubmit} className="my-5 w-full">
-							<div className="w-full">
-								<label htmlFor="username">Usuario</label>
-								<input
-									type="username"
-									name="username"
-									id="login-teacher-form-username"
-									value={form.username}
-									onChange={handleChange}
+						<Tabs
+							onSelect={onTabSelect}
+							selectedIndex={selectedTab}
+						>
+							<TabList>
+								<Tab>Profesor</Tab>
+								<Tab>Administrador</Tab>
+							</TabList>
+							<TabPanel>
+								<LoginForm
+									form={form}
+									loading={loading}
+									handleChange={handleChange}
+									handleSubmit={handleSubmit}
 								/>
-							</div>
-							<div className="mt-5">
-								<label htmlFor="password">Contraseña</label>
-								<input
-									type="password"
-									name="password"
-									id="login-teacher-form-password"
-									value={form.password}
-									onChange={handleChange}
+							</TabPanel>
+							<TabPanel>
+								<LoginForm
+									form={form}
+									loading={loading}
+									handleChange={handleChange}
+									handleSubmit={handleSubmit}
 								/>
-							</div>
-							<button
-								className="button mt-5 w-full bg-green-primary text-white"
-								type="submit"
-							>
-								{loading ? (
-									<Loading
-										type="spin"
-										color="white"
-										height={20}
-										width={20}
-									/>
-								) : (
-									'Iniciar sesión'
-								)}
-							</button>
-						</form>
+							</TabPanel>
+						</Tabs>
 					</div>
 				</div>
 			</div>

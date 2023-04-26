@@ -7,6 +7,13 @@ export interface LoginResponse {
 	token: string;
 }
 
+export interface TokenPayload {
+	id: number;
+	iat: number;
+	// role: string;
+	exp?: number;
+}
+
 export interface User {
 	id: number;
 	firstName: string;

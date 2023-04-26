@@ -22,6 +22,7 @@ import { connect, socket } from '@listeners/socket';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 import PulseGray from '@animations/PulseGray.json';
+import { decodeToken } from '@utils/auth';
 
 function Session() {
 	// auth
@@ -103,8 +104,11 @@ function Session() {
 
 	const connectSocket = () => {
 		socket?.disconnect();
+		const decoded = decodeToken(authStorage.getAccessToken());
+		if (!decoded) return;
 		connect();
-		socket?.emit(SocketEvents.JOIN, authStorage.getAccessToken());
+		socket?.emit(SocketEvents.JOIN, decoded.id);
+		console.log('connected');
 	};
 
 	const getFilteredTeams = () => {
@@ -136,6 +140,8 @@ function Session() {
 				socket?.on(
 					SocketEvents.TEAMS_STUDENT_UPDATE,
 					(teams: TeamDetail[]) => {
+						console.log('teams updated');
+
 						setTeams(teams);
 					}
 				);
@@ -145,6 +151,7 @@ function Session() {
 		}
 		return () => {
 			socket?.off(SocketEvents.TEAMS_STUDENT_UPDATE);
+			console.log('Stop listening to teams update');
 		};
 	}, [isSessionCreated]);
 
@@ -162,19 +169,26 @@ function Session() {
 		}
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
 		if (!course || course.id !== idCourse) {
-			getCourse(idCourse)
-				.then((course) => {
-					setCourse(course);
-				})
-				.catch(() => {
-					if (course !== null) setCourse(null);
-				});
+			Promise.allSettled([getCourse(idCourse), getTeams(idCourse)]).then(
+				([courseSettled, teamsSettled]) => {
+					if (courseSettled.status === 'fulfilled') {
+						setCourse(courseSettled.value);
+						if (teamsSettled.status === 'fulfilled') {
+							setTeams(teamsSettled.value);
+						}
+					} else {
+						if (course !== null) setCourse(null);
+						if (teams?.length) setTeams([]);
+					}
+				}
+			);
 		}
 	}, [idCourse]);
 
 	useEffect(() => {
 		return () => {
 			socket?.disconnect();
+			console.log('disconnected');
 		};
 	}, []);
 
