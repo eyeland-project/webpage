@@ -29,7 +29,6 @@ function Login() {
 	const { loading, error, data, login } = useLogin();
 	const { handleAlert } = useAlertContext();
 	const [form, setForm] = useState(INITIAL_STATE);
-	const [selectedTab, setSelectedTab] = useState(0);
 
 	const authStorage = useAuthStorage();
 
@@ -58,21 +57,16 @@ function Login() {
 			handleAlert(passwordError, 'error');
 			return;
 		}
-		await login(
-			{ username, password },
-			selectedTab === 0 ? 'teacher' : 'admin'
-		);
-	};
+		await login({ username, password }, 'teacher');
 
-	const onTabSelect = (index: number, lastIndex: number) => {
-		if (index === lastIndex) return;
-		setSelectedTab(index);
-		setForm(INITIAL_STATE);
-	};
+		if (error) {
+			await login({ username, password }, 'admin');
+		}
 
-	if (error) {
-		handleAlert(error, 'error');
-	}
+		if (error) {
+			handleAlert(error, 'error');
+		}
+	};
 
 	return (
 		<>
@@ -85,31 +79,12 @@ function Login() {
 						className="absolute -top-24 -right-48 w-96"
 					/>
 					<div className="card relative flex w-96 flex-col items-stretch justify-center">
-						<Tabs
-							onSelect={onTabSelect}
-							selectedIndex={selectedTab}
-						>
-							<TabList>
-								<Tab>Profesor</Tab>
-								<Tab>Administrador</Tab>
-							</TabList>
-							<TabPanel>
-								<LoginForm
-									form={form}
-									loading={loading}
-									handleChange={handleChange}
-									handleSubmit={handleSubmit}
-								/>
-							</TabPanel>
-							<TabPanel>
-								<LoginForm
-									form={form}
-									loading={loading}
-									handleChange={handleChange}
-									handleSubmit={handleSubmit}
-								/>
-							</TabPanel>
-						</Tabs>
+						<LoginForm
+							form={form}
+							loading={loading}
+							handleChange={handleChange}
+							handleSubmit={handleSubmit}
+						/>
 					</div>
 				</div>
 			</div>

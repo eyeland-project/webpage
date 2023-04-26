@@ -18,7 +18,7 @@ function Hero() {
 	};
 
 	return (
-		<div className="flex h-auto w-screen flex-col-reverse items-center justify-center gap-3 px-20 md:flex-row xl:gap-20 mt-40">
+		<div className="flex h-auto w-screen flex-col-reverse items-center justify-center gap-3 px-20 md:flex-row xl:gap-20 mt-20">
 			<div className="flex flex-col items-start xl:w-[550px]">
 				<h1 className="to animate-entrance-1 bg-gradient-to-r from-green-primary to-green-secondary bg-clip-text text-7xl font-bold text-transparent xl:text-9xl">
 					EYELAND

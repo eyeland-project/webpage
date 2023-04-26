@@ -5,6 +5,7 @@ import * as authApiTeacher from '@api/teacher/auth.api';
 import * as authApiAdmin from '@api/admin/auth.api';
 
 import { Login, LoginResponse } from '@interfaces/teacher/Auth.interface';
+import { log } from 'console';
 
 const useLogin = () => {
 	const authStorage = useAuthStorage();
