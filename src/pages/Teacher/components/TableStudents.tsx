@@ -1,11 +1,13 @@
-import { StudentSummary } from '@interfaces/teacher/Student.interface';
-import { parsePhone } from '@utils/general.utils';
-import ButtonPrimary from '@components/ButtonPrimary';
+import Button from '@components/Button';
 
 import EditIcon from '@icons/Edit.svg';
 import TrashIcon from '@icons/Trash.svg';
+import UserIcon from '@icons/User.svg';
 import SavageBrunner from '@images/Brunner.jpg';
-import Button from '@components/Button';
+
+import { StudentSummary } from '@interfaces/teacher/Student.interface';
+
+import { parsePhone } from '@utils/general.utils';
 
 function TableStudents({
 	students,
@@ -46,7 +48,7 @@ function TableStudents({
 								<td>
 									<div className="flex gap-4 py-4 pl-2 pr-8">
 										<img
-											src={SavageBrunner}
+											src={UserIcon}
 											alt="Usuario"
 											className="rounded-full w-14"
 										/>
