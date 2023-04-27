@@ -1,5 +1,5 @@
 import { Power } from '@enums/Team.enum';
-import { TeamDetail } from '@interfaces/Team.interface';
+import { TeamDetail } from '@interfaces/teacher/Team.interface';
 
 export const teams: TeamDetail[] = [
 	{

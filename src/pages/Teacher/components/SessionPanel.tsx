@@ -7,7 +7,7 @@ import PulseGreen from '@animations/PulseGreen.json';
 import SessionOptions from '@pages/Teacher/components/SessionOptions';
 import useTask from '@hooks/useTask';
 import { useEffect } from 'react';
-import { TaskDetail } from '@interfaces/Task.interface';
+import { TaskDetail } from '@interfaces/teacher/Task.interface';
 
 function SessionPanel({
 	isSessionCreated,

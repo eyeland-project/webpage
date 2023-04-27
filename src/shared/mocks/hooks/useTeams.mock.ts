@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 
-import { TeamDetail } from '@interfaces/Team.interface';
+import { TeamDetail } from '@interfaces/teacher/Team.interface';
 
 import { teams as teamsMock } from '@mocks/team.mock';
 
