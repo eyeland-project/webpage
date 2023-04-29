@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 
 import { useAlertContext } from '@hooks/useAlertContext';
@@ -49,28 +48,23 @@ function Login() {
 		const { username, password } = form;
 		const usernameError = VALIDATION.username(username);
 		const passwordError = VALIDATION.password(password);
+
 		if (usernameError) {
 			handleAlert(usernameError, 'error');
 			return;
 		}
+
 		if (passwordError) {
 			handleAlert(passwordError, 'error');
 			return;
 		}
+
 		try {
 			await login({ username, password }, 'teacher');
 		} catch (err) {
-			try {
-				await login({ username, password }, 'admin');
-			} catch (err) {
-				handleAlert(error, 'error');
-			}
+			await login({ username, password }, 'admin');
 		}
 	};
-
-	if (error) {
-		handleAlert(error, 'error');
-	}
 
 	return (
 		<>

@@ -1,20 +1,22 @@
+import { AlertColor } from '@mui/material';
+import { log } from 'console';
 import { createContext, useState, useEffect } from 'react';
 
 interface AlertContextValues {
 	alertText: string;
-	alertSeverity: string;
+	alertSeverity: AlertColor;
 	alertOpen: boolean;
-	handleAlert: (text: string, severity: string) => void;
+	handleAlert: (text: string, severity: AlertColor) => void;
 }
 
 const AlertContext = createContext<AlertContextValues | null>(null);
 
 function AlertProvider({ children }: { children: React.ReactNode }) {
 	const [alertText, setAlertText] = useState('');
-	const [alertSeverity, setAlertSeverity] = useState('success');
+	const [alertSeverity, setAlertSeverity] = useState<AlertColor>('success');
 	const [alertOpen, setAlertOpen] = useState(false);
 
-	const handleAlert = (text: string, severity: string) => {
+	const handleAlert = (text: string, severity: AlertColor) => {
 		setAlertText(text);
 		setAlertSeverity(severity);
 		setAlertOpen(true);

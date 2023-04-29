@@ -1,18 +1,18 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import useAuthStorage from '@hooks/useAuthStorage';
+import { useAlertContext } from './useAlertContext';
 
 import * as authApiTeacher from '@api/teacher/auth.api';
 import * as authApiAdmin from '@api/admin/auth.api';
 
 import { Login, LoginResponse } from '@interfaces/teacher/Auth.interface';
-import { log } from 'console';
 
 const useLogin = () => {
 	const authStorage = useAuthStorage();
-
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	const [data, setData] = useState<LoginResponse | null>(null);
+	const { handleAlert } = useAlertContext();
 
 	const login = useCallback(
 		async (fields: Login, role: 'teacher' | 'admin' = 'teacher') => {
@@ -29,14 +29,11 @@ const useLogin = () => {
 			} catch (err) {
 				setLoading(false);
 				switch ((err as any).response.status) {
-					case 400:
-						setError('Usuario o contraseña incorrectos');
-						break;
-					case 403:
-						setError('Usuario o contraseña incorrectos');
+					case 401:
+						handleError('Usuario o contraseña incorrectos');
 						break;
 					default:
-						setError('Un error ha ocurrido');
+						handleError('Error al iniciar sesión');
 						break;
 				}
 				throw err;
@@ -44,6 +41,11 @@ const useLogin = () => {
 		},
 		[]
 	);
+
+	const handleError = (error: string) => {
+		setError(error);
+		handleAlert(error, 'error');
+	}
 
 	return { loading, error, data, setData, login };
 };

@@ -6,11 +6,10 @@ function NavBar({ showTeacherButton = true }) {
 	const navigate = useNavigate();
 
 	return (
-		<div className="relative mx-5 my-5 flex items-center justify-center md:justify-start z-50 w-full">
+		<div className="relative mx-5 my-5 flex items-center justify-center md:justify-start w-full">
 			<div
-				className={`flex px-5 h-16 shadow-2xl rounded-lg w-full justify-between items-center bg-white bg-opacity-90 ${
-					!showTeacherButton && 'mr-10'
-				}`}
+				className={`flex px-5 h-16 shadow-2xl rounded-lg w-full justify-between items-center bg-white bg-opacity-90 ${!showTeacherButton && 'mr-10'
+					}`}
 			>
 				<div className="cursor-pointer">
 					<img
