@@ -38,6 +38,14 @@ function Hero() {
 						href={release?.url}
 					/>
 				</div>
+				<div className='my-3 ml-5 w-10 h-0.5 bg-black opacity-25' />
+				<div
+					className="button animate-entrance-4 cursor-default bg-white border border-green-tertiary text-xl text-green-tertiary xl:text-4xl flex items-center gap-2"
+				>
+					<a href="https://proyecto-final-epics.github.io/EyelandApp/">
+						Usar online
+					</a>
+				</div>
 			</div>
 			<div className="w-[400px] xl:w-auto">
 				<img

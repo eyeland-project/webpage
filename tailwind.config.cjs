@@ -36,6 +36,7 @@ module.exports = {
 				'entrance-1': 'animate-entrance 0.5s 0.5s backwards',
 				'entrance-2': 'animate-entrance 0.5s 0.6s backwards',
 				'entrance-3': 'animate-entrance 0.5s 0.7s backwards',
+				'entrance-4': 'animate-entrance 0.5s 0.8s backwards',
 				appear: 'appear 0.5s',
 				playing: 'playing 2s infinite linear'
 			},
