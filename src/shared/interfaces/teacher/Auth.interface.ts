@@ -1,3 +1,5 @@
+import { Role } from "@enums/Role.enum";
+
 export interface Login {
 	username: string;
 	password: string;
@@ -10,7 +12,7 @@ export interface LoginResponse {
 export interface TokenPayload {
 	id: number;
 	iat: number;
-	// role: string;
+	role: Role;
 	exp?: number;
 }
 

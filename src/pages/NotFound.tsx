@@ -1,8 +1,13 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import BrokenLink from '@icons/BrokenLink.svg';
 
-function NotFound() {
+function NotFound({
+	backTo = '/',
+	backMessage = 'Regresar al inicio'
+}: {
+	backTo?: string;
+	backMessage?: string;
+}) {
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-100">
 			<div className="text-center p-8 bg-white rounded-xl shadow-md">
@@ -22,10 +27,10 @@ function NotFound() {
 					sitio.
 				</p>
 				<Link
-					to="/"
+					to={backTo}
 					className="inline-block px-6 py-3 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 focus:ring-offset-white"
 				>
-					Regresar al inicio
+					{backMessage}
 				</Link>
 			</div>
 		</div>

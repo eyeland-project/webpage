@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import 'react-tabs/style/react-tabs.css';
 
@@ -13,6 +13,7 @@ import Footer from '@components/Footer';
 
 import Logo from '@icons/Logo.svg';
 import LoginForm from './components/LoginForm';
+import { Role } from '@enums/Role.enum';
 
 const INITIAL_STATE = {
 	username: '',
@@ -25,14 +26,17 @@ const VALIDATION = {
 };
 
 function Login() {
-	const { loading, error, data, login } = useLogin();
+	const { loading, login } = useLogin();
 	const { handleAlert } = useAlertContext();
 	const [form, setForm] = useState(INITIAL_STATE);
 
 	const authStorage = useAuthStorage();
 
-	if (validToken(authStorage.getAccessToken()) || (data && !error)) {
-		return <Navigate to={'/teacher/home'}></Navigate>;
+	const tokenPayload = validToken(authStorage.getAccessToken());
+	if (tokenPayload) {
+		// if (tokenPayload || (data && !error)) {
+		const { role } = tokenPayload;
+		return <Navigate to={`/${role}/home`}></Navigate>;
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +47,7 @@ function Login() {
 		});
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const { username, password } = form;
 		const usernameError = VALIDATION.username(username);
@@ -59,11 +63,11 @@ function Login() {
 			return;
 		}
 
-		try {
-			await login({ username, password }, 'teacher');
-		} catch (err) {
-			await login({ username, password }, 'admin');
-		}
+		login({ username, password }, Role.TEACHER)
+			.catch(() => login({ username, password }, Role.ADMIN))
+			.catch(() =>
+				handleAlert('Usuario o contraseña incorrectos', 'error')
+			);
 	};
 
 	return (
