@@ -129,13 +129,13 @@ function Students() {
 		const { email, firstName, lastName, phoneCode, username, phoneNumber } =
 			fields;
 		const newStudent: StudentSummary = {
-			email,
+			email: email || null,
 			firstName,
 			id: idStudent,
 			lastName,
 			phone: phoneNumber
 				? {
-						countryCode: phoneCode,
+						countryCode: phoneCode || null,
 						number: phoneNumber
 				  }
 				: null,

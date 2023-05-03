@@ -31,9 +31,9 @@ export interface StudentCreate {
 	lastName: string;
 	username: string;
 	password: string;
-	email: string | null;
-	phoneCode: string | null;
-	phoneNumber: string | null;
+	email?: string | null;
+	phoneCode?: string | null;
+	phoneNumber?: string | null;
 }
 
 export type StudentUpdate = Partial<StudentCreate>;

@@ -1,5 +1,4 @@
 import { AlertColor } from '@mui/material';
-import { log } from 'console';
 import { createContext, useState, useEffect } from 'react';
 
 interface AlertContextValues {
@@ -33,7 +32,6 @@ function AlertProvider({ children }: { children: React.ReactNode }) {
 			};
 		}
 	}, [alertOpen]);
-
 
 	return (
 		<AlertContext.Provider

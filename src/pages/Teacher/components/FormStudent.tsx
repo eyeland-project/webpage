@@ -30,13 +30,15 @@ function StudentForm({
 		register,
 		handleSubmit,
 		watch,
-		formState: { errors }
+		formState: { errors },
+		clearErrors
 	} = useForm<Inputs>({
 		defaultValues
 	});
 
 	// states
 	const [step, setStep] = useState(1);
+	const [finishError, setFinishError] = useState('');
 
 	const onSubmit: SubmitHandler<Inputs> = ({ confirmPassword, ...data }) => {
 		if (action === 'update') {
@@ -44,33 +46,56 @@ function StudentForm({
 			if (defaultValues) {
 				for (const key in updateFields) {
 					if (
+						updateFields[key as keyof StudentUpdate] === '' ||
 						updateFields[key as keyof StudentUpdate] ===
-						defaultValues[key as keyof DefaultValues]
+							defaultValues[key as keyof DefaultValues]
 					) {
 						delete updateFields[key as keyof StudentUpdate];
 					}
 				}
 			}
-			onFinish(updateFields);
+			if (Object.keys(updateFields).length === 0) {
+				setFinishErrorTimeout('No se ha modificado ningún campo');
+			} else {
+				onFinish(updateFields);
+			}
 		} else {
 			const createFields: StudentCreate = data;
 			onFinish(createFields);
 		}
 	};
 
+	const onChangeForm = () => {
+		if (finishError) setFinishError('');
+	};
+
+	const setFinishErrorTimeout = (error: string) => {
+		if (finishError) return;
+		setFinishError(error);
+		setTimeout(() => {
+			setFinishError('');
+		}, 2000);
+	};
+
 	useEffect(() => {
 		console.log(errors);
+		if (Object.keys(errors).length) {
+			setFinishErrorTimeout('Por favor, revise los campos');
+		}
 	}, [errors]);
 
 	return (
-		<div className="bg-white flex flex-col gap-4 px-8 rounded-md h-full">
+		<div className="bg-white flex flex-col gap-4 px-8 rounded-md h-full min-w-[400px]">
 			<div className="font-bold text-xl text-center">
 				{action === 'create'
 					? 'Registrar estudiante'
 					: 'Actualizar datos de estudiante'}
 			</div>
 			<hr className="border-t border-gray-700" />
-			<form className="flex flex-col grow justify-between pb-4 h-full">
+			<form
+				className="flex flex-col grow justify-between pb-4 h-full"
+				onChange={onChangeForm}
+			>
 				<div className="flex gap-0 justify-center items-center">
 					<div
 						className="flex flex-col justify-center cursor-pointer bg-green-primary rounded-full text-sm w-8 h-8 text-center text-white font-semibold"
@@ -97,12 +122,12 @@ function StudentForm({
 				<div className="relative h-full mt-4">
 					<div
 						className={`absolute bg-white h-full w-full flex flex-col justify-between ${
-							step === 1 ? 'z-10' : ''
+							step === 1 ? '' : 'invisible'
 						}`}
 					>
 						<div>
 							<div className="flex gap-3">
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-username"
 										className="text-sm font-medium"
@@ -117,13 +142,19 @@ function StudentForm({
 										{...register('username', {
 											required: true,
 											minLength: 2,
-											maxLength: 20
+											maxLength: 20,
+											pattern: /^[a-zA-Z][a-zA-Z0-9_]*$/i
 										})}
 									/>
+									{errors.username && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Nombre de usuario no válido
+										</span>
+									)}
 								</div>
 							</div>
 							<div className="flex gap-3 mt-6">
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-password"
 										className="text-sm font-medium"
@@ -135,13 +166,31 @@ function StudentForm({
 										id="form-student-password"
 										className="text-sm h-min py-2 outline-none border border-gray-primary rounded-md"
 										{...register('password', {
-											required: true,
+											required: action === 'create',
 											minLength: 5,
-											maxLength: 50
+											maxLength: 50,
+											onChange: ({
+												target: { value }
+											}) => {
+												if (
+													action === 'update' &&
+													value === '' &&
+													errors.confirmPassword
+												) {
+													clearErrors(
+														'confirmPassword'
+													);
+												}
+											}
 										})}
 									/>
+									{errors.password && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Contraseña no válida
+										</span>
+									)}
 								</div>
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-confirmPassword"
 										className="text-sm font-medium"
@@ -153,17 +202,20 @@ function StudentForm({
 										id="form-student-confirmPassword"
 										className="text-sm h-min py-2 outline-none border border-gray-primary rounded-md"
 										{...register('confirmPassword', {
-											required: true,
-											minLength: 5,
-											maxLength: 50,
+											required: action === 'create',
 											validate: (value) =>
 												value === watch('password')
 										})}
 									/>
+									{errors.confirmPassword && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Las contraseñas no coinciden
+										</span>
+									)}
 								</div>
 							</div>
 							<div className="flex gap-3 mt-6">
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-firstName"
 										className="text-sm font-medium"
@@ -182,8 +234,13 @@ function StudentForm({
 											pattern: /^[a-zA-ZÀ-ÿ\s]{1,40}$/i
 										})}
 									/>
+									{errors.firstName && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Nombre no válido
+										</span>
+									)}
 								</div>
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-lastName"
 										className="text-sm font-medium"
@@ -199,6 +256,11 @@ function StudentForm({
 											required: true
 										})}
 									/>
+									{errors.lastName && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Apellido no válido
+										</span>
+									)}
 								</div>
 							</div>
 							<div className="flex gap-3 mt-6">
@@ -219,29 +281,37 @@ function StudentForm({
 											// 	defaultValues?.phoneCode || ''
 											// }
 											{...register('phoneCode', {
-												required: true
+												// required: true
 											})}
 											className="outline-none border border-gray-primary rounded-md"
 										>
 											<option value="57">+57</option>
 										</select>
-										<input
-											type="text"
-											// id="form-student-phoneNumber"
-											className="text-sm h-min py-2 outline-none border border-gray-primary rounded-md"
-											defaultValue={
-												defaultValues?.phoneNumber || ''
-											}
-											{...register('phoneNumber', {
-												required: true,
-												minLength: 10,
-												maxLength: 10,
-												pattern: /^[0-9]{10}$/i
-											})}
-										/>
+										<div className="flex flex-col gap-1 grow relative">
+											<input
+												type="text"
+												// id="form-student-phoneNumber"
+												className="text-sm h-min py-2 outline-none border border-gray-primary rounded-md"
+												// defaultValue={
+												// 	defaultValues?.phoneNumber ||
+												// 	''
+												// }
+												{...register('phoneNumber', {
+													// required: true,
+													minLength: 10,
+													maxLength: 10,
+													pattern: /^[0-9]{10}$/i
+												})}
+											/>
+											{errors.phoneNumber && (
+												<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+													Teléfono no válido
+												</span>
+											)}
+										</div>
 									</div>
 								</div>
-								<div className="flex flex-col gap-1 grow">
+								<div className="flex flex-col gap-1 grow relative">
 									<label
 										htmlFor="form-student-email"
 										className="text-sm font-medium"
@@ -256,9 +326,16 @@ function StudentForm({
 										// 	defaultValues?.email || ''
 										// }
 										{...register('email', {
-											required: true
+											// required: true,
+											pattern:
+												/^[a-z][a-z0-9._]*@[a-z0-9.-]+\.[a-z]{2,4}$/i
 										})}
 									/>
+									{errors.email && (
+										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
+											Correo electrónico no válido
+										</span>
+									)}
 								</div>
 							</div>
 						</div>
@@ -279,11 +356,11 @@ function StudentForm({
 					</div>
 					<div
 						className={`absolute bg-white h-full w-full flex flex-col justify-between ${
-							step === 2 ? 'z-10' : ''
+							step === 2 ? '' : 'invisible'
 						}`}
 					>
 						<div>
-							<div className="flex flex-col gap-1 grow">
+							<div className="flex flex-col gap-1 grow relative">
 								<label
 									htmlFor="form-student-blindnessAcuityCode"
 									className="text-sm font-medium flex gap-2 items-center"
@@ -379,16 +456,32 @@ function StudentForm({
 								</select>
 							</div>
 						</div>
-						<div className="mt-7 flex justify-end gap-2">
-							<Button className="bg-gray-primary px-6">
-								Cancelar
-							</Button>
-							<Button
-								className="bg-green-primary px-6"
-								onClick={handleSubmit(onSubmit)}
-							>
-								Finalizar
-							</Button>
+						<div className="mt-7">
+							<div className=" flex justify-end gap-2">
+								<Button
+									className="bg-gray-primary px-6"
+									onClick={onCancel}
+								>
+									Cancelar
+								</Button>
+
+								<Button
+									className="bg-green-primary px-6"
+									onClick={() => {
+										if (Object.keys(errors).length) {
+											setFinishErrorTimeout(
+												'Por favor, revise los campos'
+											);
+										}
+										handleSubmit(onSubmit)();
+									}}
+								>
+									Finalizar
+								</Button>
+							</div>
+							<div className="text-sm text-red-primary text-end">
+								{finishError}
+							</div>
 						</div>
 					</div>
 				</div>
