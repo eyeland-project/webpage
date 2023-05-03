@@ -9,9 +9,14 @@ import DataGridIcon from '@icons/DataGrid.svg';
 
 function SubMenuCourses() {
 	const navigate = useNavigate();
-	const { courses, getCourses, loading } = useCourse();
+	const { getCourses, loading } = useCourse();
 	const {
-		coursesData: { idSelectedCourse, setIdSelectedCourse }
+		coursesData: {
+			idSelectedCourse,
+			setIdSelectedCourse,
+			courses,
+			setCourses
+		}
 	} = useTeacherContext();
 
 	const onSelectCourse = (id: number) => {
@@ -20,7 +25,14 @@ function SubMenuCourses() {
 	};
 
 	useEffect(() => {
-		if (!courses) getCourses().catch(() => {});
+		if (!courses) {
+			getCourses()
+				.then((courses) => {
+					setCourses(courses);
+					// setIdSelectedCourse(courses[0].id);
+				})
+				.catch(console.log);
+		}
 	}, []);
 
 	return (

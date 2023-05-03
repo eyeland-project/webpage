@@ -4,6 +4,7 @@ import useAuthStorage from '@hooks/useAuthStorage';
 import * as courseApi from '@api/teacher/course.api';
 
 import {
+	CourseCreate,
 	CourseDetail,
 	CourseSummary
 } from '@interfaces/teacher/Course.interface';
@@ -48,6 +49,21 @@ const useCourse = () => {
 		},
 		[]
 	);
+
+	const createCourse = useCallback(async (course: CourseCreate) => {
+		setLoading(true);
+		try {
+			const response = await courseApi.createCourse({
+				token: authStorage.getAccessToken()!,
+				course
+			});
+			setLoading(false);
+			return response;
+		} catch (err) {
+			setLoading(false);
+			throw err;
+		}
+	}, []);
 
 	const createSession = useCallback(async (idCourse: number) => {
 		setLoading(true);
@@ -102,6 +118,7 @@ const useCourse = () => {
 		course,
 		setCourse,
 		getCourse,
+		createCourse,
 		createSession,
 		startSession,
 		endSession

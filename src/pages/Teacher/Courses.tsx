@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import Lottie from 'lottie-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 
 import FormCourse from '@pages/Teacher/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
+
+import { CourseCreate } from '@interfaces/teacher/Course.interface';
 
 import GraduationCap from '@icons/GraduationCap.svg';
 import Mail from '@icons/Mail.svg';
@@ -15,8 +19,31 @@ import FlyingStudents from '@animations/FlyingStudents.json';
 
 function Courses() {
 	const {
-		coursesData: { setIdSelectedCourse }
+		coursesData: { setIdSelectedCourse, setCourses, courses }
 	} = useTeacherContext();
+
+	const onCreateCourse = (
+		err: unknown | null,
+		idCourse: number,
+		fields: CourseCreate
+	) => {
+		if (!courses) {
+			console.log('No courses');
+			return;
+		}
+		if (err) {
+			toast.error('Error al crear el curso');
+			return;
+		}
+		setCourses([
+			...courses,
+			{
+				id: idCourse,
+				name: fields.name
+			}
+		]);
+		toast.success('Curso creado exitosamente');
+	};
 
 	useEffect(() => {
 		setIdSelectedCourse(null);
@@ -24,6 +51,7 @@ function Courses() {
 
 	return (
 		<>
+			<ToastContainer />
 			<Ribbon>
 				<img
 					src={GraduationCap}
@@ -39,7 +67,7 @@ function Courses() {
 					<Lottie animationData={FlyingStudents} loop={true} />
 				</div>
 				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-14 sm:mt-6">
-					<FormCourse />
+					<FormCourse onFinish={onCreateCourse} />
 				</div>
 				<div className="mt-20">
 					<div className="font-bold text-lg">

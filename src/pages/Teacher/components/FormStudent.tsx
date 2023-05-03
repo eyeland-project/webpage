@@ -41,14 +41,18 @@ function StudentForm({
 	const [finishError, setFinishError] = useState('');
 
 	const onSubmit: SubmitHandler<Inputs> = ({ confirmPassword, ...data }) => {
+		for (const key in data) {
+			if (data[key as keyof StudentUpdate] === '') {
+				delete data[key as keyof StudentUpdate];
+			}
+		}
 		if (action === 'update') {
 			const updateFields: StudentUpdate = data;
 			if (defaultValues) {
 				for (const key in updateFields) {
 					if (
-						updateFields[key as keyof StudentUpdate] === '' ||
 						updateFields[key as keyof StudentUpdate] ===
-							defaultValues[key as keyof DefaultValues]
+						defaultValues[key as keyof DefaultValues]
 					) {
 						delete updateFields[key as keyof StudentUpdate];
 					}

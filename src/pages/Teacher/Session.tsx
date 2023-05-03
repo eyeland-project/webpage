@@ -135,7 +135,7 @@ function Session() {
 	useEffect(() => {
 		if (isSessionCreated) {
 			if (idCourse !== null) {
-				getTeams(idCourse).catch(() => {});
+				getTeams(idCourse).catch(console.log);
 				connectSocket();
 				socket?.on(
 					SocketEvents.TEAMS_STUDENT_UPDATE,

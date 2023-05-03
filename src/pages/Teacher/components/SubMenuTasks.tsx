@@ -20,7 +20,7 @@ function SubMenuTasks() {
 	};
 
 	useEffect(() => {
-		if (!tasks) getTasks().catch(() => {});
+		if (!tasks) getTasks().catch(console.log);
 	}, []);
 
 	return (
