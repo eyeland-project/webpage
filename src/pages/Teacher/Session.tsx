@@ -11,7 +11,6 @@ import useAuthStorage from '@hooks/useAuthStorage';
 import SessionPanel from '@pages/Teacher/components/SessionPanel';
 import Ribbon from '@pages/Teacher/components/Ribbon';
 import TeamGrid from '@pages/Teacher/components/TeamGrid';
-import ButtonPrimary from '@components/ButtonPrimary';
 
 import { TeamDetail } from '@interfaces/teacher/Team.interface';
 import { TaskDetail } from '@interfaces/teacher/Task.interface';
@@ -23,6 +22,7 @@ import { connect, socket } from '@listeners/socket';
 import DataGridIcon from '@icons/DataGrid.svg';
 import PulseGray from '@animations/PulseGray.json';
 import { decodeToken } from '@utils/auth';
+import Button from '@components/Button';
 
 function Session() {
 	// auth
@@ -230,12 +230,9 @@ function Session() {
 								</div>
 							</div>
 							<div className="w-min">
-								<ButtonPrimary
-									size="medium"
-									onClick={handleCreateSession}
-								>
+								<Button onClick={handleCreateSession}>
 									¡Activar!
-								</ButtonPrimary>
+								</Button>
 							</div>
 						</div>
 					) : (

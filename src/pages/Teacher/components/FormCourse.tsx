@@ -1,4 +1,4 @@
-import ButtonPrimary from '@components/ButtonPrimary';
+import Button from '@components/Button';
 import { useForm } from 'react-hook-form';
 
 function FormCourse() {
@@ -44,7 +44,7 @@ function FormCourse() {
 					</div>
 				</div>
 				<div className="mt-7 flex justify-end">
-					<ButtonPrimary size="medium">Crear</ButtonPrimary>
+					<Button>Crear</Button>
 				</div>
 			</form>
 		</div>

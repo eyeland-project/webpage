@@ -1,4 +1,4 @@
-import ButtonPrimary from '@components/ButtonPrimary';
+import Button from '@components/Button';
 
 import Flags from '@icons/Flags.svg';
 
@@ -18,24 +18,25 @@ function SessionOptions({
 	return (
 		<>
 			{!isSessionCreated ? (
-				<ButtonPrimary
+				<Button
 					onClick={handleCreateSession}
-					bgColor="green-tertiary"
+					className="bg-green-tertiary"
 				>
 					Activar
-				</ButtonPrimary>
+				</Button>
 			) : (
-				<div className="flex gap-3">
-					<ButtonPrimary
+				<div className="flex gap-3 justify-end">
+					<Button
 						onClick={handleEndSession}
-						bgColor="red-primary"
+						className="bg-red-primary"
 					>
 						Terminar
-					</ButtonPrimary>
-					<ButtonPrimary
+					</Button>
+					<Button
 						onClick={handleStartSession}
-						bgColor="green-primary"
-						paddingX={!isSessionStarted}
+						className={`bg-green-primary ${
+							isSessionStarted ? 'px-0' : ''
+						}`}
 					>
 						{!isSessionStarted ? (
 							'Iniciar'
@@ -49,7 +50,7 @@ function SessionOptions({
 								/>
 							</div>
 						)}
-					</ButtonPrimary>
+					</Button>
 				</div>
 			)}
 		</>

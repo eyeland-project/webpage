@@ -22,10 +22,14 @@ import NotFound from '@pages/NotFound';
 
 import { validToken } from '@utils/auth';
 import { getMenuSelectedKeyFromPath } from '@utils/routing.utils';
+import { Role } from '@enums/Role.enum';
 
 function Teacher() {
 	const authStorage = useAuthStorage();
-	if (!validToken(authStorage.getAccessToken())) {
+	const tokenPayload = validToken(authStorage.getAccessToken());
+	if (tokenPayload && tokenPayload.role === Role.ADMIN) {
+		return <Navigate to={'/admin/home'}></Navigate>;
+	} else if (!tokenPayload || tokenPayload.role !== Role.TEACHER) {
 		return <Navigate to={'/login'}></Navigate>;
 	}
 

@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import 'react-tabs/style/react-tabs.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useAlertContext } from '@hooks/useAlertContext';
 import useAuthStorage from '@hooks/useAuthStorage';
 import useLogin from '@hooks/useLogin';
 
@@ -27,16 +27,18 @@ const VALIDATION = {
 
 function Login() {
 	const { loading, login } = useLogin();
-	const { handleAlert } = useAlertContext();
 	const [form, setForm] = useState(INITIAL_STATE);
 
 	const authStorage = useAuthStorage();
 
 	const tokenPayload = validToken(authStorage.getAccessToken());
 	if (tokenPayload) {
-		// if (tokenPayload || (data && !error)) {
 		const { role } = tokenPayload;
-		return <Navigate to={`/${role}/home`}></Navigate>;
+		if (Object.values(Role).includes(role)) {
+			return <Navigate to={`/${role}/home`}></Navigate>;
+		} else {
+			authStorage.removeAccessToken();
+		}
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,44 +56,45 @@ function Login() {
 		const passwordError = VALIDATION.password(password);
 
 		if (usernameError) {
-			handleAlert(usernameError, 'error');
+			toast.error(usernameError);
 			return;
 		}
 
 		if (passwordError) {
-			handleAlert(passwordError, 'error');
+			toast.error(passwordError);
 			return;
 		}
 
 		login({ username, password }, Role.TEACHER)
 			.catch(() => login({ username, password }, Role.ADMIN))
-			.catch(() =>
-				handleAlert('Usuario o contraseña incorrectos', 'error')
-			);
+			.catch(() => toast.error('Usuario o contraseña incorrectos'));
 	};
 
 	return (
-		<>
-			<NavBar showTeacherButton={false} />
-			<div className="flex w-auto flex-col items-center justify-center">
-				<div className="relative w-fit">
-					<img
-						src={Logo}
-						alt="Logo"
-						className="absolute -top-24 -right-48 w-96"
-					/>
-					<div className="card relative flex w-96 flex-col items-stretch justify-center">
-						<LoginForm
-							form={form}
-							loading={loading}
-							handleChange={handleChange}
-							handleSubmit={handleSubmit}
+		<div>
+			<ToastContainer />
+			<div className="flex min-h-screen flex-col justify-between">
+				<NavBar showTeacherButton={false} />
+				<div className="flex w-auto flex-col items-center justify-center">
+					<div className="relative w-fit">
+						<img
+							src={Logo}
+							alt="Logo"
+							className="absolute -top-24 -right-48 w-96"
 						/>
+						<div className="card relative flex w-96 flex-col items-stretch justify-center">
+							<LoginForm
+								form={form}
+								loading={loading}
+								handleChange={handleChange}
+								handleSubmit={handleSubmit}
+							/>
+						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</>
+		</div>
 	);
 }
 
