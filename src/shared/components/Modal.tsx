@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import ReactModal, { Styles } from 'react-modal';
 
-import AddIcon from '@icons/Add.svg';
+import CloseIcon from '@icons/Close.svg';
 
 function Modal({
 	isOpen,
@@ -35,9 +35,9 @@ function Modal({
 		>
 			<div className="relative h-full">
 				<img
-					src={AddIcon}
+					src={CloseIcon}
 					alt="Cerrar"
-					className="invert opacity-50 absolute top-0 right-0 w-8 h-8 rotate-45 cursor-pointer"
+					className="opacity-50 absolute top-0 right-0 w-6 h-6 cursor-pointer"
 					onClick={onClose}
 				/>
 				{children}

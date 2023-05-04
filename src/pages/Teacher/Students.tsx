@@ -3,30 +3,27 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import Loading from 'react-loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 import useStudent from '@hooks/useStudent';
 import useCourse from '@hooks/useCourse';
-
-import Ribbon from '@pages/Teacher/components/Ribbon';
+import useConfirmDialog from '@hooks/useConfirmDialog';
 
 import Button from '@components/Button';
+import Modal from '@components/Modal';
+import Ribbon from '@pages/Teacher/components/Ribbon';
 import TableStudents from '@pages/Teacher/components/TableStudents';
+import FormStudentUpdate from '@pages/Teacher/components/FormStudentUpdate';
+import FormStudentCreate from '@pages/Teacher/components/FormStudentCreate';
 
 import { parseNumericParam } from '@utils/routing.utils';
 
 import DataGridIcon from '@icons/DataGrid.svg';
-import AddIcon from '@icons/Add.svg';
-import Modal from '@components/Modal';
-import FormStudentUpdate from './components/FormStudentUpdate';
 import {
 	StudentCreate,
 	StudentSummary,
 	StudentUpdate
 } from '@interfaces/teacher/Student.interface';
-import FormStudentCreate from './components/FormStudentCreate';
 
 function Students() {
 	// navigation
@@ -51,6 +48,8 @@ function Students() {
 		deleteStudent
 	} = useStudent();
 	const { getCourse } = useCourse();
+	// useConfirmDialog
+	const { ConfirmDialog, showDialog } = useConfirmDialog();
 
 	// states
 	const [idCourse, setIdCourse] = useState<number | null>(
@@ -72,6 +71,7 @@ function Students() {
 		);
 		setIsModalOpen(true);
 	};
+
 	// update
 	const handleUpdateStudent = (idStudent: number) => {
 		if (idCourse === null) return;
@@ -85,32 +85,13 @@ function Students() {
 		);
 		setIsModalOpen(true);
 	};
+
 	// delete
 	const handleDeleteStudent = (idStudent: number) => {
-		const onConfirm = async () => {
-			if (idCourse === null) return;
-			try {
-				await deleteStudent(idCourse, idStudent);
-				setStudents(
-					students!.filter((student) => student.id !== idStudent)
-				);
-				toast.success('Estudiante eliminado');
-			} catch (err) {
-				toast.error('Error al eliminar el estudiante');
-			}
-		};
-		confirmAlert({
+		showDialog({
 			title: 'Eliminar estudiante',
 			message: '¿Está seguro que desea eliminar el estudiante?',
-			buttons: [
-				{
-					label: 'Sí',
-					onClick: onConfirm
-				},
-				{
-					label: 'No'
-				}
-			]
+			onConfirm: () => onFinishDelete(idStudent)
 		});
 	};
 
@@ -146,6 +127,7 @@ function Students() {
 		setModalContent(null);
 		toast.success('Estudiante registrado');
 	};
+
 	// update
 	const onFinishUpdate = (
 		err: unknown,
@@ -167,6 +149,19 @@ function Students() {
 		setIsModalOpen(false);
 		setModalContent(null);
 		toast.success('Estudiante actualizado');
+	};
+
+	const onFinishDelete = async (idStudent: number) => {
+		if (idCourse === null) return;
+		try {
+			await deleteStudent(idCourse, idStudent);
+			setStudents(
+				students!.filter((student) => student.id !== idStudent)
+			);
+			toast.success('Estudiante eliminado');
+		} catch (err) {
+			toast.error('Error al eliminar el estudiante');
+		}
 	};
 
 	const closeForm = () => {
@@ -213,6 +208,7 @@ function Students() {
 
 	return (
 		<div className="h-screen">
+			<ConfirmDialog />
 			<Modal
 				isOpen={isModalOpen}
 				setIsOpen={setIsModalOpen}
