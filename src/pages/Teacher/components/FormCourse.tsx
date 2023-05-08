@@ -1,19 +1,14 @@
 import Button from '@components/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import useCourse from '@hooks/useCourse';
-
 import { CourseCreate } from '@interfaces/teacher/Course.interface';
 
 function FormCourse({
 	onFinish
 }: {
-	onFinish: (
-		err: unknown | null,
-		idCourse: number,
-		fields: CourseCreate
-	) => void;
+	onFinish: (fields: CourseCreate) => void;
 }) {
+	// useForm
 	const {
 		register,
 		handleSubmit,
@@ -21,16 +16,10 @@ function FormCourse({
 		clearErrors,
 		watch
 	} = useForm<CourseCreate>();
+	// useConfirmDialog
 
-	const { createCourse } = useCourse();
-
-	const onSubmit: SubmitHandler<CourseCreate> = async (data) => {
-		try {
-			const { id } = await createCourse(data);
-			onFinish(null, id, data);
-		} catch (err) {
-			onFinish(err, -1, data);
-		}
+	const onSubmit: SubmitHandler<CourseCreate> = (data) => {
+		onFinish(data);
 	};
 
 	return (

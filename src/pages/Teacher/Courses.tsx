@@ -4,6 +4,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
+import useConfirmDialog from '@hooks/useConfirmDialog';
+import useCourse from '@hooks/useCourse';
 
 import FormCourse from '@pages/Teacher/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
@@ -18,31 +20,35 @@ import Phone from '@icons/Phone.svg';
 import FlyingStudents from '@animations/FlyingStudents.json';
 
 function Courses() {
+	// useTeacherContext
 	const {
 		coursesData: { setIdSelectedCourse, setCourses, courses }
 	} = useTeacherContext();
+	// useConfirmDialog
+	const { ConfirmDialog, showDialog } = useConfirmDialog();
+	// useCourse
+	const { createCourse } = useCourse();
 
-	const onCreateCourse = (
-		err: unknown | null,
-		idCourse: number,
-		fields: CourseCreate
-	) => {
+	const onCreateCourse = (fields: CourseCreate) => {
+		showDialog({
+			title: 'Registrar curso',
+			message: '¿Está seguro que desea registrar este curso?',
+			onConfirm: () => finishCreate(fields)
+		});
+	};
+
+	const finishCreate = async (fields: CourseCreate) => {
 		if (!courses) {
 			console.log('No courses');
 			return;
 		}
-		if (err) {
+		try {
+			const { id } = await createCourse(fields);
+			setCourses([...courses, { id, name: fields.name }]);
+			toast.success('Curso creado exitosamente');
+		} catch (err) {
 			toast.error('Error al crear el curso');
-			return;
 		}
-		setCourses([
-			...courses,
-			{
-				id: idCourse,
-				name: fields.name
-			}
-		]);
-		toast.success('Curso creado exitosamente');
 	};
 
 	useEffect(() => {
@@ -51,6 +57,7 @@ function Courses() {
 
 	return (
 		<>
+			<ConfirmDialog />
 			<ToastContainer />
 			<Ribbon>
 				<img
