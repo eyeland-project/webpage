@@ -1,8 +1,34 @@
 import { environment } from '@environments/environment';
-import { TaskStageDetail } from '@interfaces/teacher/TaskStage.interface';
+import {
+	TaskStageDetail,
+	TaskStagesDetail
+} from '@interfaces/teacher/TaskStage.interface';
 import axios from 'axios';
 
 const { apiTeacherUrl } = environment;
+
+export async function getTaskStages({
+	idTask,
+	token
+}: {
+	idTask: number;
+	token: string;
+}): Promise<TaskStagesDetail> {
+	const response = await axios.get(
+		`${apiTeacherUrl}/tasks/${idTask}/taskStages`,
+		{
+			timeout: 10000,
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}
+	);
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error(response.data);
+	}
+}
 
 export async function getPretask({
 	idTask,

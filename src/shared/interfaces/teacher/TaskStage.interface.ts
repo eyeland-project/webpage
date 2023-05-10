@@ -5,3 +5,9 @@ export interface TaskStageDetail {
 	description: string;
 	numQuestions: number;
 }
+
+export interface TaskStagesDetail {
+	pretask: TaskStageDetail;
+	duringtask: TaskStageDetail;
+	postask: TaskStageDetail;
+}

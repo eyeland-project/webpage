@@ -10,9 +10,9 @@ import { validToken } from '@utils/auth';
 
 import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
+import LoginForm from '@pages/Login/components/LoginForm';
 
 import Logo from '@icons/Logo.svg';
-import LoginForm from './components/LoginForm';
 import { Role } from '@enums/Role.enum';
 
 const INITIAL_STATE = {

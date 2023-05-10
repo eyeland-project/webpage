@@ -14,6 +14,7 @@ import { parseNumericParam } from '@utils/routing.utils';
 import DataGridIcon from '@icons/DataGrid.svg';
 import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import Taskman from '@animations/Taskman.json';
+import Evaluation from '@animations/Evaluation.json';
 
 function Course() {
 	// navigation
@@ -132,6 +133,11 @@ function getSections(idCourse: number): {
 			title: 'Listado de alumnos',
 			img: <Lottie animationData={Taskman} loop={true} />,
 			link: `/teacher/students?idCourse=${idCourse}`
+		},
+		{
+			title: 'Evaluación',
+			img: <Lottie animationData={Evaluation} loop={true} />,
+			link: `/teacher/submissions?idCourse=${idCourse}`
 		}
 	];
 }

@@ -1,8 +1,13 @@
-import { QuestionTopic, QuestionType } from '@enums/Question.enum';
+import {
+	QuestionTopic,
+	QuestionType,
+	QuestionCharacter
+} from '@enums/Question.enum';
 import { Option } from '@interfaces/teacher/Option.interface';
 
-interface QuestionDetail {
+export interface QuestionDetail {
 	id: number;
+	questionOrder: number;
 	content: string;
 	type: QuestionType;
 	topic: QuestionTopic | null;
@@ -10,17 +15,16 @@ interface QuestionDetail {
 	imgUrl: string | null;
 	audioUrl: string | null;
 	videoUrl: string | null;
+	hint: string | null;
+	character: QuestionCharacter | null;
 	options: Option[];
 }
 
-export type QuestionPretaskDetail = Omit<
-	QuestionDetail,
-	'audioUrl' | 'videoUrl'
->;
+export interface QuestionPretaskDetail extends QuestionDetail {}
 
 export interface QuestionDuringtaskDetail extends QuestionDetail {
-	nounTranslation: string[];
-	prepositionTranslation: string[];
+	memoryPro: string[];
+	superRadar: string[];
 }
 
 export interface QuestionPostaskDetail extends QuestionDetail {}

@@ -27,12 +27,12 @@ const useTask = () => {
 		}
 	}, []);
 
-	const getTask: (taskId: number) => Promise<TaskDetail> = useCallback(
-		async (taskId: number) => {
+	const getTask: (idTask: number) => Promise<TaskDetail> = useCallback(
+		async (idTask: number) => {
 			setLoading(true);
 			try {
 				const task = await taskApi.getTask({
-					idTask: taskId,
+					idTask,
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
