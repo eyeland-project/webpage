@@ -16,7 +16,7 @@ export async function getAnswersFromPretask({
 	idCourse: number;
 	idTaskAttempt: number;
 	token: string;
-}): Promise<QuestionSubmissionDetailPretask> {
+}): Promise<QuestionSubmissionDetailPretask[]> {
 	return getAnswersFromTaskStage({
 		taskStageName: 'pretask',
 		idCourse,
@@ -33,7 +33,7 @@ export async function getAnswersFromDuringtask({
 	idCourse: number;
 	idTaskAttempt: number;
 	token: string;
-}): Promise<QuestionSubmissionDetailDuringtask> {
+}): Promise<QuestionSubmissionDetailDuringtask[]> {
 	return getAnswersFromTaskStage({
 		taskStageName: 'duringtask',
 		idCourse,
@@ -50,7 +50,7 @@ export async function getAnswersFromPostask({
 	idCourse: number;
 	idTaskAttempt: number;
 	token: string;
-}): Promise<QuestionSubmissionDetailPostask> {
+}): Promise<QuestionSubmissionDetailPostask[]> {
 	return getAnswersFromTaskStage({
 		taskStageName: 'postask',
 		idCourse,

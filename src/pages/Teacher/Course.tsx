@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import Lottie from 'lottie-react';
@@ -38,7 +38,7 @@ function Course() {
 		parseNumericParam(idCourseStr)
 	);
 
-	const sections = useCallback(() => {
+	const sections = useMemo(() => {
 		if (idCourse === null) return [];
 		return getSections(idCourse);
 	}, [idCourse]);
@@ -80,10 +80,10 @@ function Course() {
 					{course?.name || ''}
 				</div>
 			</Ribbon>
-			<div className="px-8 pb-4 pt-12 h-full">
+			<div className="px-8 pb-4 pt-10 h-full">
 				{course ? (
 					<div className="grid grid-cols-2 gap-x-16 gap-y-8 px-10 py-8">
-						{sections().map(
+						{sections.map(
 							({ img, link, title, description }, index) => (
 								<CourseSectionCard
 									key={index}

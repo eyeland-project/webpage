@@ -13,17 +13,20 @@ const useAnswer = () => {
 	const authStorage = useAuthStorage();
 
 	const [loading, setLoading] = useState(false);
-	const [pretask, setPretask] =
-		useState<QuestionSubmissionDetailPretask | null>(null);
-	const [duringtask, setDuringtask] =
-		useState<QuestionSubmissionDetailDuringtask | null>(null);
-	const [postask, setPostask] =
-		useState<QuestionSubmissionDetailPostask | null>(null);
+	const [answersPretask, setAnswersPretask] = useState<
+		QuestionSubmissionDetailPretask[] | null
+	>(null);
+	const [answersDuringtask, setAnswersDuringtask] = useState<
+		QuestionSubmissionDetailDuringtask[] | null
+	>(null);
+	const [answersPostask, setAnswersPostask] = useState<
+		QuestionSubmissionDetailPostask[] | null
+	>(null);
 
-	const getPretask: (
+	const getAnswersPretask: (
 		idCourse: number,
 		idTaskAttempt: number
-	) => Promise<QuestionSubmissionDetailPretask> = useCallback(
+	) => Promise<QuestionSubmissionDetailPretask[]> = useCallback(
 		async (idCourse: number, idTaskAttempt: number) => {
 			setLoading(true);
 			try {
@@ -33,7 +36,7 @@ const useAnswer = () => {
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
-				setPretask(answer);
+				setAnswersPretask(answer);
 				return answer;
 			} catch (err) {
 				setLoading(false);
@@ -43,10 +46,10 @@ const useAnswer = () => {
 		[]
 	);
 
-	const getDuringtask: (
+	const getAnswersDuringtask: (
 		idCourse: number,
 		idTaskAttempt: number
-	) => Promise<QuestionSubmissionDetailDuringtask> = useCallback(
+	) => Promise<QuestionSubmissionDetailDuringtask[]> = useCallback(
 		async (idCourse: number, idTaskAttempt: number) => {
 			setLoading(true);
 			try {
@@ -56,7 +59,7 @@ const useAnswer = () => {
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
-				setPretask(answer);
+				setAnswersDuringtask(answer);
 				return answer;
 			} catch (err) {
 				setLoading(false);
@@ -66,10 +69,10 @@ const useAnswer = () => {
 		[]
 	);
 
-	const getPostask: (
+	const getAnswersPostask: (
 		idCourse: number,
 		idTaskAttempt: number
-	) => Promise<QuestionSubmissionDetailPostask> = useCallback(
+	) => Promise<QuestionSubmissionDetailPostask[]> = useCallback(
 		async (idCourse: number, idTaskAttempt: number) => {
 			setLoading(true);
 			try {
@@ -79,7 +82,7 @@ const useAnswer = () => {
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
-				setPretask(answer);
+				setAnswersPostask(answer);
 				return answer;
 			} catch (err) {
 				setLoading(false);
@@ -91,15 +94,15 @@ const useAnswer = () => {
 
 	return {
 		loading,
-		pretask,
-		duringtask,
-		postask,
-		getPretask,
-		getDuringtask,
-		getPostask,
-		setPretask,
-		setDuringtask,
-		setPostask
+		answersPretask,
+		answersDuringtask,
+		answersPostask,
+		getAnswersPretask,
+		getAnswersDuringtask,
+		getAnswersPostask,
+		setAnswersPretask,
+		setAnswersDuringtask,
+		setAnswersPostask
 	};
 };
 

@@ -3,17 +3,17 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
-import useStudent from '@hooks/useStudent';
 import useCourse from '@hooks/useCourse';
-import useConfirmDialog from '@hooks/useConfirmDialog';
+import useTaskAttempt from '@hooks/useTaskAttempt';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
 import { parseNumericParam } from '@utils/routing.utils';
 
 import DataGridIcon from '@icons/DataGrid.svg';
+import TableSubmissions from './components/TableSubmissions';
 
-function Evaluation() {
+function Submissions() {
 	// navigation
 	const navigate = useNavigate();
 	// query params
@@ -27,9 +27,9 @@ function Evaluation() {
 			setIdSelectedCourse
 		}
 	} = useTeacherContext();
+	const { getSubmissions, submissions, setSubmissions } = useTaskAttempt();
 	// useStudents
 	const { getCourse } = useCourse();
-	// useConfirmDialog
 
 	// states
 	const [idCourse, setIdCourse] = useState<number | null>(
@@ -58,6 +58,11 @@ function Evaluation() {
 					if (course !== null) setCourse(null);
 				});
 		}
+		if (!submissions || course?.id !== idCourse) {
+			getSubmissions(idCourse).catch(() => {
+				if (!submissions?.length) setSubmissions([]);
+			});
+		}
 	}, [idCourse]);
 
 	if (idCourse === null) return <></>;
@@ -76,9 +81,15 @@ function Evaluation() {
 					</div>
 				</>
 			</Ribbon>
-			<div></div>
+			<div className="pt-10 h-full px-10">
+				<div className="font-semibold text-2xl mt-6">Evaluación</div>
+				<TableSubmissions
+					idCourse={idCourse}
+					taskAttempts={submissions || []}
+				/>
+			</div>
 		</div>
 	);
 }
 
-export default Evaluation;
+export default Submissions;

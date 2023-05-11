@@ -140,8 +140,6 @@ function Session() {
 				socket?.on(
 					SocketEvents.TEAMS_STUDENT_UPDATE,
 					(teams: TeamDetail[]) => {
-						console.log('teams updated');
-
 						setTeams(teams);
 					}
 				);
@@ -169,19 +167,16 @@ function Session() {
 		}
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
 		if (!course || course.id !== idCourse) {
-			Promise.allSettled([getCourse(idCourse), getTeams(idCourse)]).then(
-				([courseSettled, teamsSettled]) => {
-					if (courseSettled.status === 'fulfilled') {
-						setCourse(courseSettled.value);
-						if (teamsSettled.status === 'fulfilled') {
-							setTeams(teamsSettled.value);
-						}
-					} else {
-						if (course !== null) setCourse(null);
-						if (teams?.length) setTeams([]);
-					}
-				}
-			);
+			getCourse(idCourse)
+				.then((course) => setCourse(course))
+				.catch(() => {
+					if (course !== null) setCourse(null);
+				});
+			if (isSessionCreated) {
+				getTeams(idCourse).catch(() => {
+					if (teams?.length) setTeams([]);
+				});
+			}
 		}
 	}, [idCourse]);
 
@@ -192,7 +187,7 @@ function Session() {
 		};
 	}, []);
 
-	if (idCourse === null) return <></>;
+	// if (idCourse === null) return <></>;
 
 	return (
 		<div className="h-screen">
@@ -214,7 +209,7 @@ function Session() {
 					<div className="text-gray-primary">.</div>
 				)}
 			</Ribbon>
-			<div className="pt-12 h-full relative">
+			<div className="pt-10 h-full relative">
 				{course ? (
 					!isSessionCreated ? (
 						<div className="shadow-card rounded-md px-14 py-6 hover:scale-105 transition-all duration-300 flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

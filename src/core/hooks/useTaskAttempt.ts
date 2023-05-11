@@ -12,6 +12,9 @@ const useTaskAttempt = () => {
 	const [taskAttempts, setTaskAttempts] = useState<
 		TaskAttemptSubmissionDetail[] | null
 	>(null);
+	const [submissions, setSubmissions] = useState<
+		TaskAttemptSubmissionDetail[] | null
+	>(null);
 	const [taskAttempt, setTaskAttempt] =
 		useState<TaskAttemptSubmissionDetail | null>(null);
 
@@ -27,6 +30,28 @@ const useTaskAttempt = () => {
 				});
 				setLoading(false);
 				setTaskAttempts(taskAttempts);
+				return taskAttempts;
+			} catch (err) {
+				setLoading(false);
+				throw err;
+			}
+		},
+		[]
+	);
+
+	const getSubmissions: (
+		idCourse: number
+	) => Promise<TaskAttemptSubmissionDetail[]> = useCallback(
+		async (idCourse: number) => {
+			setLoading(true);
+			try {
+				const taskAttempts =
+					await taskAttemptApi.getTaskAttemptSubmissions({
+						idCourse,
+						token: authStorage.getAccessToken()!
+					});
+				setLoading(false);
+				setSubmissions(taskAttempts);
 				return taskAttempts;
 			} catch (err) {
 				setLoading(false);
@@ -66,7 +91,10 @@ const useTaskAttempt = () => {
 		getTaskAttempts,
 		taskAttempt,
 		setTaskAttempt,
-		getTaskAttempt
+		getTaskAttempt,
+		submissions,
+		setSubmissions,
+		getSubmissions
 	};
 };
 

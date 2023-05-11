@@ -27,6 +27,29 @@ export async function getTaskAttempts({
 	}
 }
 
+export async function getTaskAttemptSubmissions({
+	idCourse,
+	token
+}: {
+	idCourse: number;
+	token: string;
+}): Promise<TaskAttemptSubmissionDetail[]> {
+	const response = await axios.get(
+		`${apiTeacherUrl}/courses/${idCourse}/submissions`,
+		{
+			timeout: 10000,
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}
+	);
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error(response.data);
+	}
+}
+
 export async function getTaskAttempt({
 	idCourse,
 	idTaskAttempt,

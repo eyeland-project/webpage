@@ -16,7 +16,8 @@ import Courses from '@pages/Teacher/Courses';
 import Student from '@pages/Teacher/Student';
 import Students from '@pages/Teacher/Students';
 import Session from '@pages/Teacher/Session';
-import Evaluation from '@pages/Teacher/Evaluation';
+import Submissions from '@pages/Teacher/Submissions';
+import Submission from '@pages/Teacher/Submission';
 import Task from '@pages/Teacher/Task';
 import Tasks from '@pages/Teacher/Tasks';
 import NotFound from '@pages/NotFound';
@@ -136,7 +137,11 @@ const routes: RouteObject[] = [
 	},
 	{
 		path: '/submissions',
-		element: <Evaluation />
+		element: <Submissions />
+	},
+	{
+		path: '/submissions/:idTaskAttempt',
+		element: <Submission />
 	},
 	{
 		path: '/tasks',

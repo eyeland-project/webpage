@@ -229,7 +229,7 @@ function Students() {
 					</div>
 				</>
 			</Ribbon>
-			<div className="pt-12 h-full relative flex flex-col items-center gap-10">
+			<div className="pt-10 h-full relative flex flex-col items-center gap-10">
 				<div className="flex flex-col items-center gap-3 mt-4">
 					<div className="shadow-md px-36 font-semibold text-2xl flex flex-col justify-center">
 						Listado de alumnos
