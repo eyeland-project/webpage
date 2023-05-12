@@ -148,8 +148,8 @@ function GradePanel({
 	return (
 		<>
 			<ToastContainer />
-			<div className="flex mt-4 gap-4">
-				<div className="flex flex-col gap-2 w-3/4 max-h-96 overflow-y-auto">
+			<div className="flex mt-4 gap-4 h-full">
+				<div className="flex flex-col gap-2 w-3/4 overflow-y-auto">
 					{questionSubmissions.map((questionSubmission, i) => (
 						<AnswersSubmitted
 							key={i}
@@ -180,7 +180,7 @@ function GradePanel({
 								</div>
 								<div className="flex items-center gap-1">
 									<input
-										className="text-sm w-12 h-8 border border-gray-primary rounded-md p-2"
+										className="text-sm w-16 h-8 border border-gray-primary rounded-md p-2"
 										type="number"
 										min={0}
 										max={100}

@@ -17,7 +17,7 @@ import {
 	TeamDetail,
 	TeamLeaderboardDetail
 } from '@interfaces/teacher/Team.interface';
-import { TaskDetail } from '@interfaces/teacher/Task.interface';
+import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 import { SocketEvents } from '@enums/Socket.enum';
 
 import { parseNumericParam } from '@utils/routing.utils';
@@ -65,7 +65,7 @@ function Session() {
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseNumericParam(searchParams.get('idCourse'))
 	);
-	const [task, setTask] = useState<TaskDetail | null>(null);
+	const [task, setTask] = useState<TaskDetail | TaskSummary | null>(null);
 
 	const handleCreateSession = async () => {
 		try {
@@ -319,7 +319,7 @@ function Session() {
 									2xl:pr-48 2xl:pb-10
 								"
 								>
-									<div className="text-xl font-medium mt-2 py-4">
+									<div className="text-3xl font-bold mt-2 py-4 ml-2 mb-5">
 										Listado de Equipos
 									</div>
 									<TeamGrid

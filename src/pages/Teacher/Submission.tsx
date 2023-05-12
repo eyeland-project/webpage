@@ -216,7 +216,7 @@ function Submission() {
 						</div>
 					</div>
 				</div>
-				<div className="px-10 pt-4 pb-10">
+				<div className="px-10 pt-4 pb-10 h-full">
 					{answersPostask &&
 						idCourse !== null &&
 						idTaskAttempt !== null && (

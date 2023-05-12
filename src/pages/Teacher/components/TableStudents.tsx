@@ -122,7 +122,7 @@ function TableStudents({
 									<img
 										src={EmptyIcon}
 										alt="No hay estudiantes en este curso"
-										className="w-40 mt-4"
+										className="w-40 my-20"
 									/>
 								</div>
 							</td>

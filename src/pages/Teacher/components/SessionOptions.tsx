@@ -11,9 +11,9 @@ function SessionOptions({
 }: {
 	isSessionCreated: boolean;
 	isSessionStarted: boolean;
-	handleCreateSession: Function;
-	handleStartSession: Function;
-	handleEndSession: Function;
+	handleCreateSession: () => void;
+	handleStartSession: () => void;
+	handleEndSession: () => void;
 }) {
 	return (
 		<>
