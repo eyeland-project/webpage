@@ -121,10 +121,15 @@ function Session() {
 
 	const filteredTeamsLeaderboard = useMemo(() => {
 		if (!teamsLeaderboard || !task) return [];
-		return teamsLeaderboard.filter(({ id }) => {
+		const filtered = teamsLeaderboard.filter(({ id }) => {
 			const team = teams?.find((team) => team.id === id);
 			return team?.taskOrder === task?.taskOrder;
 		});
+		const minPosition = Math.min(...filtered.map((team) => team.position));
+		return filtered.map(({ position, ...fields }) => ({
+			...fields,
+			position: position - (minPosition - 1)
+		}));
 	}, [teamsLeaderboard, task]);
 
 	useEffect(() => {
