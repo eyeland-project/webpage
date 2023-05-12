@@ -32,9 +32,7 @@ function StudentForm({
 		watch,
 		formState: { errors },
 		clearErrors
-	} = useForm<Inputs>({
-		defaultValues
-	});
+	} = useForm<Inputs>({ defaultValues });
 
 	// states
 	const [step, setStep] = useState(1);

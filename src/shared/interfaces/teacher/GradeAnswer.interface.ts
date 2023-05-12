@@ -1,3 +1,9 @@
+export interface GradeAnswerDetail {
+	id: number;
+	grade: number;
+	comment: string | null;
+}
+
 export interface GradeAnswerCreate {
 	grade: number;
 	comment?: string | null;

@@ -4,7 +4,7 @@ import {
 	QuestionPretaskDetail
 } from '@interfaces/teacher/Question.interface';
 
-interface Answer {
+export interface AnswerDetail {
 	id: number;
 	idOption: number | null;
 	answerSeconds: number | null;
@@ -22,14 +22,14 @@ interface Answer {
 }
 
 export interface QuestionSubmissionDetailPretask extends QuestionPretaskDetail {
-	answers: Answer[];
+	answers: AnswerDetail[];
 }
 
 export interface QuestionSubmissionDetailDuringtask
 	extends QuestionDuringtaskDetail {
-	answers: Answer[];
+	answers: AnswerDetail[];
 }
 
 export interface QuestionSubmissionDetailPostask extends QuestionPostaskDetail {
-	answers: Answer[];
+	answers: AnswerDetail[];
 }

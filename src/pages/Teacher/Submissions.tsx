@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
+import Loading from 'react-loading';
 
 import useTeacherContext from '@hooks/useTeacherContext';
 import useCourse from '@hooks/useCourse';
@@ -27,7 +28,12 @@ function Submissions() {
 			setIdSelectedCourse
 		}
 	} = useTeacherContext();
-	const { getSubmissions, submissions, setSubmissions } = useTaskAttempt();
+	const {
+		getSubmissions,
+		submissions,
+		setSubmissions,
+		loading: loadingSubmissions
+	} = useTaskAttempt();
 	// useStudents
 	const { getCourse } = useCourse();
 
@@ -60,7 +66,7 @@ function Submissions() {
 		}
 		if (!submissions || course?.id !== idCourse) {
 			getSubmissions(idCourse).catch(() => {
-				if (!submissions?.length) setSubmissions([]);
+				if (submissions?.length) setSubmissions(null);
 			});
 		}
 	}, [idCourse]);
@@ -77,17 +83,33 @@ function Submissions() {
 						className="w-5 h-5"
 					/>
 					<div className="text-white font-semibold">
-						{course?.name || ''}
+						{(course?.name ? `${course.name} - ` : '') +
+							'Evaluación'}
+						{/* {`${course?.name} -`} */}
 					</div>
 				</>
 			</Ribbon>
-			<div className="pt-10 h-full px-10">
-				<div className="font-semibold text-2xl mt-6">Evaluación</div>
-				<TableSubmissions
-					idCourse={idCourse}
-					taskAttempts={submissions || []}
-				/>
-			</div>
+			{submissions ? (
+				<div className="pt-10 h-full px-10">
+					<div className="font-semibold text-2xl mt-6">
+						Evaluación
+					</div>
+					<TableSubmissions
+						idCourse={idCourse}
+						taskAttempts={submissions || []}
+					/>
+				</div>
+			) : (
+				<div className="flex flex-col grow justify-center items-center h-full">
+					{loadingSubmissions ? (
+						<Loading type="spin" color="#0D9748" />
+					) : (
+						<div className="italic w-3/5 text-center text-lg">
+							No se pudo obtener la información
+						</div>
+					)}
+				</div>
+			)}
 		</div>
 	);
 }

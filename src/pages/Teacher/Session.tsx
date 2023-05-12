@@ -49,13 +49,7 @@ function Session() {
 		endSession
 	} = useCourse();
 	// useTeams hook
-	const {
-		teams,
-		setTeams,
-		getTeams,
-		generateTeams
-		// loading: loadingTeams
-	} = useTeam();
+	const { teams, setTeams, getTeams, generateTeams } = useTeam();
 
 	// states
 	const [isSessionCreated, setSessionCreated] = useState(false);

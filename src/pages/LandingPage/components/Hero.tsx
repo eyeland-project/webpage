@@ -4,7 +4,7 @@ import { useRef } from 'react';
 
 function Hero() {
 	const downloadRef = useRef<HTMLAnchorElement>(null);
-	const { release, getLatestRelease, loading } = useRelease();
+	const { release, getLatestRelease } = useRelease();
 
 	const handleDownload = async () => {
 		if (!release) {
