@@ -26,10 +26,10 @@ function Leaderboard({
 									: 'bg-pink-primary'
 							}`}
 							style={{
-								width: `${(
+								width: `${Math.abs(
 									((teams.length - (position - 1)) /
 										teams.length) *
-									80
+										80
 								).toFixed(0)}%`
 							}}
 							// className={`h-8 transition-all duration-500 ease-in-out rounded-sm
