@@ -37,7 +37,7 @@ function TableSubmissions({
 				accessorFn: ({ id }) => (
 					<Link
 						to={`/teacher/submissions/${id}?idCourse=${idCourse}`}
-						className="text-blue-500 hover:underline"
+						className="text-green-600 font-bold hover:underline"
 					>
 						Ver
 					</Link>

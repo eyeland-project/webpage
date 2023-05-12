@@ -6,6 +6,7 @@ import {
 	getPaginationRowModel
 } from '@tanstack/react-table';
 import type { ColumnDef } from '@tanstack/react-table';
+import EmptyIcon from '@icons/Empty.svg';
 
 // https://dev.to/esponges/create-a-reusable-react-table-component-with-typescript-56d4
 function Table<T extends object>({
@@ -45,12 +46,12 @@ function Table<T extends object>({
 														{header.isPlaceholder
 															? null
 															: flexRender(
-																	header
-																		.column
-																		.columnDef
-																		.header,
-																	header.getContext()
-															  )}
+																header
+																	.column
+																	.columnDef
+																	.header,
+																header.getContext()
+															)}
 													</th>
 												)
 											)}
@@ -58,24 +59,39 @@ function Table<T extends object>({
 									))}
 							</thead>
 							<tbody>
-								{table.getRowModel().rows.map((row, i) => (
-									<tr key={i} className='border-b" bg-white'>
-										{row
-											.getVisibleCells()
-											.map((cell, i) => (
-												<td
-													className="whitespace-nowrap px-6 py-4 text-sm font-light text-gray-900"
-													key={i}
-												>
-													{flexRender(
-														cell.column.columnDef
-															.cell,
-														cell.getContext()
-													)}
-												</td>
-											))}
-									</tr>
-								))}
+								{
+									table.getRowModel().rows.length ? (
+										table.getRowModel().rows.map((row, i) => (
+											<tr key={i} className='border-b" bg-white'>
+												{row
+													.getVisibleCells()
+													.map((cell, i) => (
+														<td
+															className="whitespace-nowrap px-6 py-4 text-sm font-light text-gray-900"
+															key={i}
+														>
+															{flexRender(
+																cell.column.columnDef
+																	.cell,
+																cell.getContext()
+															)}
+														</td>
+													))}
+											</tr>
+										))
+									) : (
+										<tr>
+											<td colSpan={5}>
+												<div className="flex justify-center">
+													<img
+														src={EmptyIcon}
+														alt="No hay estudiantes en este curso"
+														className="w-40 my-20"
+													/>
+												</div>
+											</td>
+										</tr>
+									)}
 							</tbody>
 						</table>
 						{showNavigation ? (
