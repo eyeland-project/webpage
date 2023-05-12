@@ -17,3 +17,9 @@ export interface TeamMember {
 	username: string;
 	power: Power | null;
 }
+
+export interface TeamLeaderboardDetail {
+	id: number;
+	name: string;
+	position: number;
+}

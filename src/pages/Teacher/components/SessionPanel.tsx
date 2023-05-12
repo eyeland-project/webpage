@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import Lottie from 'lottie-react';
 import ReactDropdown, { Option } from 'react-dropdown';
 import Loading from 'react-loading';
@@ -39,19 +40,19 @@ function SessionPanel({
 		}
 	};
 
-	const getDropdownOptions = () => {
+	const dropdownOptions = useMemo(() => {
 		if (!tasks) return [];
 		return [
 			{
 				value: '',
-				label: '-'
+				label: 'Todas'
 			},
-			...tasks.map(({ id, name }) => ({
+			...tasks.map(({ id, name, taskOrder }) => ({
 				value: String(id),
-				label: name
+				label: `${taskOrder}. ${name}`
 			}))
 		];
-	};
+	}, [tasks]);
 
 	useEffect(() => {
 		if (!tasks) {
@@ -68,7 +69,7 @@ function SessionPanel({
 					<Lottie
 						animationData={PulseGreen}
 						loop
-						className="w-40 h-40"
+						className="w-32 h-32"
 					/>
 					<div className="">
 						El curso actualmente se encuentra{' '}
@@ -87,12 +88,11 @@ function SessionPanel({
 					/>
 					<div className="flex gap-4 justify-between">
 						<ReactDropdown
-							options={getDropdownOptions()}
+							options={dropdownOptions}
 							onChange={onSelectTask}
 							disabled={!tasks}
-							// value={task?.name}
 							className="grow"
-							placeholder={'Selecciona una tarea'}
+							placeholder={'Seleccione una task'}
 						/>
 						{loading && (
 							<div>

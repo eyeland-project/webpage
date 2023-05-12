@@ -85,7 +85,6 @@ function Submissions() {
 					<div className="text-white font-semibold">
 						{(course?.name ? `${course.name} - ` : '') +
 							'Evaluación'}
-						{/* {`${course?.name} -`} */}
 					</div>
 				</>
 			</Ribbon>

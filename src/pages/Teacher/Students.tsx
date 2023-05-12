@@ -225,7 +225,8 @@ function Students() {
 						className="w-5 h-5"
 					/>
 					<div className="text-white font-semibold">
-						{course?.name || ''}
+						{(course?.name ? `${course.name} - ` : '') +
+							'Estudiantes'}
 					</div>
 				</>
 			</Ribbon>
