@@ -1,17 +1,12 @@
 export interface TaskSummary {
 	id: number;
 	name: string;
-	description: string;
 	taskOrder: number;
-	thumbnailUrl: string;
 }
 
-export interface TaskDetail {
-	id: number;
-	name: string;
+export interface TaskDetail extends TaskSummary {
 	description: string;
+	thumbnailUrl: string;
 	longDescription: string;
 	keywords: string[];
-	taskOrder: number;
-	thumbnailUrl: string;
 }

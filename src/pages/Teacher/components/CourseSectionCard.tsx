@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import ButtonPrimary from '@components/ButtonPrimary';
 import { Link } from 'react-router-dom';
+import Button from '@components/Button';
 
 export function CourseSectionCard({
 	title,
@@ -22,7 +22,7 @@ export function CourseSectionCard({
 			</div>
 			<div className="absolute bottom-4 right-8">
 				<Link to={link}>
-					<ButtonPrimary size="medium">Ir</ButtonPrimary>
+					<Button>Ir</Button>
 				</Link>
 			</div>
 		</div>

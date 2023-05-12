@@ -20,7 +20,7 @@ function SubMenuTasks() {
 	};
 
 	useEffect(() => {
-		if (!tasks) getTasks().catch(() => {});
+		if (!tasks) getTasks().catch(console.log);
 	}, []);
 
 	return (
@@ -33,7 +33,7 @@ function SubMenuTasks() {
 					{tasks.map(({ name, id }, i) => (
 						<div
 							key={i}
-							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer ${
+							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer w-full ${
 								idSelectedTask === id
 									? 'bg-white bg-opacity-20'
 									: 'hover:bg-white hover:bg-opacity-10'

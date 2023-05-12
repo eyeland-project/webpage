@@ -1,4 +1,7 @@
-import { CourseDetail } from '@interfaces/Course.interface';
+import {
+	CourseDetail,
+	CourseSummary
+} from '@interfaces/teacher/Course.interface';
 import React, { createContext, useState } from 'react';
 
 const TeacherContext = createContext<{
@@ -7,6 +10,8 @@ const TeacherContext = createContext<{
 		setIdSelectedCourse: Function;
 		course: CourseDetail | null;
 		setCourse: Function;
+		courses: CourseSummary[] | null;
+		setCourses: Function;
 	};
 	tasksData: {
 		idSelectedTask: number | null;
@@ -17,7 +22,9 @@ const TeacherContext = createContext<{
 		idSelectedCourse: null,
 		setIdSelectedCourse: () => {},
 		course: null,
-		setCourse: () => {}
+		setCourse: () => {},
+		courses: null,
+		setCourses: () => {}
 	},
 	tasksData: {
 		idSelectedTask: null,
@@ -30,6 +37,7 @@ const TeacherProvider = ({ children }: { children: React.ReactNode }) => {
 		null
 	);
 	const [course, setCourse] = useState<CourseDetail | null>(null);
+	const [courses, setCourses] = useState<CourseSummary[] | null>(null);
 	const [idSelectedTask, setIdSelectedTask] = useState<number | null>(null);
 
 	return (
@@ -39,7 +47,9 @@ const TeacherProvider = ({ children }: { children: React.ReactNode }) => {
 					idSelectedCourse,
 					setIdSelectedCourse,
 					course,
-					setCourse
+					setCourse,
+					courses,
+					setCourses
 				},
 				tasksData: {
 					idSelectedTask,

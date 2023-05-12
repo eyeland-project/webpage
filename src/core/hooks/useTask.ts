@@ -1,9 +1,9 @@
 import { useState, useCallback } from 'react';
 
 import useAuthStorage from '@hooks/useAuthStorage';
-import * as taskApi from '@api/task';
+import * as taskApi from '@api/teacher/task.api';
 
-import { TaskDetail, TaskSummary } from '@interfaces/Task.interface';
+import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 
 const useTask = () => {
 	const authStorage = useAuthStorage();
@@ -27,12 +27,12 @@ const useTask = () => {
 		}
 	}, []);
 
-	const getTask: (taskId: number) => Promise<TaskDetail> = useCallback(
-		async (taskId: number) => {
+	const getTask: (idTask: number) => Promise<TaskDetail> = useCallback(
+		async (idTask: number) => {
 			setLoading(true);
 			try {
 				const task = await taskApi.getTask({
-					idTask: taskId,
+					idTask,
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);

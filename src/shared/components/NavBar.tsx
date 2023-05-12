@@ -6,8 +6,11 @@ function NavBar({ showTeacherButton = true }) {
 	const navigate = useNavigate();
 
 	return (
-		<div className="fixed mx-5 my-5 flex items-center justify-center md:justify-start z-50 w-full">
-			<div className={`flex px-5 h-16 shadow-2xl rounded-lg w-full justify-between items-center bg-white bg-opacity-90 ${!showTeacherButton && 'mr-10'}`}>
+		<div className="relative mx-5 my-5 flex items-center justify-center md:justify-start w-full">
+			<div
+				className={`flex px-5 h-16 shadow-2xl rounded-lg w-full justify-between items-center bg-white bg-opacity-90 ${!showTeacherButton && 'mr-10'
+					}`}
+			>
 				<div className="cursor-pointer">
 					<img
 						src={MiniLogo}
@@ -18,17 +21,21 @@ function NavBar({ showTeacherButton = true }) {
 						}}
 					/>
 				</div>
-				<div className='flex gap-10 mr-5'>
+				<div className="flex gap-10 mr-5">
 					<Link to={'/ourteam'}>
-						<p className="text-large font-bold text-center hover:underline">Nuestro equipo</p>
+						<p className="text-large font-bold text-center hover:underline">
+							Nuestro equipo
+						</p>
 					</Link>
 					<Link to={'/learnmore'}>
-						<p className="text-large font-bold text-center hover:underline" >Aprende más</p>
+						<p className="text-large font-bold text-center hover:underline">
+							Aprende más
+						</p>
 					</Link>
 				</div>
 			</div>
 			{showTeacherButton && (
-				<div className='ml-4 mr-10 w-52 h-16'>
+				<div className="ml-4 mr-10 w-52 h-16">
 					<Link
 						className="h-16 flex items-center justify-center rounded-lg bg-green-primary px-2 py-2 text-base font-bold text-white shadow-lg hover:opacity-80 active:opacity-70 md:px-5 md:py-3"
 						to={'/login'}

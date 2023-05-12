@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import Power from './Power';
+import Power from '@pages/LandingPage/components/TeamWork/Power';
 import Title from '@components/Title';
-import Description from '../Description';
+import Description from '@pages/LandingPage/components/Description';
 
 import SuperHearing from '@icons/SuperHearing.svg';
 import MemoryPro from '@icons/MemoryPro.svg';

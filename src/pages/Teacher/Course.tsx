@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useMemo, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import Lottie from 'lottie-react';
@@ -14,6 +14,7 @@ import { parseNumericParam } from '@utils/routing.utils';
 import DataGridIcon from '@icons/DataGrid.svg';
 import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import Taskman from '@animations/Taskman.json';
+import Evaluation from '@animations/Evaluation.json';
 
 function Course() {
 	// navigation
@@ -37,7 +38,7 @@ function Course() {
 		parseNumericParam(idCourseStr)
 	);
 
-	const sections = useCallback(() => {
+	const sections = useMemo(() => {
 		if (idCourse === null) return [];
 		return getSections(idCourse);
 	}, [idCourse]);
@@ -54,8 +55,9 @@ function Course() {
 		if (idCourse === null) {
 			return navigate('/teacher/courses');
 		}
+
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
-		if (idSelectedCourse !== idCourse || !course) {
+		if (!course || course.id !== idCourse) {
 			getCourse(idCourse)
 				.then((course) => {
 					setCourse(course);
@@ -78,10 +80,10 @@ function Course() {
 					{course?.name || ''}
 				</div>
 			</Ribbon>
-			<div className="px-8 pb-4 pt-12 h-full">
+			<div className="px-8 pb-4 pt-10 h-full">
 				{course ? (
 					<div className="grid grid-cols-2 gap-x-16 gap-y-8 px-10 py-8">
-						{sections().map(
+						{sections.map(
 							({ img, link, title, description }, index) => (
 								<CourseSectionCard
 									key={index}
@@ -130,7 +132,12 @@ function getSections(idCourse: number): {
 		{
 			title: 'Listado de alumnos',
 			img: <Lottie animationData={Taskman} loop={true} />,
-			link: '/teacher/students'
+			link: `/teacher/students?idCourse=${idCourse}`
+		},
+		{
+			title: 'Evaluación',
+			img: <Lottie animationData={Evaluation} loop={true} />,
+			link: `/teacher/submissions?idCourse=${idCourse}`
 		}
 	];
 }

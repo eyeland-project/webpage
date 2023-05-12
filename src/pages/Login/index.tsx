@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-import { useAlertContext } from '@hooks/useAlertContext';
 import useAuthStorage from '@hooks/useAuthStorage';
 import useLogin from '@hooks/useLogin';
 
@@ -9,9 +10,10 @@ import { validToken } from '@utils/auth';
 
 import NavBar from '@components/NavBar';
 import Footer from '@components/Footer';
-import Loading from 'react-loading';
+import LoginForm from '@pages/Login/components/LoginForm';
 
 import Logo from '@icons/Logo.svg';
+import { Role } from '@enums/Role.enum';
 
 const INITIAL_STATE = {
 	username: '',
@@ -24,14 +26,19 @@ const VALIDATION = {
 };
 
 function Login() {
-	const { loading, error, data, login } = useLogin();
-	const { handleAlert } = useAlertContext();
+	const { loading, login } = useLogin();
 	const [form, setForm] = useState(INITIAL_STATE);
 
 	const authStorage = useAuthStorage();
 
-	if (validToken(authStorage.getAccessToken()) || (data && !error)) {
-		return <Navigate to={'/teacher/home'}></Navigate>;
+	const tokenPayload = validToken(authStorage.getAccessToken());
+	if (tokenPayload) {
+		const { role } = tokenPayload;
+		if (Object.values(Role).includes(role)) {
+			return <Navigate to={`/${role}/home`}></Navigate>;
+		} else {
+			authStorage.removeAccessToken();
+		}
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -42,81 +49,52 @@ function Login() {
 		});
 	};
 
-	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		const { username, password } = form;
 		const usernameError = VALIDATION.username(username);
 		const passwordError = VALIDATION.password(password);
+
 		if (usernameError) {
-			handleAlert(usernameError, 'error');
+			toast.error(usernameError);
 			return;
 		}
+
 		if (passwordError) {
-			handleAlert(passwordError, 'error');
+			toast.error(passwordError);
 			return;
 		}
-		await login({ username, password });
+
+		login({ username, password }, Role.TEACHER)
+			.catch(() => login({ username, password }, Role.ADMIN))
+			.catch(() => toast.error('Usuario o contraseña incorrectos'));
 	};
 
-	if (error) {
-		handleAlert(error, 'error');
-	}
-
 	return (
-		<>
-			<NavBar showTeacherButton={false} />
-			<div className='h-40' />
-			<div className="flex w-auto flex-col items-center justify-center">
-				<div className="relative w-fit">
-					<img
-						src={Logo}
-						alt="Logo"
-						className="absolute -top-48 -right-48 w-96"
-					/>
-					<div className="card relative flex w-96 flex-col items-stretch justify-center">
-						<h2 className="text-center">Iniciar sesión</h2>
-						<form onSubmit={handleSubmit} className="my-5 w-full">
-							<div className="w-full">
-								<label htmlFor="username">Usuario</label>
-								<input
-									type="username"
-									name="username"
-									id="login-teacher-form-username"
-									value={form.username}
-									onChange={handleChange}
-								/>
-							</div>
-							<div className="mt-5">
-								<label htmlFor="password">Contraseña</label>
-								<input
-									type="password"
-									name="password"
-									id="login-teacher-form-password"
-									value={form.password}
-									onChange={handleChange}
-								/>
-							</div>
-							<button
-								className="button mt-5 w-full bg-green-primary text-white"
-								type="submit"
-							>
-								{loading ? (
-									<Loading
-										type="spin"
-										color="white"
-										height={20}
-										width={20}
-									/>
-								) : (
-									'Iniciar sesión'
-								)}
-							</button>
-						</form>
+		<div>
+			<ToastContainer />
+			<div className="flex min-h-screen flex-col justify-between">
+				<NavBar showTeacherButton={false} />
+				<div className="flex w-auto flex-col items-center justify-center">
+					<div className="relative w-fit">
+						<img
+							src={Logo}
+							alt="Logo"
+							className="absolute -top-24 -right-48 w-96"
+						/>
+						<div className="card relative flex w-96 flex-col items-stretch justify-center">
+							<LoginForm
+								form={form}
+								loading={loading}
+								handleChange={handleChange}
+								handleSubmit={handleSubmit}
+							/>
+						</div>
 					</div>
 				</div>
+				<Footer />
 			</div>
-			<Footer />
-		</>
+		</div>
 	);
 }
 

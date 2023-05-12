@@ -1,7 +1,7 @@
 class AuthStorage {
 	namespace;
 
-	constructor(namespace = 'auth') {
+	constructor(namespace = 'teacherAuth') {
 		this.namespace = namespace;
 	}
 

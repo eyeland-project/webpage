@@ -1,5 +1,5 @@
 import NavBar from '@components/NavBar';
-import Section from './components/Section';
+import Section from '@pages/OurTeam/components/Section';
 import Title from '@components/Title';
 import Footer from '@components/Footer';
 
@@ -7,7 +7,7 @@ function OurTeam() {
 	return (
 		<>
 			<NavBar />
-			<div className="mb-10 mt-40">
+			<div className="mb-10">
 				<Title title={'Nuestro equipo'} textColor={'text-black'} />
 				<Section
 					title={'Profesores'}

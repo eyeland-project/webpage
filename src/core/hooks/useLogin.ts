@@ -1,57 +1,51 @@
 import { useState, useCallback } from 'react';
-import useAuthStorage from './useAuthStorage';
-import axios from 'axios';
+import useAuthStorage from '@hooks/useAuthStorage';
 
-import { environment } from '@environments/environment';
+import * as authApiTeacher from '@api/teacher/auth.api';
+import * as authApiAdmin from '@api/admin/auth.api';
 
-import { Login } from '@interfaces/Login.interface';
+import { Login, LoginResponse } from '@interfaces/teacher/Auth.interface';
+import { Role } from '@enums/Role.enum';
 
 const useLogin = () => {
 	const authStorage = useAuthStorage();
-
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
-	const [data, setData] = useState(null);
+	const [data, setData] = useState<LoginResponse | null>(null);
 
-	const login = useCallback(async ({ username, password }: Login) => {
-		setLoading(true);
-		try {
-			const response = await axios.post(
-				`${environment.apiUrl}/login`,
-				{
-					username: username,
-					password: password
-				},
-				{
-					timeout: 10000
-				}
-			);
-
-			if (response.status === 200) {
+	const login = useCallback(
+		async (fields: Login, role: Role = Role.TEACHER) => {
+			setLoading(true);
+			try {
+				const data =
+					role === 'teacher'
+						? await authApiTeacher.login(fields)
+						: await authApiAdmin.login(fields);
 				setLoading(false);
-				setData(response.data);
-				authStorage.setAccessToken(response.data.token);
-				return response.data;
-			} else {
-				throw new Error(response.data);
+				setData(data);
+				authStorage.setAccessToken(data.token);
+				return data;
+			} catch (err) {
+				setLoading(false);
+				switch ((err as any).response.status) {
+					case 401:
+						setError('Usuario o contraseña incorrectos');
+						break;
+					default:
+						setError('Error al iniciar sesión');
+						break;
+				}
+				throw err;
 			}
-		} catch (err) {
-			setLoading(false);
-			switch ((err as any).response.status) {
-				case 400:
-					setError('Usuario o contraseña incorrectos');
-					break;
-				case 403:
-					setError('Usuario o contraseña incorrectos');
-					break;
-				default:
-					setError('Un error ha ocurrido');
-					break;
-			}
-		}
-	}, []);
+		},
+		[]
+	);
 
-	return { loading, error, data, login };
+	// const handleError = (error: string) => {
+	// 	handleAlert(error, 'error');
+	// };
+
+	return { loading, error, data, setData, login };
 };
 
 export default useLogin;

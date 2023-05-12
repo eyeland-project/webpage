@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
 import Loading from 'react-loading';
@@ -8,21 +8,26 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useTeam from '@hooks/useTeam';
 import useAuthStorage from '@hooks/useAuthStorage';
 
-import Ribbon from './components/Ribbon';
-import ButtonPrimary from '@components/ButtonPrimary';
+import Button from '@components/Button';
+import SessionPanel from '@pages/Teacher/components/SessionPanel';
+import Ribbon from '@pages/Teacher/components/Ribbon';
 import TeamGrid from '@pages/Teacher/components/TeamGrid';
 
-import { TeamDetail } from '@interfaces/Team.interface';
+import {
+	TeamDetail,
+	TeamLeaderboardDetail
+} from '@interfaces/teacher/Team.interface';
+import { TaskDetail } from '@interfaces/teacher/Task.interface';
 import { SocketEvents } from '@enums/Socket.enum';
 
 import { parseNumericParam } from '@utils/routing.utils';
-import { connect, socket } from '@utils/socket';
+import { connect, socket } from '@listeners/socket';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 import PulseGray from '@animations/PulseGray.json';
-import Activity from '@animations/Activity.json';
-import SessionPanel from './components/SessionPanel';
-import { TaskDetail } from '@interfaces/Task.interface';
+
+import { decodeToken } from '@utils/auth';
+import Leaderboard from './components/Leaderboard';
 
 function Session() {
 	// auth
@@ -49,13 +54,10 @@ function Session() {
 		endSession
 	} = useCourse();
 	// useTeams hook
-	const {
-		teams,
-		setTeams,
-		getTeams,
-		generateTeams
-		// loading: loadingTeams
-	} = useTeam();
+	const { teams, setTeams, getTeams, generateTeams } = useTeam();
+	const [teamsLeaderboard, setTeamsLeaderboard] = useState<
+		TeamLeaderboardDetail[] | null
+	>(null);
 
 	// states
 	const [isSessionCreated, setSessionCreated] = useState(false);
@@ -104,15 +106,26 @@ function Session() {
 
 	const connectSocket = () => {
 		socket?.disconnect();
+		const decoded = decodeToken(authStorage.getAccessToken());
+		if (!decoded) return;
 		connect();
-		socket?.emit(SocketEvents.JOIN, authStorage.getAccessToken());
+		socket?.emit(SocketEvents.JOIN, decoded.id);
+		console.log('connected');
 	};
 
-	const getFilteredTeams = () => {
+	const filteredTeams = useMemo(() => {
 		if (!teams) return [];
 		if (!task) return teams;
 		return teams.filter(({ taskOrder }) => taskOrder === task?.taskOrder);
-	};
+	}, [teams, task]);
+
+	const filteredTeamsLeaderboard = useMemo(() => {
+		if (!teamsLeaderboard || !task) return [];
+		return teamsLeaderboard.filter(({ id }) => {
+			const team = teams?.find((team) => team.id === id);
+			return team?.taskOrder === task?.taskOrder;
+		});
+	}, [teamsLeaderboard, task]);
 
 	useEffect(() => {
 		if (!course) {
@@ -132,7 +145,7 @@ function Session() {
 	useEffect(() => {
 		if (isSessionCreated) {
 			if (idCourse !== null) {
-				getTeams(idCourse).catch(() => {});
+				getTeams(idCourse).catch(console.log);
 				connectSocket();
 				socket?.on(
 					SocketEvents.TEAMS_STUDENT_UPDATE,
@@ -146,8 +159,27 @@ function Session() {
 		}
 		return () => {
 			socket?.off(SocketEvents.TEAMS_STUDENT_UPDATE);
+			console.log('Stop listening to teams update');
 		};
 	}, [isSessionCreated]);
+
+	useEffect(() => {
+		if (isSessionStarted) {
+			if (idCourse !== null) {
+				socket?.on(
+					SocketEvents.COURSE_LEADERBOARD_UPDATE,
+					(teamsLeaderboard: TeamLeaderboardDetail[]) => {
+						console.log('leaderboard update', teamsLeaderboard);
+						setTeamsLeaderboard(teamsLeaderboard);
+					}
+				);
+			}
+		}
+		return () => {
+			socket?.off(SocketEvents.COURSE_LEADERBOARD_UPDATE);
+			console.log('Stop listening to leaderboard update');
+		};
+	}, [isSessionStarted]);
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
@@ -162,24 +194,28 @@ function Session() {
 			return navigate('/teacher/courses');
 		}
 		if (idSelectedCourse !== idCourse) setIdSelectedCourse(idCourse);
-		if (idSelectedCourse !== idCourse || !course) {
+		if (!course || course.id !== idCourse) {
 			getCourse(idCourse)
-				.then((course) => {
-					setCourse(course);
-				})
+				.then((course) => setCourse(course))
 				.catch(() => {
 					if (course !== null) setCourse(null);
 				});
+			if (isSessionCreated) {
+				getTeams(idCourse).catch(() => {
+					if (teams?.length) setTeams([]);
+				});
+			}
 		}
 	}, [idCourse]);
 
 	useEffect(() => {
 		return () => {
 			socket?.disconnect();
+			console.log('disconnected');
 		};
 	}, []);
 
-	if (idCourse === null) return <></>;
+	// if (idCourse === null) return <></>;
 
 	return (
 		<div className="h-screen">
@@ -194,21 +230,22 @@ function Session() {
 							className="w-5 h-5"
 						/>
 						<div className="text-white font-semibold">
-							{course?.name || ''}
+							{(course?.name ? `${course.name} - ` : '') +
+								'Colaboración'}
 						</div>
 					</>
 				) : (
 					<div className="text-gray-primary">.</div>
 				)}
 			</Ribbon>
-			<div className="pt-12 h-full relative">
+			<div className="pt-10 h-full relative">
 				{course ? (
 					!isSessionCreated ? (
 						<div className="shadow-card rounded-md px-14 py-6 hover:scale-105 transition-all duration-300 flex flex-col items-center gap-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
 							<Lottie
 								animationData={PulseGray}
 								loop
-								className="w-24 h-24"
+								className="w-20 h-20"
 							/>
 							<div className="text-green-primary text-center">
 								El curso actualmente se encuentra{' '}
@@ -217,12 +254,9 @@ function Session() {
 								</div>
 							</div>
 							<div className="w-min">
-								<ButtonPrimary
-									size="medium"
-									onClick={handleCreateSession}
-								>
+								<Button onClick={handleCreateSession}>
 									¡Activar!
-								</ButtonPrimary>
+								</Button>
 							</div>
 						</div>
 					) : (
@@ -236,6 +270,45 @@ function Session() {
 								task={task}
 								setTask={setTask}
 							/>
+							<div>
+								<div
+									className={`transition-all duration-1000 ${
+										isSessionStarted &&
+										filteredTeamsLeaderboard.length
+											? 'min-h-[24rem]'
+											: 'h-0'
+									}
+							`}
+								>
+									{(isSessionStarted &&
+										filteredTeamsLeaderboard.length && (
+											<div
+												className="
+										sm:pl-6 sm:pr-16 sm:pb-10
+										md:pl-6 md:pr-6 md:pb-10
+										lg:pl-10 lg:pr-16 lg:pb-10
+										xl:pl-12 xl:pr-40 xl:pb-10
+										2xl:pr-48 2xl:pb-10
+										"
+											>
+												<div className="text-xl font-medium mt-2 py-4">
+													Leaderboard
+												</div>
+												<Leaderboard
+													teamsLeaderboard={
+														filteredTeamsLeaderboard
+													}
+												/>
+											</div>
+										)) ||
+										null}
+								</div>
+								{(isSessionStarted &&
+									filteredTeamsLeaderboard.length && (
+										<hr className="border-t border-gray-700 w-11/12 m-auto" />
+									)) ||
+									null}
+							</div>
 							{teams && (
 								<div
 									className="
@@ -246,8 +319,11 @@ function Session() {
 									2xl:pr-48 2xl:pb-10
 								"
 								>
+									<div className="text-xl font-medium mt-2 py-4">
+										Listado de Equipos
+									</div>
 									<TeamGrid
-										teams={getFilteredTeams()}
+										teams={filteredTeams}
 										handleGenerateTeams={
 											handleGenerateTeams
 										}

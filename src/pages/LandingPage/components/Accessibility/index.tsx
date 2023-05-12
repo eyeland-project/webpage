@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import Title from '@components/Title';
-import Button from './Button';
+import Button from '@pages/LandingPage/components/Accessibility/Button';
 
 import AccessibilityBanner from '@images/AccessibilityBanner.svg';
 import Mouse from '@icons/Mouse.svg';

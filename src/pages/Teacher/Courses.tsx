@@ -1,10 +1,16 @@
 import { useEffect } from 'react';
 import Lottie from 'lottie-react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import useTeacherContext from '@hooks/useTeacherContext';
+import useConfirmDialog from '@hooks/useConfirmDialog';
+import useCourse from '@hooks/useCourse';
 
 import FormCourse from '@pages/Teacher/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
+
+import { CourseCreate } from '@interfaces/teacher/Course.interface';
 
 import GraduationCap from '@icons/GraduationCap.svg';
 import Mail from '@icons/Mail.svg';
@@ -14,9 +20,36 @@ import Phone from '@icons/Phone.svg';
 import FlyingStudents from '@animations/FlyingStudents.json';
 
 function Courses() {
+	// useTeacherContext
 	const {
-		coursesData: { setIdSelectedCourse }
+		coursesData: { setIdSelectedCourse, setCourses, courses }
 	} = useTeacherContext();
+	// useConfirmDialog
+	const { ConfirmDialog, showDialog } = useConfirmDialog();
+	// useCourse
+	const { createCourse } = useCourse();
+
+	const onCreateCourse = (fields: CourseCreate) => {
+		showDialog({
+			title: 'Registrar curso',
+			message: '¿Está seguro que desea registrar este curso?',
+			onConfirm: () => finishCreate(fields)
+		});
+	};
+
+	const finishCreate = async (fields: CourseCreate) => {
+		if (!courses) {
+			console.log('No courses');
+			return;
+		}
+		try {
+			const { id } = await createCourse(fields);
+			setCourses([...courses, { id, name: fields.name }]);
+			toast.success('Curso creado exitosamente');
+		} catch (err) {
+			toast.error('Error al crear el curso');
+		}
+	};
 
 	useEffect(() => {
 		setIdSelectedCourse(null);
@@ -24,6 +57,8 @@ function Courses() {
 
 	return (
 		<>
+			<ConfirmDialog />
+			<ToastContainer />
 			<Ribbon>
 				<img
 					src={GraduationCap}
@@ -39,7 +74,7 @@ function Courses() {
 					<Lottie animationData={FlyingStudents} loop={true} />
 				</div>
 				<div className="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-14 sm:mt-6">
-					<FormCourse />
+					<FormCourse onFinish={onCreateCourse} />
 				</div>
 				<div className="mt-20">
 					<div className="font-bold text-lg">

@@ -1,8 +1,8 @@
 import { useState, useCallback } from 'react';
 
-import * as releaseApi from '@api/release';
+import * as releaseApi from '@api/teacher/release.api';
 
-import { ReleaseDetail } from '@interfaces/Release.interface';
+import { ReleaseDetail } from '@interfaces/teacher/Release.interface';
 
 const useRelease = () => {
 	const [loading, setLoading] = useState(false);

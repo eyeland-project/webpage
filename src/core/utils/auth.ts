@@ -1,8 +1,15 @@
-import { isExpired, decodeToken } from 'react-jwt';
+import { TokenPayload } from '@interfaces/teacher/Auth.interface';
+import { isExpired, decodeToken as decode } from 'react-jwt';
 
-export function validToken(token: string | null): boolean {
-	if (!token) return false;
-	const { exp } = decodeToken(token) as { exp: number };
-	if (exp === undefined) return true; // No expiration date
-	return !isExpired(token);
+export function validToken(token: string | null): TokenPayload | null {
+	if (!token) return null;
+	const decoded = decodeToken(token);
+	if (!decoded) return null;
+	if (decoded.exp === undefined) return decoded; // No expiration date
+	return !isExpired(token) ? decoded : null;
+}
+
+export function decodeToken(token: string | null): TokenPayload | null {
+	if (!token) return null;
+	return decode<TokenPayload>(token);
 }

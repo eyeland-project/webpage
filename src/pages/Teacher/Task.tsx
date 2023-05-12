@@ -64,7 +64,7 @@ function Task() {
 					{task?.name || ''}
 				</div>
 			</Ribbon>
-			<div className="px-8 pb-4 pt-12 h-full">
+			<div className="px-8 pb-4 pt-10 h-full">
 				{task ? (
 					<></>
 				) : (

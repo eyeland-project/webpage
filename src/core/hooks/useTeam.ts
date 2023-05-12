@@ -1,10 +1,9 @@
 import { useState, useCallback } from 'react';
 import useAuthStorage from '@hooks/useAuthStorage';
-import axios from 'axios';
 
-import { environment } from '@environments/environment';
+import * as teamApi from '@api/teacher/team.api';
 
-import { TeamDetail } from '@interfaces/Team.interface';
+import { TeamDetail } from '@interfaces/teacher/Team.interface';
 
 const useTeam = () => {
 	const authStorage = useAuthStorage();
@@ -13,27 +12,17 @@ const useTeam = () => {
 	const [teams, setTeams] = useState<TeamDetail[] | null>(null);
 	const [team, setTeam] = useState<TeamDetail | null>(null);
 
-	const getTeams: (courseId: number) => Promise<TeamDetail[]> = useCallback(
-		async (courseId: number) => {
+	const getTeams: (idCourse: number) => Promise<TeamDetail[]> = useCallback(
+		async (idCourse: number) => {
+			setLoading(true);
 			try {
-				setLoading(true);
-				const response = await axios.get(
-					`${environment.apiUrl}/courses/${courseId}/teams`,
-					{
-						headers: {
-							Authorization: `Bearer ${authStorage.getAccessToken()}`
-						},
-						timeout: 10000
-					}
-				);
-
+				const teams = await teamApi.getTeams({
+					token: authStorage.getAccessToken()!,
+					idCourse
+				});
 				setLoading(false);
-				if (response.status === 200) {
-					setTeams(response.data);
-					return response.data;
-				} else {
-					throw new Error(response.data);
-				}
+				setTeams(teams);
+				return teams;
 			} catch (err) {
 				setLoading(false);
 				throw err;
@@ -42,53 +31,33 @@ const useTeam = () => {
 		[]
 	);
 
-	const getTeam: (courseId: number, teamId: number) => Promise<TeamDetail> =
-		useCallback(async (courseId: number, teamId: number) => {
+	const getTeam: (idCourse: number, idTeam: number) => Promise<TeamDetail> =
+		useCallback(async (idCourse: number, idTeam: number) => {
+			setLoading(true);
 			try {
-				setLoading(true);
-				const response = await axios.get(
-					`${environment.apiUrl}/courses/${courseId}teams/${teamId}`,
-					{
-						headers: {
-							Authorization: `Bearer ${authStorage.getAccessToken()}`
-						},
-						timeout: 10000
-					}
-				);
-
+				const team = await teamApi.getTeam({
+					token: authStorage.getAccessToken()!,
+					idCourse,
+					idTeam
+				});
 				setLoading(false);
-				if (response.status === 200) {
-					setTeam(response.data);
-					return response.data;
-				} else {
-					throw new Error(response.data);
-				}
+				setTeam(team);
+				return team;
 			} catch (err) {
 				setLoading(false);
 				throw err;
 			}
 		}, []);
 
-	const generateTeams = useCallback(async (courseId: number) => {
+	const generateTeams = useCallback(async (idCourse: number) => {
+		setLoading(true);
 		try {
-			setLoading(true);
-			const response = await axios.post(
-				`${environment.apiUrl}/courses/${courseId}/teams/init`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${authStorage.getAccessToken()}`
-					},
-					timeout: 10000
-				}
-			);
-
+			const response = await teamApi.generateTeams({
+				token: authStorage.getAccessToken()!,
+				idCourse
+			});
 			setLoading(false);
-			if (response.status === 200) {
-				return response.data;
-			} else {
-				throw new Error(response.data);
-			}
+			return response;
 		} catch (err) {
 			setLoading(false);
 			throw err;
