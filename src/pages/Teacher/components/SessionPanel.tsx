@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { Dispatch, SetStateAction, useMemo } from 'react';
 import Lottie from 'lottie-react';
 import ReactDropdown, { Option } from 'react-dropdown';
 import Loading from 'react-loading';
@@ -8,7 +8,7 @@ import PulseGreen from '@animations/PulseGreen.json';
 import SessionOptions from '@pages/Teacher/components/SessionOptions';
 import useTask from '@hooks/useTask';
 import { useEffect } from 'react';
-import { TaskDetail } from '@interfaces/teacher/Task.interface';
+import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 
 function SessionPanel({
 	isSessionCreated,
@@ -21,11 +21,11 @@ function SessionPanel({
 }: {
 	isSessionCreated: boolean;
 	isSessionStarted: boolean;
-	handleCreateSession: Function;
-	handleStartSession: Function;
-	handleEndSession: Function;
-	task: TaskDetail | null;
-	setTask: Function;
+	handleCreateSession: () => void;
+	handleStartSession: () => void;
+	handleEndSession: () => void;
+	task: TaskDetail | TaskSummary | null;
+	setTask: Dispatch<SetStateAction<TaskDetail | TaskSummary | null>>;
 }) {
 	const { tasks, getTasks, loading } = useTask();
 

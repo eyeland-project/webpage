@@ -160,7 +160,7 @@ function Submission() {
 					curr.answers.reduce((acc, curr) => {
 						return acc + curr.gradeAnswer!.grade;
 					}, 0) /
-						curr.answers.length,
+					curr.answers.length,
 				0
 			) / questionsAnswered.length
 		).toFixed(1);
@@ -216,7 +216,7 @@ function Submission() {
 						</div>
 					</div>
 				</div>
-				<div className="px-10 pt-4 pb-10">
+				<div className="px-10 pt-4 pb-10 h-full">
 					{answersPostask &&
 						idCourse !== null &&
 						idTaskAttempt !== null && (

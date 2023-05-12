@@ -11,9 +11,9 @@ function SessionOptions({
 }: {
 	isSessionCreated: boolean;
 	isSessionStarted: boolean;
-	handleCreateSession: Function;
-	handleStartSession: Function;
-	handleEndSession: Function;
+	handleCreateSession: () => void;
+	handleStartSession: () => void;
+	handleEndSession: () => void;
 }) {
 	return (
 		<>
@@ -34,9 +34,8 @@ function SessionOptions({
 					</Button>
 					<Button
 						onClick={handleStartSession}
-						className={`bg-green-primary ${
-							isSessionStarted ? 'px-0' : ''
-						}`}
+						className={`bg-green-primary ${isSessionStarted ? 'px-0' : ''
+							}`}
 					>
 						{!isSessionStarted ? (
 							'Iniciar'
