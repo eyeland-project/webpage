@@ -31,9 +31,9 @@ function TableStudents({
 						<td className="text-center bg-gray-tertiary">
 							<div className="py-2 px-8">Teléfono</div>
 						</td>
-						<td className="text-center bg-gray-tertiary">
+						{/* <td className="text-center bg-gray-tertiary">
 							<div className="py-2 px-8">Desempeño</div>
-						</td>
+						</td> */}
 						<td className="text-center bg-gray-tertiary rounded-r-lg">
 							<div className="py-2 px-8">Acción</div>
 						</td>
@@ -77,13 +77,13 @@ function TableStudents({
 											{parsePhone(phone)}
 										</div>
 									</td>
-									<td>
+									{/* <td>
 										<div className="flex justify-center ">
 											<Button className="px-5 rounded-xl">
 												ir
 											</Button>
 										</div>
-									</td>
+									</td> */}
 									<td>
 										<div className="flex gap-1 pl-8 pr-2">
 											<Button
