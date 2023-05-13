@@ -8,7 +8,7 @@ export const environment = {
 		'https://salamanca-island-mobile-api-production.up.railway.app/teachers'
 
 	// DEVELOPMENT
-	// 	apiTeacherUrl: 'http://localhost:3000/api/teachers',
-	// 	apiAdminUrl: 'http://localhost:3000/api/admin',
-	// 	socketUrl: 'http://localhost:3000/teachers'
+	// apiTeacherUrl: 'http://localhost:3000/api/teachers',
+	// apiAdminUrl: 'http://localhost:3000/api/admin',
+	// socketUrl: 'http://localhost:3000/teachers'
 };
