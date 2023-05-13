@@ -1,7 +1,7 @@
 import { Option } from '@interfaces/teacher/Option.interface';
 
-import CheckIcon from '@icons/check.svg';
-import XIcon from '@icons/x.svg';
+import CheckIcon from '@icons/Check.svg';
+import XIcon from '@icons/X.svg';
 
 function AnswerSubmitted({
 	id,
