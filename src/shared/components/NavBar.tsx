@@ -32,6 +32,11 @@ function NavBar({ showTeacherButton = true }) {
 							Aprende más
 						</p>
 					</Link>
+					<Link to={'/inaction'}>
+						<p className="text-large font-bold text-center hover:underline">
+							En acción
+						</p>
+					</Link>
 				</div>
 			</div>
 			{showTeacherButton && (
