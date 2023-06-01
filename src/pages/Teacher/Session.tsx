@@ -73,7 +73,7 @@ function Session() {
 				await createSession(idCourse);
 				setSessionCreated(true);
 			}
-		} catch (err) { }
+		} catch (err) {}
 	};
 
 	const handleStartSession = async () => {
@@ -82,7 +82,7 @@ function Session() {
 				await startSession(idCourse);
 				setSessionStarted(true);
 			}
-		} catch (err) { }
+		} catch (err) {}
 	};
 
 	const handleEndSession = async () => {
@@ -92,7 +92,7 @@ function Session() {
 				if (isSessionStarted) setSessionStarted(false);
 				setSessionCreated(false);
 			}
-		} catch (err) { }
+		} catch (err) {}
 	};
 
 	const handleGenerateTeams = async () => {
@@ -101,7 +101,7 @@ function Session() {
 				await generateTeams(idCourse);
 				await getTeams(idCourse);
 			}
-		} catch (err) { }
+		} catch (err) {}
 	};
 
 	const connectSocket = () => {
@@ -121,10 +121,15 @@ function Session() {
 
 	const filteredTeamsLeaderboard = useMemo(() => {
 		if (!teamsLeaderboard || !task) return [];
-		return teamsLeaderboard.filter(({ id }) => {
+		const filtered = teamsLeaderboard.filter(({ id }) => {
 			const team = teams?.find((team) => team.id === id);
 			return team?.taskOrder === task?.taskOrder;
 		});
+		const minPosition = Math.min(...filtered.map((team) => team.position));
+		return filtered.map(({ position, ...fields }) => ({
+			...fields,
+			position: position - (minPosition - 1)
+		}));
 	}, [teamsLeaderboard, task]);
 
 	useEffect(() => {
@@ -272,11 +277,12 @@ function Session() {
 							/>
 							<div>
 								<div
-									className={`transition-all duration-1000 ${isSessionStarted &&
+									className={`transition-all duration-1000 ${
+										isSessionStarted &&
 										filteredTeamsLeaderboard.length
-										? 'min-h-[24rem]'
-										: 'h-0'
-										}
+											? 'min-h-[24rem]'
+											: 'h-0'
+									}
 							`}
 								>
 									{(isSessionStarted &&

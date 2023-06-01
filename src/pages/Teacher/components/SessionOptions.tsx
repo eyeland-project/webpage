@@ -34,8 +34,9 @@ function SessionOptions({
 					</Button>
 					<Button
 						onClick={handleStartSession}
-						className={`bg-green-primary ${isSessionStarted ? 'px-0' : ''
-							}`}
+						className={`bg-green-primary ${
+							isSessionStarted ? 'px-0' : ''
+						}`}
 					>
 						{!isSessionStarted ? (
 							'Iniciar'

@@ -15,6 +15,11 @@ function TableSubmissions({
 	const cols = useMemo<ColumnDef<TaskAttemptSubmissionDetail>[]>(
 		() => [
 			{
+				header: 'Id de envío',
+				accessorKey: 'id',
+				accessorFn: ({ id }) => id
+			},
+			{
 				header: 'Estudiante',
 				accessorKey: 'student',
 				accessorFn: ({ student: { firstName, lastName } }) =>
