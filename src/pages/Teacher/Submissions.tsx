@@ -91,7 +91,7 @@ function Submissions() {
 			{submissions ? (
 				<div className="pt-10 h-full px-10">
 					<div className="font-semibold text-2xl mt-6">
-						Evaluación
+						Listado de envíos
 					</div>
 					<TableSubmissions
 						idCourse={idCourse}

@@ -10,6 +10,7 @@ function Leaderboard({
 		() => [...teamsLeaderboard].sort((a, b) => a.id - b.id),
 		[teamsLeaderboard]
 	);
+	console.log('teams', teams);
 
 	return (
 		<div className="flex flex-col gap-8 text-lg">
@@ -26,10 +27,10 @@ function Leaderboard({
 									: 'bg-pink-primary'
 							}`}
 							style={{
-								width: `${(
+								width: `${Math.abs(
 									((teams.length - (position - 1)) /
 										teams.length) *
-									80
+										80
 								).toFixed(0)}%`
 							}}
 							// className={`h-8 transition-all duration-500 ease-in-out rounded-sm

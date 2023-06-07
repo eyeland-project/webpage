@@ -160,7 +160,7 @@ function Submission() {
 					curr.answers.reduce((acc, curr) => {
 						return acc + curr.gradeAnswer!.grade;
 					}, 0) /
-					curr.answers.length,
+						curr.answers.length,
 				0
 			) / questionsAnswered.length
 		).toFixed(1);

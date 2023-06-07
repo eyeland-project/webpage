@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import useGradeAnswer from '@hooks/useGradeAnswer';
 
-import AnswersSubmitted from '@pages/Teacher/components/AnswersSubmitted';
+import AnswerSubmittedList from '@pages/Teacher/components/AnswerSubmittedList';
 
 import {
 	GradeAnswerCreate,
@@ -151,7 +151,7 @@ function GradePanel({
 			<div className="flex mt-4 gap-4 h-full">
 				<div className="flex flex-col gap-2 w-3/4 overflow-y-auto">
 					{questionSubmissions.map((questionSubmission, i) => (
-						<AnswersSubmitted
+						<AnswerSubmittedList
 							key={i}
 							questionSubmission={questionSubmission}
 							idAnswerSelected={idAnswerSelected}
@@ -164,11 +164,13 @@ function GradePanel({
 						<div className="text-lg">
 							<div className="font-medium">Evaluando:</div>
 							<div className="text-sm">
-								{`Pregunta ${questionSelected?.questionOrder ?? ''
-									} - Respuesta ${questionSelected?.answers.findIndex(
+								{`Pregunta ${
+									questionSelected?.questionOrder ?? ''
+								} - Respuesta ${
+									questionSelected?.answers.findIndex(
 										({ id }) => id === idAnswerSelected
 									)! + 1
-									}`}
+								}`}
 							</div>
 						</div>
 						<div className="flex flex-col gap-4">
