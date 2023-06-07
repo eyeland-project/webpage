@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import {useTranslation} from 'react-i18next';
+
 import Title from '@components/Title';
 import Task from '@pages/LandingPage/components/Methodology/Task';
 import Description from '@pages/LandingPage/components/Description';
@@ -9,6 +11,7 @@ import PosTaskPhone from '@images/PosTaskPhone.svg';
 
 function Methodology() {
 	const [count, setCount] = useState(0);
+	const {t} = useTranslation();
 
 	const [classPretask, setClassPretask] = useState('md:-top-32');
 	const [classPretaskP, setClassPretaskP] = useState(
@@ -68,11 +71,9 @@ function Methodology() {
 
 	return (
 		<div className="flex h-auto w-screen flex-col items-center justify-center px-5 md:mb-48">
-			<Title textColor="text-black" title="Nuestra metodología" />
+			<Title textColor="text-black" title={t('landingPage.methodology.title')} />
 			<Description>
-				Dividimos nuestra aplicación en lo que llamamos TASK. Cada una
-				de estas a su vez poseé tres partes que corresponden a PresTask,
-				Activity y PosTask
+				{t('landingPage.methodology.description')}
 			</Description>
 
 			<div className="w-full md:flex md:w-screen md:max-w-[1366px] md:justify-start">
@@ -81,11 +82,11 @@ function Methodology() {
 					<div className="absolute -left-[1600px] -top-[650px] -z-10 h-[1900px] w-[1900px] rounded-full bg-white md:-left-[1550px]" />
 
 					<h1 className="hidden md:block md:text-8xl md:font-bold md:text-white">
-						TASK
+						{t('landingPage.methodology.task.name')}
 					</h1>
 					<Task
-						title="Pre-Task"
-						description="Una preguntas con las cuales aprenderas los conceptos necesarios para realizar la TASK."
+						title={t('landingPage.methodology.task.parts.preTask.title')}
+						description={t('landingPage.methodology.task.parts.preTask.description')}
 						img={PreTaskPhone}
 						classTask={classPretask}
 						classTaskP={classPretaskP}
@@ -98,8 +99,8 @@ function Methodology() {
 					/>
 
 					<Task
-						title="During-Task"
-						description="Una actividad en grupo donde deberas aplicar los conceptos aprendidos en la PreTask."
+						title={t('landingPage.methodology.task.parts.duringTask.title')}
+						description={t('landingPage.methodology.task.parts.duringTask.description')}
 						img={DuringTaskPhone}
 						classTask={classActivity}
 						classTaskP={classActivityP}
@@ -112,8 +113,8 @@ function Methodology() {
 					/>
 
 					<Task
-						title="Post-Task"
-						description="Una serie de preguntas con audio para que puedas evaluar tu aprendizaje."
+						title={t('landingPage.methodology.task.parts.postTask.title')}
+						description={t('landingPage.methodology.task.parts.postTask.description')}
 						img={PosTaskPhone}
 						classTask={classPosTask}
 						classTaskP={classPosTaskP}

@@ -1,10 +1,12 @@
 import useRelease from '@hooks/useRelease';
 import EyeLandHero from '@images/EyeLandHero.svg';
 import { useRef } from 'react';
+import {useTranslation} from 'react-i18next';
 
 function Hero() {
 	const downloadRef = useRef<HTMLAnchorElement>(null);
 	const { release, getLatestRelease } = useRelease();
+	const { t } = useTranslation();
 
 	const handleDownload = async () => {
 		if (!release) {
@@ -24,13 +26,13 @@ function Hero() {
 					EYELAND
 				</h1>
 				<h2 className="animate-entrance-2 text-xl font-medium opacity-70 xl:text-2xl">
-					App para la enseñanza del inglés y el trabajo en equipo
+					{t('landingPage.hero.description')}
 				</h2>
 				<div
 					className="button mt-5 animate-entrance-3 cursor-default bg-green-tertiary text-xl text-white xl:text-4xl flex items-center gap-2"
 					onClick={handleDownload}
 				>
-					¡Descargar aquí!
+					{t('landingPage.hero.downloadHere')}
 					<a
 						className="hidden"
 						ref={downloadRef}
@@ -43,7 +45,7 @@ function Hero() {
 					className="button animate-entrance-4 cursor-default bg-white border border-green-tertiary text-xl text-green-tertiary xl:text-4xl flex items-center gap-2"
 				>
 					<a href="https://proyecto-final-epics.github.io/EyelandApp/">
-						Usar online
+						{t('landingPage.hero.useOnline')}
 					</a>
 				</div>
 			</div>

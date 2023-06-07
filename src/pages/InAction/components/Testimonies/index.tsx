@@ -1,5 +1,6 @@
 import Title from '@components/Title'
 import { useMemo } from 'react'
+import {useTranslation} from 'react-i18next'
 
 
 function Testimonies() {
@@ -13,9 +14,11 @@ function Testimonies() {
         ]
     }, [])
 
+    const {t} = useTranslation()
+
     return (
         <div>
-            <Title title='Testimonios' textColor='text-black' />
+            <Title title={t('inAction.sections.testimonies')} textColor='text-black' />
             <div className='flex py-2 space-x-4 justify-center flex-wrap'>
                 {
                     testimonies.map((testimony, index) => {
