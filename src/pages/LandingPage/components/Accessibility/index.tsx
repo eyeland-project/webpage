@@ -1,4 +1,6 @@
 import { useState, useRef } from 'react';
+import {useTranslation} from 'react-i18next';
+
 import Title from '@components/Title';
 import Button from '@pages/LandingPage/components/Accessibility/Button';
 
@@ -12,6 +14,7 @@ function Accesibility() {
 	const [classAccesibilityP, setClassAccesibilityP] = useState(
 		'leading-relaxed text-base md:text-2xl font-Poppins tracking-normal'
 	);
+	const {t} = useTranslation();
 
 	const description = useRef<HTMLParagraphElement>(null);
 
@@ -23,7 +26,7 @@ function Accesibility() {
 			}
 		>
 			<Title
-				title="Para todos"
+				title={t('landingPage.accesibility.title')}
 				textColor={
 					classAccesibility.includes('text-black')
 						? 'text-black'
@@ -38,11 +41,7 @@ function Accesibility() {
 					}
 					ref={description}
 				>
-					Es muy importante que todas las personas puedan disfrutar de
-					nuestra aplicación, independientemente de sus habilidades o
-					limitaciones físicas. Por eso, hemos implementado varias
-					opciones de accesibilidad para que todos puedan usarla de
-					manera cómoda y sin problemas.
+					{t('landingPage.accesibility.description')}
 				</p>
 				<div className="relative flex">
 					<img
@@ -57,7 +56,7 @@ function Accesibility() {
 							className="absolute h-14 w-14 transition-all group-hover:opacity-0 xl:h-16 xl:w-16"
 						/>
 						<p className="absolute px-5 text-center text-xs font-bold  text-white opacity-0 transition-all group-hover:opacity-100 xl:text-base">
-							Pruebalo tú mismo
+							{t('landingPage.accesibility.tryItYourself')}
 						</p>
 					</div>
 					<div>

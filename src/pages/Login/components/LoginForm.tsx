@@ -1,3 +1,5 @@
+import {useTranslation} from 'react-i18next'
+
 import Loading from 'react-loading';
 
 import { Login } from '@interfaces/teacher/Auth.interface';
@@ -13,12 +15,15 @@ function LoginForm({
 	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
+
+	const {t} = useTranslation()
+
 	return (
 		<>
-			<h2 className="text-center text-2xl mt-6">Iniciar sesión</h2>
+			<h2 className="text-center text-2xl mt-6">{t('login.title')}</h2>
 			<form onSubmit={handleSubmit} className="my-5 w-full">
 				<div className="w-full">
-					<label htmlFor="username">Usuario</label>
+					<label htmlFor="username">{t('login.username')}</label>
 					<input
 						type="username"
 						name="username"
@@ -28,7 +33,7 @@ function LoginForm({
 					/>
 				</div>
 				<div className="mt-5">
-					<label htmlFor="password">Contraseña</label>
+					<label htmlFor="password">{t('login.password')}</label>
 					<input
 						type="password"
 						name="password"
@@ -49,7 +54,7 @@ function LoginForm({
 							width={20}
 						/>
 					) : (
-						'Iniciar sesión'
+						<>{t('login.login')}</>
 					)}
 				</button>
 			</form>

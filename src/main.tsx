@@ -4,6 +4,7 @@ import { HashRouter as Router } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import App from './App';
 import './index.css';
+import './i18n';
 
 import { AuthStorageProvider } from '@contexts/AuthStorageContext';
 

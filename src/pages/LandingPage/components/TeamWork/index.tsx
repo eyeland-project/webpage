@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import {useTranslation} from 'react-i18next';
+
 import Power from '@pages/LandingPage/components/TeamWork/Power';
 import Title from '@components/Title';
 import Description from '@pages/LandingPage/components/Description';
@@ -9,6 +11,7 @@ import SuperRadar from '@icons/SuperRadar.svg';
 
 function TeamWork() {
 	const [counter, setCounter] = useState(0);
+	const {t} = useTranslation();
 
 	const [classPower1, setClassPower1] = useState('scale-110');
 	const [classPower1D, setClassPower1D] = useState('opacity-100');
@@ -44,17 +47,15 @@ function TeamWork() {
 
 	return (
 		<div className="mt-20 flex h-auto w-screen flex-col items-center justify-center bg-green-secondary px-5">
-			<Title textColor="text-black" title="Trabajo en equipo" />
+			<Title textColor="text-black" title={t('landingPage.teamWork.title')} />
 			<Description>
-				Cada During-Task se realiza en grupos de 3 personas en las que
-				cada persona se le asignará un rol con una habilidad útil para
-				la realización de la sesión.
+				{t('landingPage.teamWork.description')}
 			</Description>
 			<div className="mt-16 flex justify-center gap-10 pb-44 md:gap-20 md:pb-56 xl:gap-40">
 				<Power
-					title="Super hearing"
+					title={t('landingPage.teamWork.powers.superHearing.name')}
 					img={SuperHearing}
-					description="Tu poder es el de poder volver a escuchar las indicaciones que dió el guía."
+					description={t('landingPage.teamWork.powers.superHearing.description')}
 					setClassPowerD={setClassPower1D}
 					setCounter={setCounter}
 					classPowerD={classPower1D}
@@ -63,9 +64,9 @@ function TeamWork() {
 					index={0}
 				/>
 				<Power
-					title="Memory pro"
+					title={t('landingPage.teamWork.powers.memoryPro.name')}
 					img={MemoryPro}
-					description="Tu poder es el de poder recordar traducción del sustantivo clave en la pregunta."
+					description={t('landingPage.teamWork.powers.memoryPro.description')}
 					setClassPowerD={setClassPower2D}
 					setCounter={setCounter}
 					classPowerD={classPower2D}
@@ -74,9 +75,9 @@ function TeamWork() {
 					index={1}
 				/>
 				<Power
-					title="Super radar"
+					title={t('landingPage.teamWork.powers.superRadar.name')}
 					img={SuperRadar}
-					description="Tu poder es el de poder recordar la preposicón clave en la pregunta."
+					description={t('landingPage.teamWork.powers.superRadar.description')}
 					setClassPowerD={setClassPower3D}
 					setCounter={setCounter}
 					classPowerD={classPower3D}

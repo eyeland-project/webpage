@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
+import {useTranslation} from 'react-i18next'
 import 'react-toastify/dist/ReactToastify.css';
 
 import useAuthStorage from '@hooks/useAuthStorage';
@@ -20,18 +21,18 @@ const INITIAL_STATE = {
 	password: ''
 };
 
-const VALIDATION = {
-	username: (value: string) => !value && 'El usuario es requerido',
-	password: (value: string) => !value && 'La contraseña es requerida'
-};
-
 function Login() {
 	const { loading, login } = useLogin();
 	const [form, setForm] = useState(INITIAL_STATE);
-
 	const authStorage = useAuthStorage();
-
 	const tokenPayload = validToken(authStorage.getAccessToken());
+	const {t} = useTranslation()
+
+	const VALIDATION = {
+		username: (value: string) => !value && t('login.error.username'),
+		password: (value: string) => !value && t('login.error.password')
+	};
+
 	if (tokenPayload) {
 		const { role } = tokenPayload;
 		if (Object.values(Role).includes(role)) {
@@ -67,7 +68,7 @@ function Login() {
 
 		login({ username, password }, Role.TEACHER)
 			.catch(() => login({ username, password }, Role.ADMIN))
-			.catch(() => toast.error('Usuario o contraseña incorrectos'));
+			.catch(() => toast.error(t('login.error.message')));
 	};
 
 	return (

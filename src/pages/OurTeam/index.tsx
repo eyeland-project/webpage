@@ -1,16 +1,20 @@
+import {useTranslation} from 'react-i18next';
+
 import NavBar from '@components/NavBar';
 import Section from '@pages/OurTeam/components/Section';
 import Title from '@components/Title';
 import Footer from '@components/Footer';
 
 function OurTeam() {
+	const {t} = useTranslation();
+
 	return (
 		<>
 			<NavBar />
 			<div className="mb-10">
-				<Title title={'Nuestro equipo'} textColor={'text-black'} />
+				<Title title={t('ourTeam.title')} textColor={'text-black'} />
 				<Section
-					title={'Profesores'}
+					title={t('ourTeam.sections.teachers')}
 					people={[
 						{
 							name: 'Dr. Miguel Jimeno Paba',
@@ -50,7 +54,7 @@ function OurTeam() {
 					]}
 				/>
 				<Section
-					title={'Diseñadores'}
+					title={t('ourTeam.sections.designers')}
 					people={[
 						{
 							name: 'Wendy Florian Pacheco',
@@ -60,7 +64,7 @@ function OurTeam() {
 					]}
 				/>
 				<Section
-					title={'Desarrolladores'}
+					title={t('ourTeam.sections.developers')}
 					people={[
 						{
 							name: 'Camilo J. Sinning Lopez',
