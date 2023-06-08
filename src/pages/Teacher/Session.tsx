@@ -28,6 +28,7 @@ import PulseGray from '@animations/PulseGray.json';
 
 import { decodeToken } from '@utils/auth';
 import Leaderboard from './components/Leaderboard';
+import LoadingScreen from '@components/LoadingScreen';
 
 function Session() {
 	// auth
@@ -113,11 +114,11 @@ function Session() {
 		console.log('connected');
 	};
 
-	const filteredTeams = useMemo(() => {
-		if (!teams) return [];
-		if (!task) return teams;
-		return teams.filter(({ taskOrder }) => taskOrder === task?.taskOrder);
-	}, [teams, task]);
+	const filteredTeams = !teams
+		? []
+		: !task
+		? teams
+		: teams.filter(({ taskOrder }) => taskOrder === task?.taskOrder);
 
 	const filteredTeamsLeaderboard = useMemo(() => {
 		if (!teamsLeaderboard || !task) return [];
@@ -338,15 +339,7 @@ function Session() {
 						</div>
 					)
 				) : (
-					<div className="flex flex-col grow justify-center items-center h-full">
-						{loadingCourses ? (
-							<Loading type="spin" color="#0D9748" />
-						) : (
-							<div className="italic w-3/5 text-center text-lg">
-								No se pudo obtener la información
-							</div>
-						)}
-					</div>
+					<LoadingScreen loading={loadingCourses} />
 				)}
 			</div>
 		</div>

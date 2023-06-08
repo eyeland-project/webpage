@@ -43,7 +43,7 @@ const useTaskStage = () => {
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
-				setPretask(taskStage);
+				setDuringtask(taskStage);
 				return taskStage;
 			} catch (err) {
 				setLoading(false);
@@ -60,7 +60,7 @@ const useTaskStage = () => {
 					token: authStorage.getAccessToken()!
 				});
 				setLoading(false);
-				setPretask(taskStage);
+				setPostask(taskStage);
 				return taskStage;
 			} catch (err) {
 				setLoading(false);

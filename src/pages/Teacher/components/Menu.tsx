@@ -18,25 +18,12 @@ import TasksIcon from '@icons/Tasks.svg';
 
 function Menu({
 	isSubmenuCollapsed,
-	setSubmenuCollapsed,
 	selectedKey,
-	setSelectedKey
 }: {
 	isSubmenuCollapsed: boolean;
-	setSubmenuCollapsed: Function;
 	selectedKey: string;
-	setSelectedKey: Function;
 }) {
 	const authStorage = useAuthStorage();
-
-	const onSelectSection = (sectionName: string) => {
-		setSelectedKey(sectionName);
-		if (sectionName !== 'home' && isSubmenuCollapsed) {
-			setSubmenuCollapsed(false);
-		} else if (sectionName === 'home' && !isSubmenuCollapsed) {
-			setSubmenuCollapsed(true);
-		}
-	};
 
 	const onClickLogout = () => {
 		authStorage.removeAccessToken();
@@ -66,7 +53,7 @@ function Menu({
 				<div className="flex flex-col justify-between items-center gap-8">
 					<Link
 						to="/teacher/home"
-						onClick={() => onSelectSection('home')}
+						// onClick={() => onSelectSection('home')}
 					>
 						<img
 							src={Logo}
@@ -79,7 +66,7 @@ function Menu({
 							<Link
 								to={`/teacher/${name}`}
 								key={name}
-								onClick={() => onSelectSection(name)}
+								// onClick={() => onSelectSection(name)}
 							>
 								<>
 									{name == selectedKey && (

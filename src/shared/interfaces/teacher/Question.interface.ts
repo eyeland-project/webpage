@@ -5,7 +5,7 @@ import {
 } from '@enums/Question.enum';
 import { Option } from '@interfaces/teacher/Option.interface';
 
-export interface QuestionDetail {
+interface QuestionDetail {
 	id: number;
 	questionOrder: number;
 	content: string;
@@ -28,3 +28,9 @@ export interface QuestionDuringtaskDetail extends QuestionDetail {
 }
 
 export interface QuestionPostaskDetail extends QuestionDetail {}
+
+export interface QuestionsTaskDetail {
+	pretask: QuestionPretaskDetail[];
+	duringtask: QuestionDuringtaskDetail[];
+	postask: QuestionPostaskDetail[];
+}

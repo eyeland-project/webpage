@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useMemo, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Loading from 'react-loading';
 import Lottie from 'lottie-react';
@@ -15,6 +15,7 @@ import DataGridIcon from '@icons/DataGrid.svg';
 import DesktopAndMobile from '@animations/DesktopAndMobile.json';
 import Taskman from '@animations/Taskman.json';
 import Evaluation from '@animations/Evaluation.json';
+import LoadingScreen from '@components/LoadingScreen';
 
 function Course() {
 	// navigation
@@ -38,10 +39,7 @@ function Course() {
 		parseNumericParam(idCourseStr)
 	);
 
-	const sections = useMemo(() => {
-		if (idCourse === null) return [];
-		return getSections(idCourse);
-	}, [idCourse]);
+	const sections = idCourse !== null ? getSections(idCourse) : [];
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(idCourseStr);
@@ -96,15 +94,7 @@ function Course() {
 						)}
 					</div>
 				) : (
-					<div className="flex flex-col grow justify-center items-center h-full">
-						{loading ? (
-							<Loading type="spin" color="#0D9748" />
-						) : (
-							<div className="italic w-3/5 text-center text-lg">
-								No se pudo obtener la información
-							</div>
-						)}
-					</div>
+					<LoadingScreen loading={loading} />
 				)}
 			</div>
 		</div>

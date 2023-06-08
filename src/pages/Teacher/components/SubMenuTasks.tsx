@@ -30,7 +30,7 @@ function SubMenuTasks() {
 			</div>
 			{tasks ? (
 				<div className="flex flex-col gap-4 mt-4 items-start text-sm grow">
-					{tasks.map(({ name, id }, i) => (
+					{tasks.map(({ name, id, taskOrder }, i) => (
 						<div
 							key={i}
 							className={`flex items-center gap-4 px-4 py-2 rounded-md cursor-pointer w-full ${
@@ -45,7 +45,7 @@ function SubMenuTasks() {
 								alt="Icon"
 								className=" w-6 h-6"
 							/>
-							{name}
+							{`${taskOrder}. ${name}`}
 						</div>
 					))}
 				</div>

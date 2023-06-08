@@ -24,6 +24,7 @@ import {
 	StudentSummary,
 	StudentUpdate
 } from '@interfaces/teacher/Student.interface';
+import LoadingScreen from '@components/LoadingScreen';
 
 function Students() {
 	// navigation
@@ -256,15 +257,7 @@ function Students() {
 						/>
 					</div>
 				) : (
-					<div className="flex flex-col grow justify-center items-center h-full">
-						{loadingStudents ? (
-							<Loading type="spin" color="#0D9748" />
-						) : (
-							<div className="italic w-3/5 text-center text-lg">
-								No se pudo obtener la información
-							</div>
-						)}
-					</div>
+					<LoadingScreen loading={loadingStudents} />
 				)}
 			</div>
 		</div>
