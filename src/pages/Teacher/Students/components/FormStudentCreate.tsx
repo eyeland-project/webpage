@@ -1,6 +1,6 @@
 import useStudent from '@hooks/useStudent';
 import { StudentCreate } from '@interfaces/teacher/Student.interface';
-import FormStudent from '@pages/Teacher/components/FormStudent';
+import FormStudent from '@pages/Teacher/Students/components/FormStudent';
 
 function FormStudentCreate({
 	idCourse,

@@ -2,11 +2,35 @@ import { environment } from '@environments/environment';
 import {
 	QuestionPostaskDetail,
 	QuestionDuringtaskDetail,
-	QuestionPretaskDetail
+	QuestionPretaskDetail,
+	QuestionsTaskDetail
 } from '@interfaces/teacher/Question.interface';
 import axios from 'axios';
 
 const { apiTeacherUrl } = environment;
+
+export async function getQuestionsFromTask({
+	idTask,
+	token
+}: {
+	idTask: number;
+	token: string;
+}): Promise<QuestionsTaskDetail> {
+	const response = await axios.get(
+		`${apiTeacherUrl}/tasks/${idTask}/questions`,
+		{
+			timeout: 10000,
+			headers: {
+				Authorization: `Bearer ${token}`
+			}
+		}
+	);
+	if (response.status === 200) {
+		return response.data;
+	} else {
+		throw new Error(response.data);
+	}
+}
 
 export async function getQuestionsPretask({
 	idTask,
@@ -22,7 +46,7 @@ export async function getQuestionsPretask({
 	});
 }
 
-export async function getQuestionsFromDuringtask({
+export async function getQuestionsDuringtask({
 	idTask,
 	token
 }: {

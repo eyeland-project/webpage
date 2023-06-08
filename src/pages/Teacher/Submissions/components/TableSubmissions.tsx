@@ -42,6 +42,8 @@ function TableSubmissions({
 				accessorFn: ({ id }) => (
 					<Link
 						to={`/teacher/submissions/${id}?idCourse=${idCourse}`}
+						target="_blank"
+						// referrerPolicy='no-referrer'
 						className="text-green-600 font-bold hover:underline"
 					>
 						Ver

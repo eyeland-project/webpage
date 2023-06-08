@@ -7,7 +7,7 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useConfirmDialog from '@hooks/useConfirmDialog';
 import useCourse from '@hooks/useCourse';
 
-import FormCourse from '@pages/Teacher/components/FormCourse';
+import FormCourse from '@pages/Teacher/Courses/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
 import { CourseCreate } from '@interfaces/teacher/Course.interface';

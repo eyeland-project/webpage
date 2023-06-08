@@ -5,8 +5,9 @@ import useStudent from '@hooks/useStudent';
 
 import { StudentUpdate } from '@interfaces/teacher/Student.interface';
 
-import FormStudent from '@pages/Teacher/components/FormStudent';
+import FormStudent from '@pages/Teacher/Students/components/FormStudent';
 import Loading from 'react-loading';
+import LoadingScreen from '@components/LoadingScreen';
 
 function FormStudentUpdate({
 	idCourse,
@@ -76,15 +77,7 @@ function FormStudentUpdate({
 			onCancel={onCancel}
 		/>
 	) : (
-		<div className="flex flex-col grow justify-center items-center h-full">
-			{loading ? (
-				<Loading type="spin" color="#6C6C6C" />
-			) : (
-				<div className="italic w-3/5 text-center text-lg">
-					Error de servidor
-				</div>
-			)}
-		</div>
+		<LoadingScreen loading={loading} />
 	);
 }
 

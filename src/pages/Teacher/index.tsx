@@ -86,9 +86,7 @@ function Layout({
 			<div className="h-full fixed">
 				<Menu
 					isSubmenuCollapsed={isSubmenuCollapsed}
-					setSubmenuCollapsed={setSubmenuCollapsed}
 					selectedKey={menuSelectedKey}
-					setSelectedKey={setMenuSelectedKey}
 				></Menu>
 			</div>
 			<div
