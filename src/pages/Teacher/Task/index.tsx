@@ -13,6 +13,7 @@ import { parseNumericParam } from '@utils/routing.utils';
 import DataGridIcon from '@icons/DataGrid.svg';
 import TaskStageSelect from './components/TaskStageSelect';
 import LoadingScreen from '@components/LoadingScreen';
+import QuestionGrid from './components/QuestionGrid';
 
 function Task() {
 	// navigation
@@ -27,15 +28,6 @@ function Task() {
 	const { task, setTask, getTask, loading: loadingTask } = useTask();
 	// useQuestions hook
 	const {
-		// getQuestionsDuringtask,
-		// getQuestionsPostask,
-		// getQuestionsPretask,
-		// questionsDuringtask,
-		// questionsPostask,
-		// questionsPretask,
-		// setQuestionsDuringtask,
-		// setQuestionsPostask,
-		// setQuestionsPretask,
 		getQuestionsFromTask,
 		questionsFromTask,
 		setQuestionsFromTask,
@@ -67,6 +59,8 @@ function Task() {
 				});
 		}
 		if (didTaskChange || !task) {
+			console.log('getTask');
+
 			getTask(idTask!)
 				.then((task) => {
 					setTask(task);
@@ -82,32 +76,39 @@ function Task() {
 	}, [idTaskStr]);
 
 	useEffect(() => {
+		console.log('idTask', idTask);
+		console.log('idSelectedTask', idSelectedTask);
+
 		if (idTask === null) {
 			return navigate('/teacher/tasks');
 		}
-		const didChange = idSelectedTask !== idTask;
+		const didChange = idSelectedTask !== null && idSelectedTask !== idTask;
 		if (didChange) {
 			setIdSelectedTask(idTask); // context (submenu)
 		}
 		updateData(didChange);
 	}, [idTask]);
 
-	useEffect(() => {
-		console.log('idSelectedTask', idSelectedTask);
-		if (idTask === null) {
-			return navigate('/teacher/tasks');
-		}
-		const didChange = idSelectedTask !== idTask;
-		updateData(didChange);
-	}, [idSelectedTask]);
+	// useEffect(() => {
+	// 	console.log('idSelectedTask', idSelectedTask);
+	// 	if (idTask === null) {
+	// 		return navigate('/teacher/tasks');
+	// 	}
+	// 	const didChange = idSelectedTask !== idTask;
+	// 	updateData(didChange);
+	// }, [idSelectedTask]);
+
+	// useEffect(() => {
+	// 	console.log('questionsFromTask', questionsFromTask);
+	// }, [questionsFromTask]);
+
+	// useEffect(() => {
+	// 	console.log('loadingQuestions', loadingQuestions);
+	// }, [loadingQuestions]);
 
 	useEffect(() => {
-		console.log('questionsFromTask', questionsFromTask);
-	}, [questionsFromTask]);
-
-	useEffect(() => {
-		console.log('loadingQuestions', loadingQuestions);
-	}, [loadingQuestions]);
+		console.log('task', task);
+	}, [task]);
 
 	// if (!task) return <></>;
 
@@ -131,7 +132,7 @@ function Task() {
 					/>
 					<div className="mt-6">
 						{questionsFromTask ? (
-							<>Questions</>
+							<QuestionGrid questions={questionsFromTaskStage} />
 						) : (
 							<LoadingScreen loading={loadingQuestions} />
 						)}

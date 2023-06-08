@@ -12,9 +12,9 @@ import useConfirmDialog from '@hooks/useConfirmDialog';
 import Button from '@components/Button';
 import Modal from '@components/Modal';
 import Ribbon from '@pages/Teacher/components/Ribbon';
-import TableStudents from '@pages/Teacher/components/TableStudents';
-import FormStudentUpdate from '@pages/Teacher/components/FormStudentUpdate';
-import FormStudentCreate from '@pages/Teacher/components/FormStudentCreate';
+import TableStudents from '@pages/Teacher/Students/components/TableStudents';
+import FormStudentUpdate from '@pages/Teacher/Students/components/FormStudentUpdate';
+import FormStudentCreate from '@pages/Teacher/Students/components/FormStudentCreate';
 
 import { parseNumericParam } from '@utils/routing.utils';
 

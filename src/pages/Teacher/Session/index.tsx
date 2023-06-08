@@ -9,9 +9,9 @@ import useTeam from '@hooks/useTeam';
 import useAuthStorage from '@hooks/useAuthStorage';
 
 import Button from '@components/Button';
-import SessionPanel from '@pages/Teacher/components/SessionPanel';
+import SessionPanel from '@pages/Teacher/Session/components/SessionPanel';
 import Ribbon from '@pages/Teacher/components/Ribbon';
-import TeamGrid from '@pages/Teacher/components/TeamGrid';
+import TeamGrid from '@pages/Teacher/Session/components/TeamGrid';
 
 import {
 	TeamDetail,

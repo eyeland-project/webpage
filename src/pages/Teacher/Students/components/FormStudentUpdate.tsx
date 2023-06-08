@@ -5,7 +5,7 @@ import useStudent from '@hooks/useStudent';
 
 import { StudentUpdate } from '@interfaces/teacher/Student.interface';
 
-import FormStudent from '@pages/Teacher/components/FormStudent';
+import FormStudent from '@pages/Teacher/Students/components/FormStudent';
 import Loading from 'react-loading';
 import LoadingScreen from '@components/LoadingScreen';
 

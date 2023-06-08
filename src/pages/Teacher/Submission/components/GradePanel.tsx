@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import useGradeAnswer from '@hooks/useGradeAnswer';
 
-import AnswerSubmittedList from '@pages/Teacher/components/AnswerSubmittedList';
+import AnswerSubmittedList from '@pages/Teacher/Submission/components/AnswerSubmittedList';
 
 import {
 	GradeAnswerCreate,

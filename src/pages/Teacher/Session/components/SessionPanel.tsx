@@ -5,7 +5,7 @@ import Loading from 'react-loading';
 import 'react-dropdown/style.css';
 
 import PulseGreen from '@animations/PulseGreen.json';
-import SessionOptions from '@pages/Teacher/components/SessionOptions';
+import SessionOptions from '@pages/Teacher/Session/components/SessionOptions';
 import useTask from '@hooks/useTask';
 import { useEffect } from 'react';
 import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';

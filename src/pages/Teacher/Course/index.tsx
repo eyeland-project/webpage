@@ -7,7 +7,7 @@ import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
-import { CourseSectionCard } from '@pages/Teacher/components/CourseSectionCard';
+import { CourseSectionCard } from '@pages/Teacher/Course/components/CourseSectionCard';
 
 import { parseNumericParam } from '@utils/routing.utils';
 
