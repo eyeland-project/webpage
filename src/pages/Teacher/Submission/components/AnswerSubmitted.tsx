@@ -1,5 +1,5 @@
 import { Option } from '@interfaces/teacher/Option.interface';
-
+import { useTranslation } from 'react-i18next';
 import CheckIcon from '@icons/Check.svg';
 import XIcon from '@icons/X.svg';
 
@@ -24,6 +24,9 @@ function AnswerSubmitted({
 	options: Option[];
 	answerOrder: number;
 }) {
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.submission.answerList'
+	});
 	const correctOption = options.find(({ correct }) => correct);
 	const answeredOption = options.find(({ id }) => id === idOption);
 
@@ -45,7 +48,9 @@ function AnswerSubmitted({
 				{idOption !== null && (
 					<div>
 						<div className="flex gap-1 text-sm">
-							<div className="font-medium">Opción marcada:</div>
+							<div className="font-medium">
+								{t('answeredOption')}
+							</div>
 							<div className="">
 								{answeredOption?.content !== undefined ? (
 									<div className="flex gap-2 items-center">
@@ -70,7 +75,9 @@ function AnswerSubmitted({
 							</div>
 						</div>
 						<div className="flex gap-1 text-sm">
-							<div className="font-medium">Opción correcta:</div>
+							<div className="font-medium">
+								{t('correctOption')}
+							</div>
 							<div className="">
 								{correctOption?.content !== undefined
 									? correctOption.content
@@ -81,20 +88,22 @@ function AnswerSubmitted({
 				)}
 				{text !== null && (
 					<div className="flex gap-1 text-sm">
-						<div className="font-medium">Texto:</div>
+						<div className="font-medium">{t('text')}</div>
 						<div className="">{text}</div>
 					</div>
 				)}
 				{audioUrl !== null && (
 					<div className="flex gap-1 text-sm">
-						<div className="font-medium">Audio:</div>
+						<div className="font-medium">{t('audio')}</div>
 						<audio controls src={audioUrl} className="h-10" />
 					</div>
 				)}
 				{answerSeconds !== null && (
 					<div className="absolute bottom-0 right-0 flex gap-1 text-xs">
-						<div className="font-medium">Tiempo:</div>
-						<div className="">{answerSeconds} segundos</div>
+						<div className="font-medium">{t('time')}</div>
+						<div className="">
+							{answerSeconds + ' ' + t('seconds')}{' '}
+						</div>
 					</div>
 				)}
 			</div>

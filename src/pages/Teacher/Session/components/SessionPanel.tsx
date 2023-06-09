@@ -8,6 +8,7 @@ import PulseGreen from '@animations/PulseGreen.json';
 import SessionOptions from '@pages/Teacher/Session/components/SessionOptions';
 import useTask from '@hooks/useTask';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { TaskDetail, TaskSummary } from '@interfaces/teacher/Task.interface';
 
 function SessionPanel({
@@ -28,6 +29,9 @@ function SessionPanel({
 	setTask: Dispatch<SetStateAction<TaskDetail | TaskSummary | null>>;
 }) {
 	const { tasks, getTasks, loading } = useTask();
+	const { t, i18n } = useTranslation('', {
+		keyPrefix: 'teacher.session.active'
+	});
 
 	const onSelectTask = (option: Option) => {
 		console.log(option);
@@ -45,14 +49,14 @@ function SessionPanel({
 		return [
 			{
 				value: '',
-				label: 'Todas'
+				label: t('dropdown.all')
 			},
 			...tasks.map(({ id, name, taskOrder }) => ({
 				value: String(id),
 				label: `${taskOrder}. ${name}`
 			}))
 		];
-	}, [tasks]);
+	}, [tasks, i18n.language]);
 
 	useEffect(() => {
 		if (!tasks) {
@@ -72,9 +76,9 @@ function SessionPanel({
 						className="w-32 h-32"
 					/>
 					<div className="">
-						El curso actualmente se encuentra{' '}
+						{t('title')}
 						<div className="font-semibold text-green-quaternary">
-							Activo
+							{t('state')}
 						</div>
 					</div>
 				</div>

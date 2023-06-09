@@ -1,6 +1,7 @@
 import Button from '@components/Button';
-
 import Flags from '@icons/Flags.svg';
+
+import { useTranslation } from 'react-i18next';
 
 function SessionOptions({
 	isSessionCreated,
@@ -15,6 +16,10 @@ function SessionOptions({
 	handleStartSession: () => void;
 	handleEndSession: () => void;
 }) {
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.session.active.buttons'
+	});
+
 	return (
 		<>
 			{!isSessionCreated ? (
@@ -22,7 +27,7 @@ function SessionOptions({
 					onClick={handleCreateSession}
 					className="bg-green-tertiary"
 				>
-					Activar
+					{t('activate')}
 				</Button>
 			) : (
 				<div className="flex gap-3 justify-end">
@@ -30,7 +35,7 @@ function SessionOptions({
 						onClick={handleEndSession}
 						className="bg-red-primary"
 					>
-						Terminar
+						{t('finish')}
 					</Button>
 					<Button
 						onClick={handleStartSession}
@@ -39,7 +44,7 @@ function SessionOptions({
 						}`}
 					>
 						{!isSessionStarted ? (
-							'Iniciar'
+							t('start')
 						) : (
 							<div className="relative w-16 h-full text-green-primary">
 								.

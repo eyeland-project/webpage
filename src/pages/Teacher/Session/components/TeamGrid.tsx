@@ -5,6 +5,8 @@ import { Power } from '@enums/Team.enum';
 
 import { parseStudentName } from '@utils/general.utils';
 
+import { useTranslation } from 'react-i18next';
+
 import Add from '@icons/Add.svg';
 import MemoryPro from '@icons/MemoryPro.svg';
 import SuperHearing from '@icons/SuperHearing.svg';
@@ -37,6 +39,10 @@ function TeamGrid({
 }
 
 function TeamCard({ team: { name, students, playing } }: { team: TeamDetail }) {
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.session.active.teamsList.team'
+	});
+
 	return (
 		<div
 			className={`shadow-md rounded-lg p-4 cursor-default hover:scale-105 transform transition duration-300 ease-in-out bg-whitish ${
@@ -69,7 +75,7 @@ function TeamCard({ team: { name, students, playing } }: { team: TeamDetail }) {
 					))
 				) : (
 					<div className="text-center text-lg text-gray-300 font-semibold px-8 pb-6 pt-4">
-						No hay estudiantes en este equipo
+						{t('empty')}
 					</div>
 				)}
 			</div>

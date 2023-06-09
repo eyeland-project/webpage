@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useTransition } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@components/Button';
 
@@ -33,6 +34,7 @@ function StudentForm({
 		formState: { errors },
 		clearErrors
 	} = useForm<Inputs>({ defaultValues });
+	const { t } = useTranslation('', { keyPrefix: 'teacher.students.form' });
 
 	// states
 	const [step, setStep] = useState(1);
@@ -57,7 +59,7 @@ function StudentForm({
 				}
 			}
 			if (Object.keys(updateFields).length === 0) {
-				setFinishErrorTimeout('No se ha modificado ningún campo');
+				setFinishErrorTimeout(t('update.error'));
 			} else {
 				onFinish(updateFields);
 			}
@@ -82,16 +84,14 @@ function StudentForm({
 	useEffect(() => {
 		console.log(errors);
 		if (Object.keys(errors).length) {
-			setFinishErrorTimeout('Por favor, revise los campos');
+			setFinishErrorTimeout(t('error'));
 		}
 	}, [errors]);
 
 	return (
 		<div className="bg-white flex flex-col gap-4 px-8 rounded-md h-full min-w-[400px]">
 			<div className="font-bold text-xl text-center">
-				{action === 'create'
-					? 'Registrar estudiante'
-					: 'Actualizar datos de estudiante'}
+				{action === 'create' ? t('add.title') : t('update.title')}
 			</div>
 			<hr className="border-t border-gray-700" />
 			<form
@@ -134,7 +134,7 @@ function StudentForm({
 										htmlFor="form-student-username"
 										className="text-sm font-medium"
 									>
-										Usuario
+										{t('username.name')}
 									</label>
 									<input
 										type="text"
@@ -150,7 +150,7 @@ function StudentForm({
 									/>
 									{errors.username && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Nombre de usuario no válido
+											{t('username.error')}
 										</span>
 									)}
 								</div>
@@ -161,7 +161,7 @@ function StudentForm({
 										htmlFor="form-student-password"
 										className="text-sm font-medium"
 									>
-										Contraseña
+										{t('password.name')}
 									</label>
 									<input
 										type="password"
@@ -188,7 +188,7 @@ function StudentForm({
 									/>
 									{errors.password && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Contraseña no válida
+											{t('password.error')}
 										</span>
 									)}
 								</div>
@@ -197,7 +197,7 @@ function StudentForm({
 										htmlFor="form-student-confirmPassword"
 										className="text-sm font-medium"
 									>
-										Confirmar contraseña
+										{t('confirmPassword.name')}
 									</label>
 									<input
 										type="password"
@@ -211,7 +211,7 @@ function StudentForm({
 									/>
 									{errors.confirmPassword && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Las contraseñas no coinciden
+											{t('confirmPassword.error')}
 										</span>
 									)}
 								</div>
@@ -222,7 +222,7 @@ function StudentForm({
 										htmlFor="form-student-firstName"
 										className="text-sm font-medium"
 									>
-										Nombres
+										{t('firstname.name')}
 									</label>
 									<input
 										type="text"
@@ -238,7 +238,7 @@ function StudentForm({
 									/>
 									{errors.firstName && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Nombre no válido
+											{t('firstname.error')}
 										</span>
 									)}
 								</div>
@@ -247,7 +247,7 @@ function StudentForm({
 										htmlFor="form-student-lastName"
 										className="text-sm font-medium"
 									>
-										Apellidos
+										{t('lastname.name')}
 									</label>
 									<input
 										type="text"
@@ -260,7 +260,7 @@ function StudentForm({
 									/>
 									{errors.lastName && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Apellido no válido
+											{t('lastname.error')}
 										</span>
 									)}
 								</div>
@@ -271,7 +271,7 @@ function StudentForm({
 										htmlFor="form-student-phone"
 										className="text-sm font-medium"
 									>
-										Teléfono
+										{t('phone.name')}
 									</label>
 									<div
 										id="form-student-phone"
@@ -307,7 +307,7 @@ function StudentForm({
 											/>
 											{errors.phoneNumber && (
 												<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-													Teléfono no válido
+													{t('phone.error')}
 												</span>
 											)}
 										</div>
@@ -318,7 +318,7 @@ function StudentForm({
 										htmlFor="form-student-email"
 										className="text-sm font-medium"
 									>
-										Correo electrónico
+										{t('email.name')}
 									</label>
 									<input
 										type="email"
@@ -335,7 +335,7 @@ function StudentForm({
 									/>
 									{errors.email && (
 										<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-											Correo electrónico no válido
+											{t('email.error')}
 										</span>
 									)}
 								</div>
@@ -346,13 +346,13 @@ function StudentForm({
 								className="bg-gray-primary px-6"
 								onClick={onCancel}
 							>
-								Cancelar
+								{t('buttons.cancel')}
 							</Button>
 							<Button
 								className="bg-green-primary px-6"
 								onClick={() => setStep(2)}
 							>
-								Siguiente
+								{t('buttons.next')}
 							</Button>
 						</div>
 					</div>
@@ -367,7 +367,7 @@ function StudentForm({
 									htmlFor="form-student-blindnessAcuityCode"
 									className="text-sm font-medium flex gap-2 items-center"
 								>
-									<span>Agudeza de la ceguera</span>
+									<span>{t('blindnessAcuity.name')}</span>
 									<img
 										src={QuestionIcon}
 										alt="Más información"
@@ -398,9 +398,7 @@ function StudentForm({
 									htmlFor="form-student-colorDeficiencyCode"
 									className="text-sm font-medium flex gap-2 items-center"
 								>
-									<span>
-										Deficiencia de percepción de color
-									</span>
+									<span>{t('colorDeficiency.name')}</span>
 									<img
 										src={QuestionIcon}
 										alt="Más información"
@@ -431,7 +429,7 @@ function StudentForm({
 									htmlFor="form-student-visualFieldDefectCode"
 									className="text-sm font-medium flex gap-2 items-center"
 								>
-									<span>Defecto del campo visual</span>
+									<span>{t('visualFieldDefect.name')}</span>
 									<img
 										src={QuestionIcon}
 										alt="Más información"
@@ -464,7 +462,7 @@ function StudentForm({
 									className="bg-gray-primary px-6"
 									onClick={onCancel}
 								>
-									Cancelar
+									{t('buttons.cancel')}
 								</Button>
 
 								<Button
@@ -478,7 +476,7 @@ function StudentForm({
 										handleSubmit(onSubmit)();
 									}}
 								>
-									Finalizar
+									{t('buttons.finish')}
 								</Button>
 							</div>
 							<div className="text-sm text-red-primary text-end">

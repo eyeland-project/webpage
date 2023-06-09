@@ -6,6 +6,7 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useCourse from '@hooks/useCourse';
 import useTaskAttempt from '@hooks/useTaskAttempt';
 import useAnswer from '@hooks/useAnswer';
+import { useTranslation } from 'react-i18next';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
@@ -49,6 +50,8 @@ function Submission() {
 		parseNumericParam(idTaskAttemptStr)
 	);
 	const [loadingTaskAttempt, setLoadingTaskAttempt] = useState(false);
+
+	const { t } = useTranslation('', { keyPrefix: 'teacher.submission' });
 
 	useEffect(() => {
 		setIdTaskAttempt(parseNumericParam(idTaskAttemptStr));
@@ -164,7 +167,7 @@ function Submission() {
 						className="w-5 h-5"
 					/>
 					<div className="text-white font-semibold">
-						{`Envío de actividad #${taskAttempt.id}`}
+						{`${t('ribbon')} #${taskAttempt.id}`}
 					</div>
 				</>
 			</Ribbon>
@@ -177,7 +180,7 @@ function Submission() {
 							className="rounded-full w-24"
 						/>
 						<div>
-							<div className="text-base">Enviado por:</div>
+							<div className="text-base">{t('sendBy')}</div>
 							<div className="text-xl font-medium">
 								{parseStudentName(
 									taskAttempt.student.firstName,
@@ -194,9 +197,7 @@ function Submission() {
 								{taskAttempt.task.name}
 							</div>
 							<div className="text-xs flex gap-1">
-								<div className="font-medium">
-									Fecha de envío:
-								</div>
+								<div className="font-medium">{t('sentOn')}</div>
 								{timeStamp}
 							</div>
 						</div>

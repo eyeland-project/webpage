@@ -4,6 +4,7 @@ import Loading from 'react-loading';
 
 import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
+import { useTranslation } from 'react-i18next';
 
 import DataGridIcon from '@icons/DataGrid.svg';
 
@@ -18,6 +19,9 @@ function SubMenuCourses() {
 			setCourses
 		}
 	} = useTeacherContext();
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.menu.subMenu.courses'
+	});
 
 	const onSelectCourse = (id: number) => {
 		setIdSelectedCourse(id);
@@ -38,7 +42,7 @@ function SubMenuCourses() {
 	return (
 		<div className="h-full text-white px-6 py-6 flex flex-col">
 			<div className="font-semibold text-lg flex items-center gap-4 text-center before:content-[''] before:grow before:border before:border-white before:border-solid after:content-[''] after:grow after:border after:border-white after:border-solid">
-				Cursos
+				{t('title')}
 			</div>
 
 			{courses ? (
@@ -68,7 +72,7 @@ function SubMenuCourses() {
 						<Loading type="spin" width={50} />
 					) : (
 						<div className="italic w-3/5 text-center text-xs">
-							No se pudo obtener la información
+							{t('error')}
 						</div>
 					)}
 				</div>

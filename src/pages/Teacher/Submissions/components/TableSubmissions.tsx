@@ -1,6 +1,7 @@
 import Table from '@components/Table';
 import { ColumnDef } from '@tanstack/react-table';
 import { useMemo, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { TaskAttemptSubmissionDetail } from '@interfaces/teacher/TaskAttempt.interface';
 import { parseStudentName } from '@utils/general.utils';
@@ -12,32 +13,36 @@ function TableSubmissions({
 	idCourse: number;
 	taskAttempts: TaskAttemptSubmissionDetail[];
 }) {
+	const { t, i18n } = useTranslation('', {
+		keyPrefix: 'teacher.submissions.table'
+	});
+
 	const cols = useMemo<ColumnDef<TaskAttemptSubmissionDetail>[]>(
 		() => [
 			{
-				header: 'Id de envío',
+				header: t<string>('id'),
 				accessorKey: 'id',
 				accessorFn: ({ id }) => id
 			},
 			{
-				header: 'Estudiante',
+				header: t<string>('student'),
 				accessorKey: 'student',
 				accessorFn: ({ student: { firstName, lastName } }) =>
 					parseStudentName(firstName, lastName)
 			},
 			{
-				header: 'Task',
+				header: t<string>('task'),
 				accessorKey: 'task',
 				accessorFn: ({ task: { name } }) => name
 			},
 			{
-				header: 'Fecha de inicio',
+				header: t<string>('timeStamp'),
 				accessorKey: 'timeStamp',
 				accessorFn: ({ timeStamp }) =>
 					new Date(timeStamp).toLocaleString()
 			},
 			{
-				header: 'Acción',
+				header: t<string>('action'),
 				cell: (row) => row.renderValue(),
 				accessorFn: ({ id }) => (
 					<Link
@@ -46,12 +51,12 @@ function TableSubmissions({
 						// referrerPolicy='no-referrer'
 						className="text-green-600 font-bold hover:underline"
 					>
-						Ver
+						{t('link')}
 					</Link>
 				)
 			}
 		],
-		[]
+		[i18n.language]
 	);
 
 	return (

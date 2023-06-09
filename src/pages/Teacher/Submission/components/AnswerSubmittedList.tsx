@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import Collapse from 'rc-collapse';
 import 'rc-collapse/assets/index.css';
 
@@ -15,6 +16,9 @@ function AnswerSubmittedList({
 	idAnswerSelected: number | null;
 	setIdAnswerSelected: (id: number) => void;
 }) {
+	const { t, i18n } = useTranslation('', {
+		keyPrefix: 'teacher.submission.answerList'
+	});
 	const onSelectAnswer = (id: number) => {
 		if (idAnswerSelected !== id) {
 			setIdAnswerSelected(id);
@@ -27,7 +31,7 @@ function AnswerSubmittedList({
 				({ audioUrl, answerSeconds, idOption, text, id }, i) => ({
 					key: i,
 					label: (
-						<div className="font-semibold">{`Respuesta ${
+						<div className="font-semibold">{`${t('answer')} ${
 							i + 1
 						}`}</div>
 					),
@@ -46,13 +50,15 @@ function AnswerSubmittedList({
 					)
 				})
 			),
-		[idAnswerSelected]
+		[idAnswerSelected, i18n.language]
 	);
 
 	return (
 		<div className="flex flex-col justify-between px-4 py-2 text-sm">
 			<div className="">
-				<div className="font-medium text-lg">{`Pregunta ${questionOrder}`}</div>
+				<div className="font-medium text-lg">{`${t(
+					'question'
+				)} ${questionOrder}`}</div>
 				{content}
 			</div>
 			<div className="flex flex-col gap-1">
