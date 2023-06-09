@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Loading from 'react-loading';
 
 import useTask from '@hooks/useTask';
 import useQuestion from '@hooks/useQuestion';
@@ -95,20 +94,6 @@ function Task() {
 		const didChange = idSelectedTask !== idTask;
 		updateData(idSelectedTask, didChange);
 	}, [idSelectedTask]);
-
-	// useEffect(() => {
-	// 	console.log('questionsFromTask', questionsFromTask);
-	// }, [questionsFromTask]);
-
-	// useEffect(() => {
-	// 	console.log('loadingQuestions', loadingQuestions);
-	// }, [loadingQuestions]);
-
-	// useEffect(() => {
-	// 	console.log('task', task);
-	// }, [task]);
-
-	// if (!task) return <></>;
 
 	return (
 		<div className="min-h-screen">

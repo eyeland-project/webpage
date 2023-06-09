@@ -337,6 +337,13 @@
 				"of": "de",
 				"show": "Mostrar"
 			}
+		},
+		"task": {
+			"selectTaskStage": {
+				"pretask": "Aprendizaje",
+				"duringtask": "Colaboración",
+				"posttask": "Evaluación"
+			}
 		}
 	}
 }

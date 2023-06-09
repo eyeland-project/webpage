@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 function TaskStageSelect({
 	selectedTaskStage,
 	setSelectedTaskStage
@@ -5,15 +7,22 @@ function TaskStageSelect({
 	selectedTaskStage: number | null;
 	setSelectedTaskStage: (_: number) => void;
 }) {
+	const { t } = useTranslation('', { keyPrefix: 'teacher.task' });
+
 	const handleSelectTaskStage = (taskStage: number) => {
 		if (taskStage !== selectedTaskStage) {
 			setSelectedTaskStage(taskStage);
 		}
 	};
+	const taskStages = [
+		t('selectTaskStage.pretask'),
+		t('selectTaskStage.duringtask'),
+		t('selectTaskStage.posttask')
+	];
 
 	return (
 		<div className="mx-auto shadow-lg rounded-md px-1 py-1 w-fit flex justify-center bg-white">
-			{TASK_STAGES.map((taskStage, index) => (
+			{taskStages.map((taskStage, index) => (
 				<span
 					key={index}
 					className={`font-bold text-gray-800 px-5 py-2 rounded-md cursor-pointer ${
@@ -29,7 +38,5 @@ function TaskStageSelect({
 		</div>
 	);
 }
-
-const TASK_STAGES = ['Aprendizaje', 'Colaboración', 'Evaluación'];
 
 export default TaskStageSelect;

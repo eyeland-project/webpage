@@ -337,6 +337,13 @@
 				"of": "of",
 				"show": "Show"
 			}
+		},
+		"task": {
+			"selectTaskStage": {
+				"pretask": "Learning",
+				"duringtask": "Collaboration",
+				"posttask": "Evaluation"
+			}
 		}
 	}
 }
