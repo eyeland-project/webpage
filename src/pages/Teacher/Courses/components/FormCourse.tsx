@@ -1,5 +1,6 @@
 import Button from '@components/Button';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 import { CourseCreate } from '@interfaces/teacher/Course.interface';
 
@@ -18,13 +19,15 @@ function FormCourse({
 	} = useForm<CourseCreate>();
 	// useConfirmDialog
 
+	const { t } = useTranslation('', { keyPrefix: 'teacher.courses.form' });
+
 	const onSubmit: SubmitHandler<CourseCreate> = (data) => {
 		onFinish(data);
 	};
 
 	return (
 		<div className="shadow-form bg-white flex flex-col gap-4 py-6 pb-4 px-8 rounded-md w-96">
-			<div className="font-bold text-xl text-center">Crear curso</div>
+			<div className="font-bold text-xl text-center">{t('title')}</div>
 			<hr className="border-t border-gray-700" />
 			<form
 				className="flex flex-col"
@@ -41,7 +44,7 @@ function FormCourse({
 							htmlFor="form-course-name"
 							className="text-sm font-medium"
 						>
-							Nombre
+							{t('name')}
 						</label>
 						<input
 							type="text"
@@ -69,13 +72,15 @@ function FormCourse({
 						/>
 						{errors.name && (
 							<span className="text-xs text-red-primary absolute bottom-0 transform translate-y-full">
-								Nombre inválido
+								{t('error')}
 							</span>
 						)}
 					</div>
 				</div>
 				<div className="mt-7 flex justify-end">
-					<Button onClick={handleSubmit(onSubmit)}>Crear</Button>
+					<Button onClick={handleSubmit(onSubmit)}>
+						{t('submit')}
+					</Button>
 				</div>
 			</form>
 		</div>

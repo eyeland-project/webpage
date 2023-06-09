@@ -1,12 +1,12 @@
 import useRelease from '@hooks/useRelease';
 import EyeLandHero from '@images/EyeLandHero.svg';
 import { useRef } from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 function Hero() {
 	const downloadRef = useRef<HTMLAnchorElement>(null);
 	const { release, getLatestRelease } = useRelease();
-	const { t } = useTranslation();
+	const { t } = useTranslation('', { keyPrefix: 'landingPage.hero' });
 
 	const handleDownload = async () => {
 		if (!release) {
@@ -26,13 +26,13 @@ function Hero() {
 					EYELAND
 				</h1>
 				<h2 className="animate-entrance-2 text-xl font-medium opacity-70 xl:text-2xl">
-					{t('landingPage.hero.description')}
+					{t('description')}
 				</h2>
 				<div
 					className="button mt-5 animate-entrance-3 cursor-default bg-green-tertiary text-xl text-white xl:text-4xl flex items-center gap-2"
 					onClick={handleDownload}
 				>
-					{t('landingPage.hero.downloadHere')}
+					{t('downloadHere')}
 					<a
 						className="hidden"
 						ref={downloadRef}
@@ -40,12 +40,10 @@ function Hero() {
 						href={release?.url}
 					/>
 				</div>
-				<div className='my-3 ml-5 w-10 h-0.5 bg-black opacity-25' />
-				<div
-					className="button animate-entrance-4 cursor-default bg-white border border-green-tertiary text-xl text-green-tertiary xl:text-4xl flex items-center gap-2"
-				>
+				<div className="my-3 ml-5 w-10 h-0.5 bg-black opacity-25" />
+				<div className="button animate-entrance-4 cursor-default bg-white border border-green-tertiary text-xl text-green-tertiary xl:text-4xl flex items-center gap-2">
 					<a href="https://proyecto-final-epics.github.io/EyelandApp/">
-						{t('landingPage.hero.useOnline')}
+						{t('useOnline')}
 					</a>
 				</div>
 			</div>

@@ -7,6 +7,7 @@ import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
 import useTeam from '@hooks/useTeam';
 import useAuthStorage from '@hooks/useAuthStorage';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@components/Button';
 import SessionPanel from '@pages/Teacher/Session/components/SessionPanel';
@@ -67,6 +68,8 @@ function Session() {
 		parseNumericParam(searchParams.get('idCourse'))
 	);
 	const [task, setTask] = useState<TaskDetail | TaskSummary | null>(null);
+
+	const { t } = useTranslation('', { keyPrefix: 'teacher.session' });
 
 	const handleCreateSession = async () => {
 		try {
@@ -237,7 +240,7 @@ function Session() {
 						/>
 						<div className="text-white font-semibold">
 							{(course?.name ? `${course.name} - ` : '') +
-								'Colaboración'}
+								t('ribbon')}
 						</div>
 					</>
 				) : (
@@ -254,14 +257,14 @@ function Session() {
 								className="w-20 h-20"
 							/>
 							<div className="text-green-primary text-center">
-								El curso actualmente se encuentra{' '}
+								{t('inactive.part1')}
 								<div className="font-semibold text-gray-secondary">
-									Inactivo
+									{t('inactive.part2')}
 								</div>
 							</div>
 							<div className="w-min">
 								<Button onClick={handleCreateSession}>
-									¡Activar!
+									{t('inactive.button')}
 								</Button>
 							</div>
 						</div>
@@ -326,7 +329,7 @@ function Session() {
 								"
 								>
 									<div className="text-3xl font-bold mt-2 py-4 ml-2 mb-5">
-										Listado de Equipos
+										{t('active.teamsList.title')}
 									</div>
 									<TeamGrid
 										teams={filteredTeams}

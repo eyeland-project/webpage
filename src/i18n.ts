@@ -5,21 +5,19 @@ import en from './locales/en.json';
 import es from './locales/es.json';
 
 const resources = {
-    en: {
-        translation: en
-    },
-    es: {
-        translation: es
-    }
+	en: {
+		translation: en
+	},
+	es: {
+		translation: es
+	}
 };
 
-i18next
-    .use(initReactI18next)
-    .init({
-        resources,
-        lng: 'en',
-        fallbackLng: 'en',
-        interpolation: {
-            escapeValue: false
-        }
-    });
+i18next.use(initReactI18next).init({
+	resources,
+	lng: 'es',
+	fallbackLng: 'es',
+	interpolation: {
+		escapeValue: false
+	}
+});

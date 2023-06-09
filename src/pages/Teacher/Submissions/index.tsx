@@ -6,6 +6,7 @@ import Loading from 'react-loading';
 import useTeacherContext from '@hooks/useTeacherContext';
 import useCourse from '@hooks/useCourse';
 import useTaskAttempt from '@hooks/useTaskAttempt';
+import { useTranslation } from 'react-i18next';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
 
@@ -42,6 +43,8 @@ function Submissions() {
 	const [idCourse, setIdCourse] = useState<number | null>(
 		parseNumericParam(searchParams.get('idCourse'))
 	);
+
+	const { t } = useTranslation('', { keyPrefix: 'teacher.submissions' });
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
@@ -85,14 +88,14 @@ function Submissions() {
 					/>
 					<div className="text-white font-semibold">
 						{(course?.name ? `${course.name} - ` : '') +
-							'Evaluación'}
+							t('ribbon')}
 					</div>
 				</>
 			</Ribbon>
 			{submissions ? (
 				<div className="pt-10 h-full px-10">
 					<div className="font-semibold text-2xl mt-6">
-						Listado de envíos
+						{t('submissionsList.title')}
 					</div>
 					<TableSubmissions
 						idCourse={idCourse}

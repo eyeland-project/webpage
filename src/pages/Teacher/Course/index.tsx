@@ -1,10 +1,10 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Loading from 'react-loading';
 import Lottie from 'lottie-react';
 
 import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
+import { useTranslation } from 'react-i18next';
 
 import Ribbon from '@pages/Teacher/components/Ribbon';
 import { CourseSectionCard } from '@pages/Teacher/Course/components/CourseSectionCard';
@@ -39,7 +39,33 @@ function Course() {
 		parseNumericParam(idCourseStr)
 	);
 
+	const { t } = useTranslation('', { keyPrefix: 'teacher.course.sections' });
+
 	const sections = idCourse !== null ? getSections(idCourse) : [];
+
+	function getSections(idCourse: number): {
+		title: ReactNode;
+		img: ReactNode;
+		link: string;
+	}[] {
+		return [
+			{
+				title: t('collaboration'),
+				img: <Lottie animationData={DesktopAndMobile} loop={true} />,
+				link: `/teacher/session?idCourse=${idCourse}`
+			},
+			{
+				title: t('students'),
+				img: <Lottie animationData={Taskman} loop={true} />,
+				link: `/teacher/students?idCourse=${idCourse}`
+			},
+			{
+				title: t('evaluation'),
+				img: <Lottie animationData={Evaluation} loop={true} />,
+				link: `/teacher/submissions?idCourse=${idCourse}`
+			}
+		];
+	}
 
 	useEffect(() => {
 		const idCourseNum = parseNumericParam(idCourseStr);
@@ -81,17 +107,14 @@ function Course() {
 			<div className="px-8 pb-4 pt-10 h-full">
 				{course ? (
 					<div className="grid grid-cols-2 gap-x-16 gap-y-8 px-10 py-8">
-						{sections.map(
-							({ img, link, title, description }, index) => (
-								<CourseSectionCard
-									key={index}
-									img={img}
-									link={link}
-									title={title}
-									description={description}
-								/>
-							)
-						)}
+						{sections.map(({ img, link, title }, index) => (
+							<CourseSectionCard
+								key={index}
+								img={img}
+								link={link}
+								title={title}
+							/>
+						))}
 					</div>
 				) : (
 					<LoadingScreen loading={loading} />
@@ -99,37 +122,6 @@ function Course() {
 			</div>
 		</div>
 	);
-}
-
-function getSections(idCourse: number): {
-	title: ReactNode;
-	description?: ReactNode;
-	img: ReactNode;
-	link: string;
-}[] {
-	return [
-		{
-			title: 'Colaboración',
-			description: (
-				<>
-					El curso actualmente se encuentra{' '}
-					<span className="font-bold">Activo</span>
-				</>
-			),
-			img: <Lottie animationData={DesktopAndMobile} loop={true} />,
-			link: `/teacher/session?idCourse=${idCourse}`
-		},
-		{
-			title: 'Listado de alumnos',
-			img: <Lottie animationData={Taskman} loop={true} />,
-			link: `/teacher/students?idCourse=${idCourse}`
-		},
-		{
-			title: 'Evaluación',
-			img: <Lottie animationData={Evaluation} loop={true} />,
-			link: `/teacher/submissions?idCourse=${idCourse}`
-		}
-	];
 }
 
 export default Course;

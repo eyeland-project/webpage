@@ -1,121 +1,342 @@
 {
-    "navbar": {
-        "ourTeam": "Nuestro equipo",
-        "learnMore": "Aprende más",
-        "inAction": "En acción",
-        "teacher": "Soy profesor"
-    },
-    "landingPage":{
-        "hero":{
-            "description": "App para la enseñanza del inglés y el trabajo en equipo",
-            "downloadHere":"¡Descargar aquí!",
-            "useOnline":"¡Usar en línea!"
-        },
-        "methodology":{
-            "title": "Nuestra metodología",
-            "description": "Dividimos nuestra aplicación en lo que llamamos Tasks. Cada una de estas a su vez poseé tres partes que corresponden a Pre-Task, During-Task y Post-Task",
-            "task":{
-                "name": "TASK",
-                "parts":{
-                    "preTask": {
-                        "title":"Pre-Task",
-                        "description": "Unas preguntas con las cuales aprenderas los conceptos necesarios para realizar las siguientes etapas." 
-                    },
-                    "duringTask": {
-                        "title": "During-Task",
-                        "description": "Una actividad en grupo donde deberas aplicar los conceptos aprendidos."
-                    },
-                    "postTask": {
-                        "title":"Post-Task",
-                        "description": "Una serie de preguntas para que puedas evaluar tu aprendizaje."
-                    }
-                }
-            }
-        },
-        "teamWork":{
-            "title": "Trabajo en equipo",
-            "description": "Cada During-Task se realiza en grupos de 3 personas en las que cada persona se le asignará un rol con una habilidad útil para la sesión.",
-            "powers": {
-                "superHearing": {
-                    "name": "Super hearing",
-                    "description": "Podras escuchar una pista de audio que te ayudará a resolver la actividad."
-                },
-                "memoryPro":{
-                    "name": "Memory pro",
-                    "description": "Tu poder es el de poder recordar traducción de los sustantivos clave en la pregunta."
-                },
-                "superRadar":{
-                    "name": "Super radar",
-                    "description": "Tu poder es el de poder recordar traducción de las preposiciones clave en la pregunta."
-                }
-            }
-        },
-        "accessibility":{
-            "title": "Para todos",
-            "description": "Es muy importante que todas las personas puedan disfrutar de nuestra aplicación, independientemente de sus habilidades o limitaciones físicas. Por eso, hemos implementado varias opciones de accesibilidad para que todos puedan usarla de manera cómoda y sin problemas.",
-            "tryItYourself": "¡Pruébalo tú mismo!"
-        }
-    },
-    "ourTeam":{
-        "title": "Nuestro equipo",
-        "sections":{
-            "teachers": "Profesores",
-            "designers": "Diseñadores",
-            "developers": "Desarrolladores"
-        }
-    },
-    "learnMore":{
-        "title": {
-            "part1": "Inclusión y aprendizaje de inglés para todos: ", 
-            "part2": "una experiencia innovadora"
-        },
-        "sections":{
-            "introduction": {
-                "name": "Introducción",
-                "text":  "En nuestra misión de brindar oportunidades educativas a todos los estudiantes de educación media en Colombia, hemos creado una aplicación móvil que no solo facilita el aprendizaje del inglés, sino que también es accesible para personas con discapacidad visual. Nuestra plataforma inclusiva se basa en metodologías de enseñanza efectivas y técnicas de accesibilidad, asegurando que todos los estudiantes, independientemente de sus habilidades, puedan beneficiarse de nuestras actividades y recursos."
-            },
-            "methodology": {
-                "name": "Metodologías de enseñanza",
-                "text": "Nuestra aplicación incorpora una variedad de metodologías de enseñanza probadas, como el enfoque comunicativo, la enseñanza basada en tareas y el aprendizaje basado en proyectos. Estas metodologías fomentan la interacción en situaciones reales, promueven la colaboración entre estudiantes y facilitan un aprendizaje significativo y duradero."
-            },
-            "accessibility":{
-                "name": "Accesibilidad",
-                "text": {
-                    "paragraph": "Creemos firmemente en la inclusión de todos los estudiantes, y por ello hemos implementado características accesibles para personas con discapacidad visual. Algunas de estas características incluyen:",
-                    "list":{
-                        "item1": "Integración con lectores de pantalla y asistentes de voz: Nuestra aplicación es compatible con las tecnologías asistivas más comunes, permitiendo a los usuarios con discapacidad visual navegar e interactuar fácilmente con el contenido.",
-                        "item2": "Diseño de alto contraste y ajustes de tamaño de fuente: Los usuarios pueden personalizar la apariencia de la aplicación según sus necesidades, eligiendo entre esquemas de color de alto contraste y ajustando el tamaño de fuente.",
-                        "item3": "Contenido de audio: Complementamos nuestras actividades con recursos de audio para apoyar a los estudiantes que prefieren aprender a través del oído. Además, nuestra plataforma permite a los estudiantes grabar y almacenar audios para su práctica y evaluación."
-                    }
-                }
-            },
-            "finalCard":{
-                "call2action": "Únete a nuestra comunidad y descubre cómo nuestra aplicación puede marcar la diferencia en el aprendizaje del inglés y la inclusión de estudiantes con discapacidad visual en Colombia.",
-                "final": "¡Juntos, podemos construir un futuro más inclusivo y equitativo para todos!"
-            }
-        },
-        "inAction":{
-            "sections":{
-                "testimonies": "Testimonios",
-                "inAction":{
-                    "name": "EYELAND en acción",
-                    "text": "El día comenzó con la convocatoria de doce estudiantes seleccionados para participar en la validación del prototipo de nuestra nueva aplicación. Los estudiantes fueron organizados en cuatro equipos de tres miembros cada uno. De manera intencional, en cada equipo se incluyó a un estudiante con dificultades visuales para poder evaluar de manera adecuada la accesibilidad y funcionalidad colaborativa de la aplicación. \n Los equipos procedieron a utilizar el primer módulo de la aplicación, el cual está diseñado para abordar las etapas de Aprendizaje, Colaboración y Evaluación. Por limitaciones de logística, sólo se pudo probar un módulo durante esta jornada. Durante las etapas de Aprendizaje y Colaboración, el módulo se centró en varios componentes de aprendizaje: vocabulario, uso de preposiciones de lugar, habilidad de escucha, comprensión lectora y producción oral.\nEn la etapa de Evaluación, se puso un especial énfasis en la producción oral, aunque se examinaron la mayoría de los componentes anteriores, con la excepción de la habilidad de escucha. Como resultado de esta omisión, los resultados del examen no reflejaron el nivel de los estudiantes en esa habilidad.\n Al finalizar la experiencia con el módulo, se procedió a la recogida de datos mediante una encuesta de usabilidad y satisfacción. Las preguntas de la encuesta estaban diseñadas para obtener información sobre la facilidad de uso de la aplicación, la comprensión de las actividades de aprendizaje, la efectividad de las funciones de colaboración, y la satisfacción general con la experiencia de aprendizaje proporcionada por la aplicación. Los resultados de la encuesta fueron analizados para evaluar si la aplicación cumplía con sus objetivos de enseñanza y accesibilidad."
-                }
-            }
-        }
-    },
-    "login":{
-        "title": "Iniciar sesión",
-        "username": "Usuario",
-        "password": "Contraseña",
-        "login": "Iniciar sesión",
-        "forgotPassword": "¿Olvidaste tu contraseña?",
-        "register": "Registrarse",
-        "error": {
-            "title": "Error",
-            "message": "El usuario o la contraseña son incorrectos.",
-            "username": "El usuario es requerido.",
-            "password": "La contraseña es requerida."
-        }
-    }
+	"navbar": {
+		"ourTeam": "Nuestro equipo",
+		"learnMore": "Aprende más",
+		"inAction": "En acción",
+		"teacher": "Soy profesor"
+	},
+	"landingPage": {
+		"hero": {
+			"description": "App para la enseñanza del inglés y el trabajo en equipo",
+			"downloadHere": "¡Descargar aquí!",
+			"useOnline": "¡Usar en línea!"
+		},
+		"methodology": {
+			"title": "Nuestra metodología",
+			"description": "Dividimos nuestra aplicación en lo que llamamos Tasks. Cada una de estas a su vez poseé tres partes que corresponden a Pre-Task, During-Task y Post-Task",
+			"task": {
+				"name": "TASK",
+				"parts": {
+					"preTask": {
+						"title": "Pre-Task",
+						"description": "Unas preguntas con las cuales aprenderas los conceptos necesarios para realizar las siguientes etapas."
+					},
+					"duringTask": {
+						"title": "During-Task",
+						"description": "Una actividad en grupo donde deberas aplicar los conceptos aprendidos."
+					},
+					"postTask": {
+						"title": "Post-Task",
+						"description": "Una serie de preguntas para que puedas evaluar tu aprendizaje."
+					}
+				}
+			}
+		},
+		"teamWork": {
+			"title": "Trabajo en equipo",
+			"description": "Cada During-Task se realiza en grupos de 3 personas en las que cada persona se le asignará un rol con una habilidad útil para la sesión.",
+			"powers": {
+				"superHearing": {
+					"name": "Super hearing",
+					"description": "Podras escuchar una pista de audio que te ayudará a resolver la actividad."
+				},
+				"memoryPro": {
+					"name": "Memory pro",
+					"description": "Tu poder es el de poder recordar traducción de los sustantivos clave en la pregunta."
+				},
+				"superRadar": {
+					"name": "Super radar",
+					"description": "Tu poder es el de poder recordar traducción de las preposiciones clave en la pregunta."
+				}
+			}
+		},
+		"accessibility": {
+			"title": "Para todos",
+			"description": "Es muy importante que todas las personas puedan disfrutar de nuestra aplicación, independientemente de sus habilidades o limitaciones físicas. Por eso, hemos implementado varias opciones de accesibilidad para que todos puedan usarla de manera cómoda y sin problemas.",
+			"tryItYourself": "¡Pruébalo tú mismo!"
+		}
+	},
+	"ourTeam": {
+		"title": "Nuestro equipo",
+		"sections": {
+			"teachers": "Profesores",
+			"designers": "Diseñadores",
+			"developers": "Desarrolladores"
+		}
+	},
+	"learnMore": {
+		"title": {
+			"part1": "Inclusión y aprendizaje de inglés para todos: ",
+			"part2": "una experiencia innovadora"
+		},
+		"sections": {
+			"introduction": {
+				"name": "Introducción",
+				"text": "En nuestra misión de brindar oportunidades educativas a todos los estudiantes de educación media en Colombia, hemos creado una aplicación móvil que no solo facilita el aprendizaje del inglés, sino que también es accesible para personas con discapacidad visual. Nuestra plataforma inclusiva se basa en metodologías de enseñanza efectivas y técnicas de accesibilidad, asegurando que todos los estudiantes, independientemente de sus habilidades, puedan beneficiarse de nuestras actividades y recursos."
+			},
+			"methodology": {
+				"name": "Metodologías de enseñanza",
+				"text": "Nuestra aplicación incorpora una variedad de metodologías de enseñanza probadas, como el enfoque comunicativo, la enseñanza basada en tareas y el aprendizaje basado en proyectos. Estas metodologías fomentan la interacción en situaciones reales, promueven la colaboración entre estudiantes y facilitan un aprendizaje significativo y duradero."
+			},
+			"accessibility": {
+				"name": "Accesibilidad",
+				"text": {
+					"paragraph": "Creemos firmemente en la inclusión de todos los estudiantes, y por ello hemos implementado características accesibles para personas con discapacidad visual. Algunas de estas características incluyen:",
+					"list": {
+						"item1": "Integración con lectores de pantalla y asistentes de voz: Nuestra aplicación es compatible con las tecnologías asistivas más comunes, permitiendo a los usuarios con discapacidad visual navegar e interactuar fácilmente con el contenido.",
+						"item2": "Diseño de alto contraste y ajustes de tamaño de fuente: Los usuarios pueden personalizar la apariencia de la aplicación según sus necesidades, eligiendo entre esquemas de color de alto contraste y ajustando el tamaño de fuente.",
+						"item3": "Contenido de audio: Complementamos nuestras actividades con recursos de audio para apoyar a los estudiantes que prefieren aprender a través del oído. Además, nuestra plataforma permite a los estudiantes grabar y almacenar audios para su práctica y evaluación."
+					}
+				}
+			},
+			"finalCard": {
+				"call2action": "Únete a nuestra comunidad y descubre cómo nuestra aplicación puede marcar la diferencia en el aprendizaje del inglés y la inclusión de estudiantes con discapacidad visual en Colombia.",
+				"final": "¡Juntos, podemos construir un futuro más inclusivo y equitativo para todos!"
+			}
+		},
+		"inAction": {
+			"sections": {
+				"testimonies": "Testimonios",
+				"inAction": {
+					"name": "EYELAND en acción",
+					"text": "El día comenzó con la convocatoria de doce estudiantes seleccionados para participar en la validación del prototipo de nuestra nueva aplicación. Los estudiantes fueron organizados en cuatro equipos de tres miembros cada uno. De manera intencional, en cada equipo se incluyó a un estudiante con dificultades visuales para poder evaluar de manera adecuada la accesibilidad y funcionalidad colaborativa de la aplicación. \n Los equipos procedieron a utilizar el primer módulo de la aplicación, el cual está diseñado para abordar las etapas de Aprendizaje, Colaboración y Evaluación. Por limitaciones de logística, sólo se pudo probar un módulo durante esta jornada. Durante las etapas de Aprendizaje y Colaboración, el módulo se centró en varios componentes de aprendizaje: vocabulario, uso de preposiciones de lugar, habilidad de escucha, comprensión lectora y producción oral.\nEn la etapa de Evaluación, se puso un especial énfasis en la producción oral, aunque se examinaron la mayoría de los componentes anteriores, con la excepción de la habilidad de escucha. Como resultado de esta omisión, los resultados del examen no reflejaron el nivel de los estudiantes en esa habilidad.\n Al finalizar la experiencia con el módulo, se procedió a la recogida de datos mediante una encuesta de usabilidad y satisfacción. Las preguntas de la encuesta estaban diseñadas para obtener información sobre la facilidad de uso de la aplicación, la comprensión de las actividades de aprendizaje, la efectividad de las funciones de colaboración, y la satisfacción general con la experiencia de aprendizaje proporcionada por la aplicación. Los resultados de la encuesta fueron analizados para evaluar si la aplicación cumplía con sus objetivos de enseñanza y accesibilidad."
+				}
+			}
+		}
+	},
+	"login": {
+		"title": "Iniciar sesión",
+		"username": "Usuario",
+		"password": "Contraseña",
+		"login": "Iniciar sesión",
+		"forgotPassword": "¿Olvidaste tu contraseña?",
+		"register": "Registrarse",
+		"error": {
+			"title": "Error",
+			"message": "El usuario o la contraseña son incorrectos.",
+			"username": "El usuario es requerido.",
+			"password": "La contraseña es requerida."
+		}
+	},
+	"notfound": {
+		"title": "Página no encontrada",
+		"message": "La página que estás buscando no existe o ha sido movida de sitio.",
+		"button": "Regresar al inicio"
+	},
+	"teacher": {
+		"home": {
+			"welcome": "Bienvenido, profesor",
+			"dateLanguage": "es-ES"
+		},
+		"menu": {
+			"home": "Inicio",
+			"courses": "Cursos",
+			"tasks": "Tareas",
+			"languageSwitch": "Idioma",
+			"logout": "Cerrar sesión",
+			"subMenu": {
+				"courses": {
+					"title": "Cursos",
+					"error": "No se pudo cargar la lista de cursos."
+				},
+				"tasks": {
+					"title": "Tareas",
+					"error": "No se pudo cargar la lista de tareas."
+				}
+			}
+		},
+		"loading": {
+			"error": "No se pudo obtener la información"
+		},
+		"course": {
+			"sections": {
+				"button": "Ir",
+				"collaboration": "Colaboración",
+				"evaluation": "Evaluación",
+				"students": "Listado de alumnos"
+			}
+		},
+		"courses": {
+			"aditionalInformation": "Información adicional",
+			"dialog": {
+				"title": "Registrar curso",
+				"message": "¿Está seguro que desea registrar este curso?",
+				"success": "Curso creado exitosamente",
+				"error": "Error al crear el curso"
+			},
+			"form": {
+				"title": "Crear curso",
+				"name": "Nombre",
+				"error": "Nombre inválido",
+				"submit": "Crear"
+			}
+		},
+		"confirmDialog": {
+			"title": "Confirmar acción",
+			"message": "¿Está seguro que desea realizar esta acción?",
+			"confirmText": "Confirmar",
+			"closeText": "Cerrar"
+		},
+		"students": {
+			"title": "Listado de alumnos",
+			"ribbon": "Estudiantes",
+			"addButton": "Registrar estudiante",
+			"deleteDialog": {
+				"title": "Eliminar estudiante",
+				"message": "¿Está seguro que desea eliminar el estudiante?",
+				"success": "Estudiante eliminado",
+				"error": "Error al eliminar el estudiante"
+			},
+			"updateDialog": {
+				"success": "Estudiante actualizado",
+				"error": "Error al actualizar el estudiante"
+			},
+			"addDialog": {
+				"success": "Estudiante registrado",
+				"error": "Error al registrar el estudiante"
+			},
+			"table": {
+				"username": "usuario",
+				"phone": "Teléfono",
+				"action": "Acción"
+			},
+			"form": {
+				"error": "Por favor, revise los campos",
+				"update": {
+					"title": "Actualizar datos de estudiante",
+					"error": "No se ha modificado ningún campo"
+				},
+				"add": {
+					"title": "Registrar estudiante"
+				},
+				"username": {
+					"name": "Usuario",
+					"error": "Nombre de usuario no válido"
+				},
+				"password": {
+					"name": "Contraseña",
+					"error": "Contraseña no válida"
+				},
+				"confirmPassword": {
+					"name": "Confirmar contraseña",
+					"error": "Las contraseñas no coinciden"
+				},
+				"firstname": {
+					"name": "Nombres",
+					"error": "Nombre no válido"
+				},
+				"lastname": {
+					"name": "Apellido",
+					"error": "Apellido no válido"
+				},
+				"phone": {
+					"name": "Teléfono",
+					"error": "Teléfono no válido"
+				},
+				"email": {
+					"name": "Correo electrónico",
+					"error": "Correo electrónico no válido"
+				},
+				"buttons": {
+					"cancel": "Cancelar",
+					"next": "Siguiente",
+					"finish": "Finalizar"
+				},
+				"blindnessAcuity": {
+					"name": "Agudeza visual"
+				},
+				"colorDeficiency": {
+					"name": "Deficiencia de percepción de color"
+				},
+				"visualFieldDefect": {
+					"name": "Defecto de campo visual"
+				}
+			}
+		},
+		"session": {
+			"ribbon": "Colaboración",
+			"inactive": {
+				"part1": "El curso actualmente se encuentra ",
+				"part2": "Inactivo",
+				"button": "!Activar!"
+			},
+			"active": {
+				"dropdown": {
+					"all": "Todas"
+				},
+				"title": "El curso actualmente se encuentra ",
+				"state": "Activo",
+				"buttons": {
+					"activate": "Activar",
+					"start": "Iniciar",
+					"finish": "Finalizar"
+				},
+				"teamsList": {
+					"title": "Listado de equipos",
+					"empty": "No hay equipos registrados",
+					"team": {
+						"empty": "No hay estudiantes en este equipo"
+					}
+				}
+			}
+		},
+		"submission": {
+			"ribbon": "Envío de actividad",
+			"sendBy": "Enviado por",
+			"sentOn": "Fecha de envío",
+			"gradePanel": {
+				"title": "Evaluando:",
+				"subtitle1": "Pregunta",
+				"subtitle2": "Respuesta",
+				"grade": "Calificación",
+				"comments": "Comentarios",
+				"confirm": "Confirmar",
+				"noAnswerSelected": "Seleccione una pregunta para calificar",
+				"textArea": {
+					"placeholder": "Ingrese sus comentarios"
+				},
+				"dialog": {
+					"add": {
+						"success": "Calificación realizada",
+						"error": "Error al realizar calificación"
+					},
+					"update": {
+						"success": "Calificación actualizada",
+						"error": "Error al actualizar calificación"
+					}
+				}
+			},
+			"answerList": {
+				"answer": "Respuesta",
+				"question": "Pregunta",
+				"answeredOption": "Opción marcada",
+				"correctOption": "Opción correcta",
+				"text": "Texto:",
+				"audio": "Audio:",
+				"time": "Tiempo",
+				"seconds": "segundos"
+			}
+		},
+		"submissions": {
+			"ribbon": "Evaluación",
+			"submissionsList": {
+				"title": "Listado de envíos",
+				"empty": "No hay envíos registrados",
+				"submission": {
+					"empty": "No hay respuestas en este envío"
+				}
+			},
+			"table": {
+				"id": "Id de envío",
+				"student": "Estudiante",
+				"task": "Tarea",
+				"timeStamp": "Fecha de envío",
+				"action": "Acción",
+				"link": "Ver",
+				"page": "Página",
+				"of": "de",
+				"show": "Mostrar"
+			}
+		}
+	}
 }

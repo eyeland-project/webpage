@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import Title from '@components/Title';
 import Task from '@pages/LandingPage/components/Methodology/Task';
@@ -11,7 +11,7 @@ import PosTaskPhone from '@images/PosTaskPhone.svg';
 
 function Methodology() {
 	const [count, setCount] = useState(0);
-	const {t} = useTranslation();
+	const { t } = useTranslation('', { keyPrefix: 'landingPage.methodology' });
 
 	const [classPretask, setClassPretask] = useState('md:-top-32');
 	const [classPretaskP, setClassPretaskP] = useState(
@@ -71,10 +71,8 @@ function Methodology() {
 
 	return (
 		<div className="flex h-auto w-screen flex-col items-center justify-center px-5 md:mb-48">
-			<Title textColor="text-black" title={t('landingPage.methodology.title')} />
-			<Description>
-				{t('landingPage.methodology.description')}
-			</Description>
+			<Title textColor="text-black" title={t('title')} />
+			<Description>{t('description')}</Description>
 
 			<div className="w-full md:flex md:w-screen md:max-w-[1366px] md:justify-start">
 				<div className="relative mt-10 flex flex-col items-end gap-10 md:-left-28 md:mt-52 md:h-[600px] md:w-[600px] md:flex-row md:items-center md:justify-center md:gap-0 md:rounded-full md:bg-green-primary">
@@ -82,11 +80,11 @@ function Methodology() {
 					<div className="absolute -left-[1600px] -top-[650px] -z-10 h-[1900px] w-[1900px] rounded-full bg-white md:-left-[1550px]" />
 
 					<h1 className="hidden md:block md:text-8xl md:font-bold md:text-white">
-						{t('landingPage.methodology.task.name')}
+						{t('task.name')}
 					</h1>
 					<Task
-						title={t('landingPage.methodology.task.parts.preTask.title')}
-						description={t('landingPage.methodology.task.parts.preTask.description')}
+						title={t('task.parts.preTask.title')}
+						description={t('task.parts.preTask.description')}
 						img={PreTaskPhone}
 						classTask={classPretask}
 						classTaskP={classPretaskP}
@@ -99,8 +97,8 @@ function Methodology() {
 					/>
 
 					<Task
-						title={t('landingPage.methodology.task.parts.duringTask.title')}
-						description={t('landingPage.methodology.task.parts.duringTask.description')}
+						title={t('task.parts.duringTask.title')}
+						description={t('task.parts.duringTask.description')}
 						img={DuringTaskPhone}
 						classTask={classActivity}
 						classTaskP={classActivityP}
@@ -113,8 +111,8 @@ function Methodology() {
 					/>
 
 					<Task
-						title={t('landingPage.methodology.task.parts.postTask.title')}
-						description={t('landingPage.methodology.task.parts.postTask.description')}
+						title={t('task.parts.postTask.title')}
+						description={t('task.parts.postTask.description')}
 						img={PosTaskPhone}
 						classTask={classPosTask}
 						classTaskP={classPosTaskP}

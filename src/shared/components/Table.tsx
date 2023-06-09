@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
 	useReactTable,
 	getCoreRowModel,
@@ -20,6 +21,9 @@ function Table<T extends object>({
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 		getPaginationRowModel: getPaginationRowModel()
+	});
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.submissions.table'
 	});
 
 	useEffect(() => {
@@ -102,10 +106,10 @@ function Table<T extends object>({
 								<div className="flex items-center gap-4 mt-5 justify-center">
 									<div className="flex cursor-pointer items-center gap-1">
 										<div>
-											Página{' '}
+											{t('page')}{' '}
 											{table.getState().pagination
 												.pageIndex + 1}{' '}
-											de {table.getPageCount()}
+											{t('of')} {table.getPageCount()}
 										</div>
 									</div>
 									<div className="flex items-center justify-center gap-2">
@@ -160,7 +164,7 @@ function Table<T extends object>({
 									>
 										{pages.map((pageSize, i) => (
 											<option key={i} value={pageSize}>
-												Mostrar {pageSize}
+												{t('show')} {pageSize}
 											</option>
 										))}
 									</select>

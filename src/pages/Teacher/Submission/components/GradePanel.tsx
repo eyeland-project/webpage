@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import useGradeAnswer from '@hooks/useGradeAnswer';
+import { useTranslation } from 'react-i18next';
 
 import AnswerSubmittedList from '@pages/Teacher/Submission/components/AnswerSubmittedList';
 
@@ -45,6 +46,10 @@ function GradePanel({
 		comment: string | null;
 		grade: number | string;
 	}>(answerSelected?.gradeAnswer ?? { comment: '', grade: '' });
+
+	const { t } = useTranslation('', {
+		keyPrefix: 'teacher.submission.gradePanel'
+	});
 
 	const onGrade = async () => {
 		if (!answerSelected) {
@@ -95,9 +100,9 @@ function GradePanel({
 					updateFields
 				);
 				updateQuestionSubmissions(updateFields);
-				toast.success('Calificación actualizada');
+				toast.success(t('dialog.update.success'));
 			} catch (err) {
-				toast.error('Error al actualizar calificación');
+				toast.error(t('dialog.update.error'));
 			}
 		} else {
 			const createFields: GradeAnswerCreate = fields as GradeAnswerCreate;
@@ -109,9 +114,9 @@ function GradePanel({
 					createFields
 				);
 				updateQuestionSubmissions({ ...createFields, id });
-				toast.success('Calificación realizada');
+				toast.success(t('dialog.add.success'));
 			} catch (err) {
-				toast.error('Error al realizar calificación');
+				toast.error(t('dialog.add.error'));
 			}
 		}
 	};
@@ -162,11 +167,11 @@ function GradePanel({
 				{idAnswerSelected !== null ? (
 					<div className="flex flex-col gap-6 pt-6">
 						<div className="text-lg">
-							<div className="font-medium">Evaluando:</div>
+							<div className="font-medium">{t('title')}</div>
 							<div className="text-sm">
-								{`Pregunta ${
+								{`${t('subtitle1')} ${
 									questionSelected?.questionOrder ?? ''
-								} - Respuesta ${
+								} - ${t('subtitle2')} ${
 									questionSelected?.answers.findIndex(
 										({ id }) => id === idAnswerSelected
 									)! + 1
@@ -176,7 +181,7 @@ function GradePanel({
 						<div className="flex flex-col gap-4">
 							<div className="">
 								<div className="text-sm font-medium">
-									Calificación
+									{t('grade')}
 								</div>
 								<div className="flex items-center gap-1">
 									<input
@@ -198,10 +203,12 @@ function GradePanel({
 							</div>
 							<div>
 								<div className="text-sm font-medium">
-									Comentarios
+									{t('comments')}
 								</div>
 								<textarea
-									placeholder="Opcional"
+									placeholder={t<string>(
+										'textArea.placeholder'
+									)}
 									className="w-64 h-32 resize-none border border-gray-primary rounded-md p-2 text-sm"
 									maxLength={500}
 									value={grade.comment ?? ''}
@@ -215,13 +222,13 @@ function GradePanel({
 							</div>
 						</div>
 						<Button className="text-sm" onClick={onGrade}>
-							Confirmar
+							{t('confirm')}
 						</Button>
 					</div>
 				) : (
 					<div className="flex flex-col items-center justify-center h-full gap-4">
 						<div className="italic opacity-70 text-sm text-center cursor-default">
-							Seleccione una pregunta para calificar
+							{t('noAnswerSelected')}
 						</div>
 					</div>
 				)}

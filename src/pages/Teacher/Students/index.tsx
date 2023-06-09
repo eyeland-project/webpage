@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import Loading from 'react-loading';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -8,6 +7,7 @@ import useTeacherContext from '@hooks/useTeacherContext';
 import useStudent from '@hooks/useStudent';
 import useCourse from '@hooks/useCourse';
 import useConfirmDialog from '@hooks/useConfirmDialog';
+import { useTranslation } from 'react-i18next';
 
 import Button from '@components/Button';
 import Modal from '@components/Modal';
@@ -59,6 +59,8 @@ function Students() {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [modalContent, setModalContent] = useState<JSX.Element | null>(null);
 
+	const { t } = useTranslation('', { keyPrefix: 'teacher.students' });
+
 	// actions
 	// create
 	const handleCreateStudent = () => {
@@ -90,8 +92,8 @@ function Students() {
 	// delete
 	const handleDeleteStudent = (idStudent: number) => {
 		showDialog({
-			title: 'Eliminar estudiante',
-			message: '¿Está seguro que desea eliminar el estudiante?',
+			title: t<string>('deleteDialog.title'),
+			message: t<string>('deleteDialog.message'),
 			onConfirm: () => onFinishDelete(idStudent)
 		});
 	};
@@ -105,7 +107,7 @@ function Students() {
 	) => {
 		if (students === null) return;
 		if (err) {
-			toast.error('Error al registrar el estudiante');
+			toast.error(t('addDialog.error'));
 			return;
 		}
 		const { email, firstName, lastName, phoneCode, username, phoneNumber } =
@@ -126,7 +128,7 @@ function Students() {
 		setStudents([newStudent, ...students]);
 		setIsModalOpen(false);
 		setModalContent(null);
-		toast.success('Estudiante registrado');
+		toast.success(t('addDialog.success'));
 	};
 
 	// update
@@ -137,7 +139,7 @@ function Students() {
 	) => {
 		if (students === null) return;
 		if (err) {
-			toast.error('Error al actualizar el estudiante');
+			toast.error(t('updateDialog.error'));
 			return;
 		}
 		const newStudents = students.map((student) => {
@@ -149,7 +151,7 @@ function Students() {
 		setStudents(newStudents);
 		setIsModalOpen(false);
 		setModalContent(null);
-		toast.success('Estudiante actualizado');
+		toast.success(t('updateDialog.success'));
 	};
 
 	const onFinishDelete = async (idStudent: number) => {
@@ -159,9 +161,9 @@ function Students() {
 			setStudents(
 				students!.filter((student) => student.id !== idStudent)
 			);
-			toast.success('Estudiante eliminado');
+			toast.success(t('deleteDialog.success'));
 		} catch (err) {
-			toast.error('Error al eliminar el estudiante');
+			toast.error(t('deleteDialog.error'));
 		}
 	};
 
@@ -227,20 +229,20 @@ function Students() {
 					/>
 					<div className="text-white font-semibold">
 						{(course?.name ? `${course.name} - ` : '') +
-							'Estudiantes'}
+							t('ribbon')}
 					</div>
 				</>
 			</Ribbon>
 			<div className="pt-10 h-full relative flex flex-col items-center gap-10">
 				<div className="flex flex-col items-center gap-3 mt-4">
 					<div className="shadow-md px-36 font-semibold text-2xl flex flex-col justify-center">
-						Listado de alumnos
+						{t('title')}
 					</div>
 					<Button
 						className="rounded-xl relative hover:scale-105 transition duration-200 ease-in-out"
 						onClick={handleCreateStudent}
 					>
-						Registrar estudiante
+						{t('addButton')}
 						{/* <img
 							src={AddIcon}
 							alt="Nuevo"

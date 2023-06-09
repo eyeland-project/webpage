@@ -1,4 +1,4 @@
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import NavBar from '@components/NavBar';
 import Section from '@pages/OurTeam/components/Section';
@@ -6,15 +6,15 @@ import Title from '@components/Title';
 import Footer from '@components/Footer';
 
 function OurTeam() {
-	const {t} = useTranslation();
+	const { t } = useTranslation('', { keyPrefix: 'ourTeam' });
 
 	return (
 		<>
 			<NavBar />
 			<div className="mb-10">
-				<Title title={t('ourTeam.title')} textColor={'text-black'} />
+				<Title title={t('title')} textColor={'text-black'} />
 				<Section
-					title={t('ourTeam.sections.teachers')}
+					title={t('sections.teachers')}
 					people={[
 						{
 							name: 'Dr. Miguel Jimeno Paba',
@@ -54,7 +54,7 @@ function OurTeam() {
 					]}
 				/>
 				<Section
-					title={t('ourTeam.sections.designers')}
+					title={t('sections.designers')}
 					people={[
 						{
 							name: 'Wendy Florian Pacheco',
@@ -64,7 +64,7 @@ function OurTeam() {
 					]}
 				/>
 				<Section
-					title={t('ourTeam.sections.developers')}
+					title={t('sections.developers')}
 					people={[
 						{
 							name: 'Camilo J. Sinning Lopez',

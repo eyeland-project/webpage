@@ -1,121 +1,342 @@
 {
-    "navbar": {
-        "ourTeam": "Our Team",
-        "learnMore": "Learn More",
-        "inAction": "In Action",
-        "teacher": "I'm a teacher"
-    },
-    "landingPage": {
-        "hero": {
-            "description": "App for teaching English and teamwork",
-            "downloadHere": "Download here!",
-            "useOnline": "Use online!"
-        },
-        "methodology": {
-            "title": "Our methodology",
-            "description": "We divide our application into what we call Taks. Each of these in turn has three parts that correspond to Pre-Task, During-Task, and Post-Task.",
-            "task": {
-                "name": "TASK",
-                "parts": {
-                    "preTask": {
-                        "title": "Pre-Task",
-                        "description": "A set of questions to help you learn the necessary concepts for the following stages."
-                    },
-                    "duringTask": {
-                        "title": "During-Task",
-                        "description": "A group activity where you will apply the concepts learned."
-                    },
-                    "postTask": {
-                        "title": "Post-Task",
-                        "description": "A series of questions to help you evaluate your learning."
-                    }
-                }
-            }
-        },
-        "teamWork": {
-            "title": "Teamwork",
-            "description": "Each collaboration stage is done in groups of 3 people, where each person is assigned a role with a useful skill for the session.",
-            "powers": {
-                "superHearing": {
-                    "name": "Super hearing",
-                    "description": "You will be able to listen to an audio clue that will help you solve the activity."
-                },
-                "memoryPro": {
-                    "name": "Memory pro",
-                    "description": "Your power is to be able to remember the translation of the key nouns in the question."
-                },
-                "superRadar": {
-                    "name": "Super radar",
-                    "description": "Your power is to be able to remember the translation of the key prepositions in the question."
-                }
-            }
-        },
-        "accesibility": {
-            "title": "For everyone",
-            "description": "It is very important that everyone can enjoy our application, regardless of their abilities or physical limitations. That's why we have implemented several accessibility options so that everyone can use it comfortably and without problems.",
-            "tryItYourself": "Try it yourself!"
-        }
-    },
-    "ourTeam": {
-        "title": "Our team",
-        "sections":{
-            "teachers": "Teachers",
-            "designers": "Designers",
-            "developers": "Developers"
-        }
-    },
-    "learnMore": {
-        "title": {
-            "part1": "Inclusion and English learning for all: ",
-            "part2": "an innovative experience"
-        },
-        "sections": {
-            "introduction": {
-                "name": "Introduction",
-                "text": "In our mission to provide educational opportunities to all high school students in Colombia, we have created a mobile application that not only facilitates English learning, but is also accessible for people with visual disabilities. Our inclusive platform is based on effective teaching methodologies and accessibility techniques, ensuring that all students, regardless of their abilities, can benefit from our activities and resources."
-            },
-            "methodology": {
-                "name": "Teaching methodologies",
-                "text": "Our application incorporates a variety of proven teaching methodologies, such as the communicative approach, task-based teaching, and project-based learning. These methodologies encourage interaction in real-life situations, promote collaboration among students, and facilitate meaningful and lasting learning."
-            },
-            "accessibility": {
-                "name": "Accessibility",
-                "text": {
-                    "paragraph": "We firmly believe in the inclusion of all students, and therefore we have implemented accessible features for people with visual disabilities. Some of these features include:",
-                    "list": {
-                        "item1": "Integration with screen readers and voice assistants: Our application is compatible with the most common assistive technologies, allowing visually impaired users to navigate and interact with content easily.",
-                        "item2": "High-contrast design and font size adjustments: Users can customize the appearance of the application according to their needs, choosing from high-contrast color schemes and adjusting the font size.",
-                        "item3": "Audio content: We complement our activities with audio resources to support students who prefer to learn through listening. Additionally, our platform allows students to record and store audio for practice and evaluation."
-                    }
-                }
-            },
-            "finalCard": {
-                "call2action": "Join our community and discover how our application can make a difference in English learning and the inclusion of visually impaired students in Colombia.",
-                "final": "Together, we can build a more inclusive and equitable future for all!"
-            }
-        }
-    },
-    "inAction": {
-        "sections": {
-            "testimonies": "Testimonials",
-            "inAction": {
-                "name": "EYELAND in action",
-                "text": "The day began with the call of twelve selected students to participate in the validation of the prototype of our new application. The students were organized into four teams of three members each. Intentionally, each team included a student with visual difficulties to properly evaluate the accessibility and collaborative functionality of the application. \n The teams proceeded to use the first module of the application, which is designed to address the Learning, Collaboration, and Evaluation stages. Due to logistical limitations, only one module could be tested during this session. During the Learning and Collaboration stages, the module focused on several learning components: vocabulary, use of prepositions of place, listening ability, reading comprehension, and oral production. \n In the Evaluation stage, special emphasis was placed on oral production, although most of the previous components were examined, with the exception of listening ability. As a result of this omission, the exam results did not reflect the students' level in that skill. \n At the end of the module experience, data was collected through a usability and satisfaction survey. The survey questions were designed to obtain information about the ease of use of the application, the understanding of the learning activities, the effectiveness of the collaboration functions, and the overall satisfaction with the learning experience provided by the application. The survey results were analyzed to evaluate whether the application met its teaching and accessibility objectives."
-            }
-        }
-    },
-    "login": {
-        "title": "Log in",
-        "username": "Username",
-        "password": "Password",
-        "login": "Log in",
-        "forgotPassword": "Forgot password?",
-        "register": "Register",
-        "error": {
-            "title": "Error",
-            "message": "The username or password is incorrect.",
-            "username": "Username is required.",
-            "password": "Password is required."
-        }
-    }
+	"navbar": {
+		"ourTeam": "Our Team",
+		"learnMore": "Learn More",
+		"inAction": "In Action",
+		"teacher": "I'm a teacher"
+	},
+	"landingPage": {
+		"hero": {
+			"description": "App for teaching English and teamwork",
+			"downloadHere": "Download here!",
+			"useOnline": "Use online!"
+		},
+		"methodology": {
+			"title": "Our methodology",
+			"description": "We divide our application into what we call Taks. Each of these in turn has three parts that correspond to Pre-Task, During-Task, and Post-Task.",
+			"task": {
+				"name": "TASK",
+				"parts": {
+					"preTask": {
+						"title": "Pre-Task",
+						"description": "A set of questions to help you learn the necessary concepts for the following stages."
+					},
+					"duringTask": {
+						"title": "During-Task",
+						"description": "A group activity where you will apply the concepts learned."
+					},
+					"postTask": {
+						"title": "Post-Task",
+						"description": "A series of questions to help you evaluate your learning."
+					}
+				}
+			}
+		},
+		"teamWork": {
+			"title": "Teamwork",
+			"description": "Each collaboration stage is done in groups of 3 people, where each person is assigned a role with a useful skill for the session.",
+			"powers": {
+				"superHearing": {
+					"name": "Super hearing",
+					"description": "You will be able to listen to an audio clue that will help you solve the activity."
+				},
+				"memoryPro": {
+					"name": "Memory pro",
+					"description": "Your power is to be able to remember the translation of the key nouns in the question."
+				},
+				"superRadar": {
+					"name": "Super radar",
+					"description": "Your power is to be able to remember the translation of the key prepositions in the question."
+				}
+			}
+		},
+		"accesibility": {
+			"title": "For everyone",
+			"description": "It is very important that everyone can enjoy our application, regardless of their abilities or physical limitations. That's why we have implemented several accessibility options so that everyone can use it comfortably and without problems.",
+			"tryItYourself": "Try it yourself!"
+		}
+	},
+	"ourTeam": {
+		"title": "Our team",
+		"sections": {
+			"teachers": "Teachers",
+			"designers": "Designers",
+			"developers": "Developers"
+		}
+	},
+	"learnMore": {
+		"title": {
+			"part1": "Inclusion and English learning for all: ",
+			"part2": "an innovative experience"
+		},
+		"sections": {
+			"introduction": {
+				"name": "Introduction",
+				"text": "In our mission to provide educational opportunities to all high school students in Colombia, we have created a mobile application that not only facilitates English learning, but is also accessible for people with visual disabilities. Our inclusive platform is based on effective teaching methodologies and accessibility techniques, ensuring that all students, regardless of their abilities, can benefit from our activities and resources."
+			},
+			"methodology": {
+				"name": "Teaching methodologies",
+				"text": "Our application incorporates a variety of proven teaching methodologies, such as the communicative approach, task-based teaching, and project-based learning. These methodologies encourage interaction in real-life situations, promote collaboration among students, and facilitate meaningful and lasting learning."
+			},
+			"accessibility": {
+				"name": "Accessibility",
+				"text": {
+					"paragraph": "We firmly believe in the inclusion of all students, and therefore we have implemented accessible features for people with visual disabilities. Some of these features include:",
+					"list": {
+						"item1": "Integration with screen readers and voice assistants: Our application is compatible with the most common assistive technologies, allowing visually impaired users to navigate and interact with content easily.",
+						"item2": "High-contrast design and font size adjustments: Users can customize the appearance of the application according to their needs, choosing from high-contrast color schemes and adjusting the font size.",
+						"item3": "Audio content: We complement our activities with audio resources to support students who prefer to learn through listening. Additionally, our platform allows students to record and store audio for practice and evaluation."
+					}
+				}
+			},
+			"finalCard": {
+				"call2action": "Join our community and discover how our application can make a difference in English learning and the inclusion of visually impaired students in Colombia.",
+				"final": "Together, we can build a more inclusive and equitable future for all!"
+			}
+		}
+	},
+	"inAction": {
+		"sections": {
+			"testimonies": "Testimonials",
+			"inAction": {
+				"name": "EYELAND in action",
+				"text": "The day began with the call of twelve selected students to participate in the validation of the prototype of our new application. The students were organized into four teams of three members each. Intentionally, each team included a student with visual difficulties to properly evaluate the accessibility and collaborative functionality of the application. \n The teams proceeded to use the first module of the application, which is designed to address the Learning, Collaboration, and Evaluation stages. Due to logistical limitations, only one module could be tested during this session. During the Learning and Collaboration stages, the module focused on several learning components: vocabulary, use of prepositions of place, listening ability, reading comprehension, and oral production. \n In the Evaluation stage, special emphasis was placed on oral production, although most of the previous components were examined, with the exception of listening ability. As a result of this omission, the exam results did not reflect the students' level in that skill. \n At the end of the module experience, data was collected through a usability and satisfaction survey. The survey questions were designed to obtain information about the ease of use of the application, the understanding of the learning activities, the effectiveness of the collaboration functions, and the overall satisfaction with the learning experience provided by the application. The survey results were analyzed to evaluate whether the application met its teaching and accessibility objectives."
+			}
+		}
+	},
+	"login": {
+		"title": "Log in",
+		"username": "Username",
+		"password": "Password",
+		"login": "Log in",
+		"forgotPassword": "Forgot password?",
+		"register": "Register",
+		"error": {
+			"title": "Error",
+			"message": "The username or password is incorrect.",
+			"username": "Username is required.",
+			"password": "Password is required."
+		}
+	},
+	"notfound": {
+		"title": "Page not found",
+		"message": "The page you are looking for does not exist or has been moved.",
+		"button": "Return to home"
+	},
+	"teacher": {
+		"home": {
+			"welcome": "Welcome, teacher",
+			"dateLanguage": "en-US"
+		},
+		"menu": {
+			"home": "Home",
+			"courses": "Courses",
+			"tasks": "Tasks",
+			"languageSwitch": "Language",
+			"logout": "Log out",
+			"subMenu": {
+				"courses": {
+					"title": "Courses",
+					"error": "Could not load course list."
+				},
+				"tasks": {
+					"title": "Tasks",
+					"error": "Could not load task list."
+				}
+			}
+		},
+		"loading": {
+			"error": "Could not retrieve information."
+		},
+		"course": {
+			"sections": {
+				"button": "Go",
+				"collaboration": "Collaboration",
+				"evaluation": "Evaluation",
+				"students": "List of students"
+			}
+		},
+		"courses": {
+			"aditionalInformation": "Additional information",
+			"dialog": {
+				"title": "Register course",
+				"message": "Are you sure you want to register this course?",
+				"success": "Course created successfully",
+				"error": "Error creating course"
+			},
+			"form": {
+				"title": "Create course",
+				"name": "Name",
+				"error": "Invalid name",
+				"submit": "Create"
+			}
+		},
+		"confirmDialog": {
+			"title": "Confirm action",
+			"message": "Are you sure you want to perform this action?",
+			"confirmText": "Confirm",
+			"closeText": "Close"
+		},
+		"students": {
+			"title": "List of students",
+			"ribbon": "Students",
+			"addButton": "Register student",
+			"deleteDialog": {
+				"title": "Delete student",
+				"message": "Are you sure you want to delete the student?",
+				"success": "Student deleted",
+				"error": "Error deleting student"
+			},
+			"updateDialog": {
+				"success": "Student updated",
+				"error": "Error updating student"
+			},
+			"addDialog": {
+				"success": "Student registered",
+				"error": "Error registering student"
+			},
+			"table": {
+				"username": "Username",
+				"phone": "Phone",
+				"action": "Action"
+			},
+			"form": {
+				"error": "Please check the fields",
+				"update": {
+					"title": "Update student data",
+					"error": "No fields have been modified"
+				},
+				"add": {
+					"title": "Register student"
+				},
+				"username": {
+					"name": "Username",
+					"error": "Invalid username"
+				},
+				"password": {
+					"name": "Password",
+					"error": "Invalid password"
+				},
+				"confirmPassword": {
+					"name": "Confirm password",
+					"error": "Passwords do not match"
+				},
+				"firstname": {
+					"name": "First name",
+					"error": "Invalid first name"
+				},
+				"lastname": {
+					"name": "Last name",
+					"error": "Invalid last name"
+				},
+				"phone": {
+					"name": "Phone",
+					"error": "Invalid phone"
+				},
+				"email": {
+					"name": "Email",
+					"error": "Invalid email"
+				},
+				"buttons": {
+					"cancel": "Cancel",
+					"next": "Next",
+					"finish": "Finish"
+				},
+				"blindnessAcuity": {
+					"name": "Visual acuity"
+				},
+				"colorDeficiency": {
+					"name": "Color perception deficiency"
+				},
+				"visualFieldDefect": {
+					"name": "Visual field defect"
+				}
+			}
+		},
+		"session": {
+			"ribbon": "Collaboration",
+			"inactive": {
+				"part1": "The course is currently ",
+				"part2": "Inactive",
+				"button": "Activate!"
+			},
+			"active": {
+				"dropdown": {
+					"all": "All"
+				},
+				"title": "The course is currently ",
+				"state": "Active",
+				"buttons": {
+					"activate": "Activate",
+					"start": "Start",
+					"finish": "Finish"
+				},
+				"teamsList": {
+					"title": "List of teams",
+					"empty": "No teams registered",
+					"team": {
+						"empty": "No students in this team"
+					}
+				}
+			}
+		},
+		"submission": {
+			"ribbon": "Activity submission",
+			"sendBy": "Sent by",
+			"sentOn": "Submission date",
+			"gradePanel": {
+				"title": "Grading:",
+				"subtitle1": "Question",
+				"subtitle2": "Answer",
+				"grade": "Grade",
+				"comments": "Comments",
+				"confirm": "Confirm",
+				"noAnswerSelected": "Select a question to grade",
+				"textArea": {
+					"placeholder": "Enter your comments"
+				},
+				"dialog": {
+					"add": {
+						"success": "Grade submitted",
+						"error": "Error submitting grade"
+					},
+					"update": {
+						"success": "Grade updated",
+						"error": "Error updating grade"
+					}
+				}
+			},
+			"answerList": {
+				"answer": "Answer",
+				"question": "Question",
+				"answeredOption": "Selected option",
+				"correctOption": "Correct option",
+				"text": "Text:",
+				"audio": "Audio:",
+				"time": "Time",
+				"seconds": "seconds"
+			}
+		},
+		"submissions": {
+			"ribbon": "Evaluation",
+			"submissionsList": {
+				"title": "List of submissions",
+				"empty": "No submissions registered",
+				"submission": {
+					"empty": "No answers in this submission"
+				}
+			},
+			"table": {
+				"id": "Submission ID",
+				"student": "Student",
+				"task": "Task",
+				"timeStamp": "Submission date",
+				"action": "Action",
+				"link": "View",
+				"page": "Page",
+				"of": "of",
+				"show": "Show"
+			}
+		}
+	}
 }

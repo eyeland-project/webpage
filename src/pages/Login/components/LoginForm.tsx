@@ -1,4 +1,4 @@
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next';
 
 import Loading from 'react-loading';
 
@@ -15,15 +15,14 @@ function LoginForm({
 	handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }) {
-
-	const {t} = useTranslation()
+	const { t } = useTranslation('', { keyPrefix: 'login' });
 
 	return (
 		<>
-			<h2 className="text-center text-2xl mt-6">{t('login.title')}</h2>
+			<h2 className="text-center text-2xl mt-6">{t('title')}</h2>
 			<form onSubmit={handleSubmit} className="my-5 w-full">
 				<div className="w-full">
-					<label htmlFor="username">{t('login.username')}</label>
+					<label htmlFor="username">{t('username')}</label>
 					<input
 						type="username"
 						name="username"
@@ -33,7 +32,7 @@ function LoginForm({
 					/>
 				</div>
 				<div className="mt-5">
-					<label htmlFor="password">{t('login.password')}</label>
+					<label htmlFor="password">{t('password')}</label>
 					<input
 						type="password"
 						name="password"
@@ -54,7 +53,7 @@ function LoginForm({
 							width={20}
 						/>
 					) : (
-						<>{t('login.login')}</>
+						<>{t('login')}</>
 					)}
 				</button>
 			</form>

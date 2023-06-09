@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import Power from '@pages/LandingPage/components/TeamWork/Power';
 import Title from '@components/Title';
@@ -11,7 +11,7 @@ import SuperRadar from '@icons/SuperRadar.svg';
 
 function TeamWork() {
 	const [counter, setCounter] = useState(0);
-	const {t} = useTranslation();
+	const { t } = useTranslation('', { keyPrefix: 'landingPage.teamWork' });
 
 	const [classPower1, setClassPower1] = useState('scale-110');
 	const [classPower1D, setClassPower1D] = useState('opacity-100');
@@ -47,15 +47,13 @@ function TeamWork() {
 
 	return (
 		<div className="mt-20 flex h-auto w-screen flex-col items-center justify-center bg-green-secondary px-5">
-			<Title textColor="text-black" title={t('landingPage.teamWork.title')} />
-			<Description>
-				{t('landingPage.teamWork.description')}
-			</Description>
+			<Title textColor="text-black" title={t('title')} />
+			<Description>{t('description')}</Description>
 			<div className="mt-16 flex justify-center gap-10 pb-44 md:gap-20 md:pb-56 xl:gap-40">
 				<Power
-					title={t('landingPage.teamWork.powers.superHearing.name')}
+					title={t('powers.superHearing.name')}
 					img={SuperHearing}
-					description={t('landingPage.teamWork.powers.superHearing.description')}
+					description={t('powers.superHearing.description')}
 					setClassPowerD={setClassPower1D}
 					setCounter={setCounter}
 					classPowerD={classPower1D}
@@ -64,9 +62,9 @@ function TeamWork() {
 					index={0}
 				/>
 				<Power
-					title={t('landingPage.teamWork.powers.memoryPro.name')}
+					title={t('powers.memoryPro.name')}
 					img={MemoryPro}
-					description={t('landingPage.teamWork.powers.memoryPro.description')}
+					description={t('powers.memoryPro.description')}
 					setClassPowerD={setClassPower2D}
 					setCounter={setCounter}
 					classPowerD={classPower2D}
@@ -75,9 +73,9 @@ function TeamWork() {
 					index={1}
 				/>
 				<Power
-					title={t('landingPage.teamWork.powers.superRadar.name')}
+					title={t('powers.superRadar.name')}
 					img={SuperRadar}
-					description={t('landingPage.teamWork.powers.superRadar.description')}
+					description={t('powers.superRadar.description')}
 					setClassPowerD={setClassPower3D}
 					setCounter={setCounter}
 					classPowerD={classPower3D}

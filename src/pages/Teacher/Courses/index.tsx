@@ -6,6 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import useTeacherContext from '@hooks/useTeacherContext';
 import useConfirmDialog from '@hooks/useConfirmDialog';
 import useCourse from '@hooks/useCourse';
+import { useTranslation } from 'react-i18next';
 
 import FormCourse from '@pages/Teacher/Courses/components/FormCourse';
 import Ribbon from '@pages/Teacher/components/Ribbon';
@@ -29,10 +30,12 @@ function Courses() {
 	// useCourse
 	const { createCourse } = useCourse();
 
+	const { t } = useTranslation('', { keyPrefix: 'teacher.courses' });
+
 	const onCreateCourse = (fields: CourseCreate) => {
 		showDialog({
-			title: 'Registrar curso',
-			message: '¿Está seguro que desea registrar este curso?',
+			title: t<string>('dialog.title'),
+			message: t<string>('dialog.message'),
 			onConfirm: () => finishCreate(fields)
 		});
 	};
@@ -45,9 +48,9 @@ function Courses() {
 		try {
 			const { id } = await createCourse(fields);
 			setCourses([...courses, { id, name: fields.name }]);
-			toast.success('Curso creado exitosamente');
+			toast.success(t('dialog.success'));
 		} catch (err) {
-			toast.error('Error al crear el curso');
+			toast.error(t('dialog.error'));
 		}
 	};
 
@@ -78,7 +81,7 @@ function Courses() {
 				</div>
 				<div className="mt-20">
 					<div className="font-bold text-lg">
-						Información adicional
+						{t('aditionalInformation')}
 					</div>
 					<div className="mt-2 font-medium flex flex-col gap-1">
 						<div className="flex gap-2">

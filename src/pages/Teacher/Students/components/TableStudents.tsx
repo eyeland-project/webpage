@@ -1,14 +1,13 @@
 import Button from '@components/Button';
-
 import EditIcon from '@icons/Edit.svg';
 import TrashIcon from '@icons/Trash.svg';
 import UserIcon from '@icons/User.svg';
 // import SavageBrunner from '@images/Brunner.jpg';
 import EmptyIcon from '@icons/Empty.svg';
-
 import { StudentSummary } from '@interfaces/teacher/Student.interface';
-
 import { parsePhone } from '@utils/general.utils';
+
+import { useTranslation } from 'react-i18next';
 
 function TableStudents({
 	students,
@@ -19,6 +18,8 @@ function TableStudents({
 	handleUpdateStudent: Function;
 	handleDeleteStudent: Function;
 }) {
+	const { t } = useTranslation('', { keyPrefix: 'teacher.students.table' });
+
 	return (
 		<div>
 			<table>
@@ -26,16 +27,16 @@ function TableStudents({
 					<tr>
 						<td></td>
 						<td className="text-center bg-gray-tertiary rounded-l-lg">
-							<div className="py-2 px-8">Usuario</div>
+							<div className="py-2 px-8">{t('username')}</div>
 						</td>
 						<td className="text-center bg-gray-tertiary">
-							<div className="py-2 px-8">Teléfono</div>
+							<div className="py-2 px-8">{t('phone')}</div>
 						</td>
 						{/* <td className="text-center bg-gray-tertiary">
 							<div className="py-2 px-8">Desempeño</div>
 						</td> */}
 						<td className="text-center bg-gray-tertiary rounded-r-lg">
-							<div className="py-2 px-8">Acción</div>
+							<div className="py-2 px-8">{t('action')}</div>
 						</td>
 					</tr>
 				</thead>
