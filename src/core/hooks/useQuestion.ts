@@ -3,19 +3,15 @@ import { useState, useCallback } from 'react';
 import useAuthStorage from '@hooks/useAuthStorage';
 import * as questionApi from '@api/teacher/question.api';
 
-import {
-	QuestionPretaskDetail,
-	QuestionDuringtaskDetail,
-	QuestionPostaskDetail,
-	QuestionsTaskDetail
-} from '@interfaces/teacher/Question.interface';
+import { QuestionsTaskDetail } from '@interfaces/teacher/Question.interface';
 
 const useQuestion = () => {
 	const authStorage = useAuthStorage();
 
 	const [loading, setLoading] = useState(false);
-	const [questionsFromTask, setQuestionsFromTask] =
-		useState<QuestionsTaskDetail | null>(null);
+	const [questions, setQuestions] = useState<QuestionsTaskDetail | null>(
+		null
+	);
 
 	const getQuestionsFromTask: (
 		idTask: number
@@ -27,7 +23,7 @@ const useQuestion = () => {
 				token: authStorage.getAccessToken()!
 			});
 			setLoading(false);
-			setQuestionsFromTask(question);
+			setQuestions(question);
 			return question;
 		} catch (err) {
 			setLoading(false);
@@ -37,8 +33,8 @@ const useQuestion = () => {
 
 	return {
 		loading,
-		questionsFromTask,
-		setQuestionsFromTask,
+		questions,
+		setQuestions,
 		getQuestionsFromTask
 	};
 };

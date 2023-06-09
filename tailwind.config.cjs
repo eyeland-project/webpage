@@ -55,6 +55,7 @@ module.exports = {
 				'green-secondary': '#41FB99',
 				'green-tertiary': '#9BE931',
 				'green-quaternary': '#038741',
+				'green-quinary': '#00EA17',
 				'yellow-primary': '#FBFF48',
 				'red-primary': '#DB3A3A',
 				'red-secondary': '#FF7575',
@@ -76,7 +77,7 @@ module.exports = {
 	safelist: [
 		{
 			pattern:
-				/(bg|text|border)-(green|yellow|red|blue|orange|whitish|gray|black|white|purple|pink|indigo|teal|cyan|lime|emerald|fuchsia|violet|rose)-(primary|secondary|tertiary|quaternary)/
+				/(bg|text|border)-(green|yellow|red|blue|orange|whitish|gray|black|white|purple|pink|indigo|teal|cyan|lime|emerald|fuchsia|violet|rose)-(primary|secondary|tertiary|quaternary|quinary)/
 		}
 	]
 };

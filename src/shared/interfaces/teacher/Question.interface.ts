@@ -5,7 +5,7 @@ import {
 } from '@enums/Question.enum';
 import { Option } from '@interfaces/teacher/Option.interface';
 
-interface QuestionDetail {
+export interface QuestionDetail {
 	id: number;
 	questionOrder: number;
 	content: string;

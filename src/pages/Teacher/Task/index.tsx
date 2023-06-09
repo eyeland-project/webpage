@@ -29,8 +29,8 @@ function Task() {
 	// useQuestions hook
 	const {
 		getQuestionsFromTask,
-		questionsFromTask,
-		setQuestionsFromTask,
+		questions,
+		setQuestions,
 		loading: loadingQuestions
 	} = useQuestion();
 
@@ -40,28 +40,28 @@ function Task() {
 	);
 	const [selectedTaskStage, setSelectedTaskStage] = useState<number>(0);
 
-	const questionsFromTaskStage = !questionsFromTask
+	const questionsFromTaskStage = !questions
 		? []
-		: Object.values(questionsFromTask)[selectedTaskStage];
+		: Object.values(questions)[selectedTaskStage];
 
-	const updateData = (didTaskChange: boolean) => {
+	const updateData = (idTask: number, didTaskChange: boolean) => {
 		if (didTaskChange) {
-			setQuestionsFromTask(null); // reset questions
+			setQuestions(null); // reset questions
 			setSelectedTaskStage(0); // reset task stage
 		}
-		if (didTaskChange || !questionsFromTask) {
-			getQuestionsFromTask(idTask!)
+		if (didTaskChange || !questions) {
+			console.log('getQuestionsFromTask');
+			getQuestionsFromTask(idTask)
 				.then((questions) => {
-					setQuestionsFromTask(questions);
+					setQuestions(questions);
 				})
 				.catch(() => {
-					if (questionsFromTask !== null) setQuestionsFromTask(null);
+					if (questions !== null) setQuestions(null);
 				});
 		}
 		if (didTaskChange || !task) {
-			console.log('getTask');
-
-			getTask(idTask!)
+			console.log('getTask', idTask);
+			getTask(idTask)
 				.then((task) => {
 					setTask(task);
 				})
@@ -76,27 +76,25 @@ function Task() {
 	}, [idTaskStr]);
 
 	useEffect(() => {
-		console.log('idTask', idTask);
-		console.log('idSelectedTask', idSelectedTask);
-
+		// detect change in param idTask
 		if (idTask === null) {
 			return navigate('/teacher/tasks');
 		}
-		const didChange = idSelectedTask !== null && idSelectedTask !== idTask;
+		const didChange = idSelectedTask !== idTask;
 		if (didChange) {
 			setIdSelectedTask(idTask); // context (submenu)
 		}
-		updateData(didChange);
+		updateData(idTask, didChange);
 	}, [idTask]);
 
-	// useEffect(() => {
-	// 	console.log('idSelectedTask', idSelectedTask);
-	// 	if (idTask === null) {
-	// 		return navigate('/teacher/tasks');
-	// 	}
-	// 	const didChange = idSelectedTask !== idTask;
-	// 	updateData(didChange);
-	// }, [idSelectedTask]);
+	useEffect(() => {
+		// detect change in context idTask (submenu)
+		if (idSelectedTask === null) {
+			return navigate('/teacher/tasks');
+		}
+		const didChange = idSelectedTask !== idTask;
+		updateData(idSelectedTask, didChange);
+	}, [idSelectedTask]);
 
 	// useEffect(() => {
 	// 	console.log('questionsFromTask', questionsFromTask);
@@ -106,9 +104,9 @@ function Task() {
 	// 	console.log('loadingQuestions', loadingQuestions);
 	// }, [loadingQuestions]);
 
-	useEffect(() => {
-		console.log('task', task);
-	}, [task]);
+	// useEffect(() => {
+	// 	console.log('task', task);
+	// }, [task]);
 
 	// if (!task) return <></>;
 
@@ -125,19 +123,19 @@ function Task() {
 				</div>
 			</Ribbon>
 			<div className="px-8 pb-4 pt-10 h-full">
-				<div className="mt-8">
-					<TaskStageSelect
-						selectedTaskStage={selectedTaskStage}
-						setSelectedTaskStage={setSelectedTaskStage}
-					/>
-					<div className="mt-6">
-						{questionsFromTask ? (
+				{questions ? (
+					<div className="mt-8">
+						<TaskStageSelect
+							selectedTaskStage={selectedTaskStage}
+							setSelectedTaskStage={setSelectedTaskStage}
+						/>
+						<div className="mt-6">
 							<QuestionGrid questions={questionsFromTaskStage} />
-						) : (
-							<LoadingScreen loading={loadingQuestions} />
-						)}
+						</div>
 					</div>
-				</div>
+				) : (
+					<LoadingScreen loading={loadingQuestions} />
+				)}
 			</div>
 		</div>
 	);

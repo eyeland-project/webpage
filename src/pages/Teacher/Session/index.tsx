@@ -1,7 +1,6 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import Lottie from 'lottie-react';
-import Loading from 'react-loading';
 
 import useCourse from '@hooks/useCourse';
 import useTeacherContext from '@hooks/useTeacherContext';
@@ -188,11 +187,7 @@ function Session() {
 	}, [isSessionStarted]);
 
 	useEffect(() => {
-		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
-		if (idCourseNum === null) {
-			return navigate('/teacher/courses');
-		}
-		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+		setIdCourse(parseNumericParam(searchParams.get('idCourse')));
 	}, [searchParams]);
 
 	useEffect(() => {

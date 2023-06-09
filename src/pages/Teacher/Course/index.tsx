@@ -1,6 +1,5 @@
 import { ReactNode, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import Loading from 'react-loading';
 import Lottie from 'lottie-react';
 
 import useCourse from '@hooks/useCourse';
@@ -42,11 +41,7 @@ function Course() {
 	const sections = idCourse !== null ? getSections(idCourse) : [];
 
 	useEffect(() => {
-		const idCourseNum = parseNumericParam(idCourseStr);
-		if (idCourseNum === null) {
-			return navigate('/teacher/courses');
-		}
-		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+		setIdCourse(parseNumericParam(idCourseStr));
 	}, [idCourseStr]);
 
 	useEffect(() => {

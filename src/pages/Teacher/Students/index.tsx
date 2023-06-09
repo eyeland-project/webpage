@@ -171,11 +171,7 @@ function Students() {
 	};
 
 	useEffect(() => {
-		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
-		if (idCourseNum === null) {
-			return navigate('/teacher/courses');
-		}
-		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+		setIdCourse(parseNumericParam(searchParams.get('idCourse')));
 	}, [searchParams]);
 
 	useEffect(() => {

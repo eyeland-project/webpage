@@ -51,25 +51,11 @@ function Submission() {
 	const [loadingTaskAttempt, setLoadingTaskAttempt] = useState(false);
 
 	useEffect(() => {
-		const idTaskAttemptNum = parseNumericParam(idTaskAttemptStr);
-		if (idTaskAttemptNum === null) {
-			return navigate(
-				idCourse
-					? `/teacher/submissions?idCourse=${idCourse}`
-					: '/teacher/courses'
-			);
-		}
-		if (idTaskAttemptNum !== idTaskAttempt) {
-			setIdTaskAttempt(idTaskAttemptNum);
-		}
+		setIdTaskAttempt(parseNumericParam(idTaskAttemptStr));
 	}, [idTaskAttemptStr]);
 
 	useEffect(() => {
-		const idCourseNum = parseNumericParam(searchParams.get('idCourse'));
-		if (idCourseNum === null) {
-			return navigate('/teacher/courses');
-		}
-		if (idCourseNum !== idCourse) setIdCourse(idCourseNum);
+		setIdCourse(parseNumericParam(searchParams.get('idCourse')));
 	}, [searchParams]);
 
 	useEffect(() => {
