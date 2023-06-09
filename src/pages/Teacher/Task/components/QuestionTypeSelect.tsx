@@ -4,6 +4,7 @@ import QuestionContentInteractive from './QuestionContentInteractive';
 
 import { QuestionDetail } from '@interfaces/teacher/Question.interface';
 import { characters } from '@constants/character.constant';
+import OptionList from './OptionList';
 
 function QuestionTypeSelect({ question }: { question: QuestionDetail }) {
 	const { imgAlt, imgUrl, options, character } = question;
@@ -27,7 +28,7 @@ function QuestionTypeSelect({ question }: { question: QuestionDetail }) {
 							className="min-w-[64px] max-w-[64px] rounded-full grow"
 						/>
 						<div className="relative bg-gray-100 text-sm px-2 py-3 rounded-lg">
-							<div className="absolute w-0 h-0 border-solid border-transparent border-t-8 border-b-8 border-r-8 border-r-gray-100 -translate-x-full top-2 left-0"></div>
+							<div className="absolute w-0 h-0 border-solid border-transparent border-t-8 border-b-8 border-r-8 border-r-gray-100 -translate-x-full top-2 left-0" />
 							{contentSplitted[0]}
 						</div>
 					</div>
@@ -45,19 +46,7 @@ function QuestionTypeSelect({ question }: { question: QuestionDetail }) {
 					/>
 				) : null}
 			</div>
-			<div className="flex flex-col gap-2">
-				{options.map(({ content, correct, feedback }, index) => (
-					<div
-						key={index}
-						className={`text-white text-center px-4 py-2 rounded-md cursor-pointer ${
-							correct ? 'bg-green-quinary' : 'bg-black'
-						}`}
-						title={feedback}
-					>
-						{content}
-					</div>
-				))}
-			</div>
+			<OptionList options={options} />
 		</div>
 	);
 }

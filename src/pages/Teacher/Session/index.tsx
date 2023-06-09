@@ -219,7 +219,7 @@ function Session() {
 	// if (idCourse === null) return <></>;
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<Ribbon
 				bgColor={isSessionCreated ? 'green-quaternary' : 'gray-primary'}
 			>

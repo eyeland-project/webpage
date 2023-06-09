@@ -204,7 +204,7 @@ function Students() {
 	if (idCourse === null) return <></>;
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<ConfirmDialog />
 			<Modal
 				isOpen={isModalOpen}

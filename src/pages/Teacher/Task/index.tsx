@@ -111,7 +111,7 @@ function Task() {
 	// if (!task) return <></>;
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<Ribbon>
 				<img
 					src={DataGridIcon}

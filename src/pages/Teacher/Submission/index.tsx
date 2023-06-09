@@ -155,7 +155,7 @@ function Submission() {
 	if (taskAttempt === null) return <></>;
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<Ribbon>
 				<>
 					<img

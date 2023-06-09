@@ -62,7 +62,7 @@ function Course() {
 	}, [idCourse]);
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<Ribbon>
 				<img
 					src={DataGridIcon}

@@ -3,7 +3,7 @@ import { QuestionDetail } from '@interfaces/teacher/Question.interface';
 import { shuffle } from '@utils/general.utils';
 
 function QuestionTypeOrder({ question }: { question: QuestionDetail }) {
-	const { imgAlt, imgUrl, options, content } = question;
+	const { options, content } = question;
 	const words = useMemo(() => shuffle(options[0].content.split(' ')), []);
 
 	return (

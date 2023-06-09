@@ -71,7 +71,7 @@ function Submissions() {
 	if (idCourse === null) return <></>;
 
 	return (
-		<div className="h-screen">
+		<div className="min-h-screen">
 			<Ribbon>
 				<>
 					<img

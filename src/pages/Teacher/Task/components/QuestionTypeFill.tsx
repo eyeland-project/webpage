@@ -1,4 +1,5 @@
 import { QuestionDetail } from '@interfaces/teacher/Question.interface';
+import OptionList from './OptionList';
 
 function QuestionTypeFill({ question }: { question: QuestionDetail }) {
 	const { imgAlt, imgUrl, options, content } = question;
@@ -20,19 +21,7 @@ function QuestionTypeFill({ question }: { question: QuestionDetail }) {
 					/>
 				) : null}
 			</div>
-			<div className="flex flex-col gap-2">
-				{options.map(({ content, correct, feedback }, index) => (
-					<div
-						key={index}
-						className={`text-white text-center px-4 py-2 rounded-md cursor-pointer ${
-							correct ? 'bg-green-quinary' : 'bg-black'
-						}`}
-						title={feedback}
-					>
-						{content}
-					</div>
-				))}
-			</div>
+			<OptionList options={options} />
 		</div>
 	);
 }
