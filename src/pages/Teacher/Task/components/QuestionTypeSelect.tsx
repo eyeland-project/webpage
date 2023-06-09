@@ -8,7 +8,6 @@ import { characters } from '@constants/character.constant';
 function QuestionTypeSelect({ question }: { question: QuestionDetail }) {
 	const { imgAlt, imgUrl, options, character } = question;
 	const contentSplitted = question.content.split('\\');
-	const content = contentSplitted.at(-1)!;
 
 	return (
 		<div className="rounded-lg shadow-xl px-5 py-6 flex flex-col gap-6 hover:scale-105 transition-transform duration-150">
@@ -50,7 +49,7 @@ function QuestionTypeSelect({ question }: { question: QuestionDetail }) {
 				{options.map(({ content, correct, feedback }, index) => (
 					<div
 						key={index}
-						className={`text-white text-center px-4 py-2 rounded-md cursor-default ${
+						className={`text-white text-center px-4 py-2 rounded-md cursor-pointer ${
 							correct ? 'bg-green-quinary' : 'bg-black'
 						}`}
 						title={feedback}
