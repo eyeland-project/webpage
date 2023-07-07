@@ -50,7 +50,7 @@
 				}
 			}
 		},
-		"accesibility": {
+		"accessibility": {
 			"title": "For everyone",
 			"description": "It is very important that everyone can enjoy our application, regardless of their abilities or physical limitations. That's why we have implemented several accessibility options so that everyone can use it comfortably and without problems.",
 			"tryItYourself": "Try it yourself!"
@@ -98,7 +98,7 @@
 	"inAction": {
 		"sections": {
 			"testimonies": "Testimonials",
-			"inAction": {
+			"action": {
 				"name": "EYELAND in action",
 				"text": "The day began with the call of twelve selected students to participate in the validation of the prototype of our new application. The students were organized into four teams of three members each. Intentionally, each team included a student with visual difficulties to properly evaluate the accessibility and collaborative functionality of the application. \n The teams proceeded to use the first module of the application, which is designed to address the Learning, Collaboration, and Evaluation stages. Due to logistical limitations, only one module could be tested during this session. During the Learning and Collaboration stages, the module focused on several learning components: vocabulary, use of prepositions of place, listening ability, reading comprehension, and oral production. \n In the Evaluation stage, special emphasis was placed on oral production, although most of the previous components were examined, with the exception of listening ability. As a result of this omission, the exam results did not reflect the students' level in that skill. \n At the end of the module experience, data was collected through a usability and satisfaction survey. The survey questions were designed to obtain information about the ease of use of the application, the understanding of the learning activities, the effectiveness of the collaboration functions, and the overall satisfaction with the learning experience provided by the application. The survey results were analyzed to evaluate whether the application met its teaching and accessibility objectives."
 			}

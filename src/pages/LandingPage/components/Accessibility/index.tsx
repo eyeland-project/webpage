@@ -1,11 +1,10 @@
-import { useState, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-
-import Title from '@components/Title';
-import Button from '@pages/LandingPage/components/Accessibility/Button';
+import { useRef, useState } from 'react';
 
 import AccessibilityBanner from '@images/AccessibilityBanner.svg';
+import Button from '@pages/LandingPage/components/Accessibility/Button';
 import Mouse from '@icons/Mouse.svg';
+import Title from '@components/Title';
+import { useTranslation } from 'react-i18next';
 
 function Accesibility() {
 	const [classAccesibility, setClassAccesibility] = useState(
@@ -14,7 +13,7 @@ function Accesibility() {
 	const [classAccesibilityP, setClassAccesibilityP] = useState(
 		'leading-relaxed text-base md:text-2xl font-Poppins tracking-normal'
 	);
-	const { t } = useTranslation('', { keyPrefix: 'landingPage.accesibility' });
+	const { t } = useTranslation('', { keyPrefix: 'landingPage.accessibility' });
 
 	const description = useRef<HTMLParagraphElement>(null);
 

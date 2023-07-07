@@ -1,10 +1,10 @@
+import React from 'react';
 import Title from '@components/Title';
 import { useTranslation } from 'react-i18next';
-import React from 'react';
 
 function Report() {
 	const { t } = useTranslation('', {
-		keyPrefix: 'inAction.sections.inAction'
+		keyPrefix: 'inAction.sections.action'
 	});
 
 	return (
