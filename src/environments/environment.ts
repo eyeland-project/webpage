@@ -1,11 +1,8 @@
 export const environment = {
 	// PRODUCTION
-	apiTeacherUrl:
-		'https://salamanca-island-mobile-api-production.up.railway.app/api/teachers',
-	apiAdminUrl:
-		'https://salamanca-island-mobile-api-production.up.railway.app/api/admin',
-	socketUrl:
-		'https://salamanca-island-mobile-api-production.up.railway.app/teachers'
+	apiTeacherUrl: 'https://eyeland-server.onrender.com/api/teachers',
+	apiAdminUrl: 'https://eyeland-server.onrender.com/api/admin',
+	socketUrl: 'https://eyeland-server.onrender.com/teachers'
 
 	// DEVELOPMENT
 	// 	apiTeacherUrl: 'http://localhost:3000/api/teachers',
