@@ -27,7 +27,7 @@ import DataGridIcon from '@icons/DataGrid.svg';
 import PulseGray from '@animations/PulseGray.json';
 
 import { decodeToken } from '@utils/auth';
-import Leaderboard from './components/Leaderboard';
+import Leaderboard from '@pages/Teacher/Session/components/Leaderboard';
 import LoadingScreen from '@components/LoadingScreen';
 
 function Session() {
