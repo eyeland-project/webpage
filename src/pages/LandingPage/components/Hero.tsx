@@ -1,6 +1,6 @@
-import useRelease from '@hooks/useRelease';
 import EyeLandHero from '@images/EyeLandHero.svg';
 import { useRef } from 'react';
+import useRelease from '@hooks/useRelease';
 import { useTranslation } from 'react-i18next';
 
 function Hero() {
@@ -42,7 +42,7 @@ function Hero() {
 				</div>
 				<div className="my-3 ml-5 w-10 h-0.5 bg-black opacity-25" />
 				<div className="button animate-entrance-4 cursor-default bg-white border border-green-tertiary text-xl text-green-tertiary xl:text-4xl flex items-center gap-2">
-					<a href="https://proyecto-final-epics.github.io/EyelandApp/">
+					<a href="https://eyeland-project.github.io/app/">
 						{t('useOnline')}
 					</a>
 				</div>
