@@ -6,6 +6,9 @@ import Accessibility from '@pages/LandingPage/components/Accessibility';
 import Footer from '@components/Footer';
 
 function LandingPage() {
+	console.error(
+		'Uncaught MissingDinerosError: No se encontró el pago de Eyeland en la cuenta de Breynner'
+	);
 	return (
 		<div>
 			<NavBar />
