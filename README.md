@@ -23,8 +23,8 @@ As a teacher, you can access a range of controls and settings to manage Eyeland.
 
 To access the controls for teachers, please visit the following link: [Teacher zone](https://eyeland-project.github.io/webpage/#/teacher/)
 
-![Captura de pantalla](https://github.com/user-attachments/assets/532fb8e8-d970-443a-bbb4-3b6e0d4a734d)
-![Captura de pantalla](https://github.com/user-attachments/assets/23112ea0-b90c-4f3f-9030-c43a5726884e)
+![Captura de pantalla 2024-07-29 195513](https://github.com/user-attachments/assets/e758e4c0-49c8-4c8a-8b5b-535850411561)
+![Captura de pantalla 2024-07-29 195550](https://github.com/user-attachments/assets/df673171-6d0d-4963-9985-62b1a3d20305)
 
 ## Credits
 
