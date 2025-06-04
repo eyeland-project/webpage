@@ -1,23 +1,10 @@
 import EyeLandHero from '@images/EyeLandHero.svg';
 import { useRef } from 'react';
-import useRelease from '@hooks/useRelease';
 import { useTranslation } from 'react-i18next';
 
 function Hero() {
 	const downloadRef = useRef<HTMLAnchorElement>(null);
-	const { release, getLatestRelease } = useRelease();
 	const { t } = useTranslation('', { keyPrefix: 'landingPage.hero' });
-
-	const handleDownload = async () => {
-		if (!release) {
-			try {
-				await getLatestRelease();
-			} catch (error) {
-				console.log(error);
-			}
-		}
-		downloadRef.current?.click();
-	};
 
 	return (
 		<div className="flex h-auto w-screen flex-col-reverse items-center justify-center gap-3 px-20 md:flex-row xl:gap-20 mt-20">
@@ -30,14 +17,14 @@ function Hero() {
 				</h2>
 				<div
 					className="button mt-5 animate-entrance-3 cursor-default bg-green-tertiary text-xl text-white xl:text-4xl flex items-center gap-2"
-					onClick={handleDownload}
+					onClick={() => downloadRef.current?.click()}
 				>
 					{t('downloadHere')}
 					<a
 						className="hidden"
 						ref={downloadRef}
-						download={`EyeLand-${release?.version}.apk`}
-						href={release?.url}
+						download="EyeLand-3.5.13.apk"
+						href="https://storage.googleapis.com/eyeland-0/app/dist/v/eyeland-3.5.13.apk"
 					/>
 				</div>
 				<div className="my-3 ml-5 w-10 h-0.5 bg-black opacity-25" />
